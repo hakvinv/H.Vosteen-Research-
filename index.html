@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Download-Hub für Working Paper von H. Vosteen" />
+  <title>H. Vosteen Research – Working Paper Download Hub</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1>H. Vosteen <span class="accent">Research</span></h1>
+      <p class="tagline">Working Paper &amp; Preprints zum freien Download</p>
+      <nav class="hero-nav">
+        <a href="#papers">Paper</a>
+        <a href="#about">Über</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="papers">
+      <div class="section-head">
+        <h2>Working Paper</h2>
+        <div class="controls">
+          <input
+            type="search"
+            id="search"
+            placeholder="Suche nach Titel, Thema, Schlagwort…"
+            aria-label="Paper durchsuchen"
+          />
+          <select id="sort" aria-label="Sortierung">
+            <option value="date-desc">Neueste zuerst</option>
+            <option value="date-asc">Älteste zuerst</option>
+            <option value="title-asc">Titel A–Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="tag-filter" class="tag-filter" aria-label="Nach Thema filtern"></div>
+
+      <div id="paper-list" class="paper-list" aria-live="polite">
+        <p class="loading">Lade Paper…</p>
+      </div>
+
+      <p id="empty-state" class="empty-state" hidden>
+        Keine Paper gefunden. Filter anpassen oder Suche zurücksetzen.
+      </p>
+    </section>
+
+    <section id="about" class="prose">
+      <h2>Über diesen Hub</h2>
+      <p>
+        Hier sammle ich alle Working Paper, Preprints und Notizen, die ich im
+        Laufe meiner Forschung produziere. Alles ist frei zugänglich – mach
+        damit, was du willst, zitiere es, diskutier es, zerreiß es.
+      </p>
+      <p>
+        Folgst du mir auf TikTok oder anderen Kanälen? Dann findest du hier
+        die Langfassungen zu den Themen, die ich dort anreiße.
+      </p>
+    </section>
+
+    <section id="contact" class="prose">
+      <h2>Kontakt</h2>
+      <p>
+        Feedback, Fragen, Kooperationsanfragen?
+        Schreib mir gerne – Kontaktadresse folgt.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        &copy; <span id="year"></span> H. Vosteen.
+        Quelltext &amp; Paper auf
+        <a href="https://github.com/hakvinv/h.vosteen-research-" rel="noopener">GitHub</a>.
+      </p>
+    </div>
+  </footer>
+
+  <template id="paper-card-template">
+    <article class="paper-card">
+      <div class="paper-body">
+        <div class="paper-meta">
+          <time class="paper-date"></time>
+          <span class="paper-version"></span>
+        </div>
+        <h3 class="paper-title"></h3>
+        <p class="paper-authors"></p>
+        <p class="paper-abstract"></p>
+        <ul class="paper-tags"></ul>
+      </div>
+      <div class="paper-actions">
+        <a class="btn btn-primary paper-download" download>PDF laden</a>
+        <a class="btn btn-ghost paper-view" target="_blank" rel="noopener">Online ansehen</a>
+        <button class="btn btn-ghost paper-cite" type="button">Zitieren</button>
+      </div>
+      <pre class="paper-bibtex" hidden></pre>
+    </article>
+  </template>
+
+  <script src="assets/script.js" defer></script>
+</body>
+</html>

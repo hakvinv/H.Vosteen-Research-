@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "beispiel-paper",
+    "title": "Beispiel: So sieht ein Eintrag aus",
+    "authors": ["H. Vosteen"],
+    "date": "2026-04-21",
+    "version": "0.1",
+    "abstract": "Dies ist ein Platzhalter-Eintrag. Lösche ihn, sobald dein erstes echtes Paper online ist. Das Feld 'abstract' darf ruhig zwei, drei Sätze lang sein – es taucht direkt in der Karte auf.",
+    "tags": ["beispiel", "setup"],
+    "file": "papers/beispiel-paper.pdf",
+    "draft": true,
+    "bibkey": "vosteen2026beispiel"
+  }
+]
