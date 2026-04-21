@@ -1,14 +1,23 @@
 [
   {
-    "slug": "example-paper",
-    "title": "Example: this is what an entry looks like",
+    "slug": "dummy-preview",
+    "title": "Dummy Working Paper: A Template for Preview",
     "authors": ["H. Vosteen"],
-    "date": "2026-04-21",
-    "version": "0.1",
-    "abstract": "Placeholder entry. Remove this once your first real paper is online. The 'abstract' field can run two or three sentences – it shows up directly on the card.",
-    "tags": ["example", "setup"],
-    "file": "papers/example-paper.pdf",
-    "draft": true,
-    "bibkey": "vosteen2026example"
+    "date": "2026-04-15",
+    "version": "1.0",
+    "abstract": "A placeholder paper so you can see how the hub renders a real entry. Download and View open the generated PDF; Cite reveals a BibTeX snippet and copies it to the clipboard.",
+    "tags": ["preview", "template"],
+    "file": "papers/2026-04-dummy-preview.pdf",
+    "bibkey": "vosteen2026dummy"
+  },
+  {
+    "slug": "older-dummy",
+    "title": "An Older Dummy Note on Nothing in Particular",
+    "authors": ["H. Vosteen"],
+    "date": "2025-11-03",
+    "version": "0.2",
+    "abstract": "Second dummy entry with a different date and tag set, so the sorting and tag filter have something to chew on. No PDF attached – the buttons will hide when the 'file' field is missing.",
+    "tags": ["preview", "notes"],
+    "bibkey": "vosteen2025note"
   }
 ]
