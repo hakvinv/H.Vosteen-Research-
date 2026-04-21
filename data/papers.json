@@ -1,14 +1,14 @@
 [
   {
-    "slug": "beispiel-paper",
-    "title": "Beispiel: So sieht ein Eintrag aus",
+    "slug": "example-paper",
+    "title": "Example: this is what an entry looks like",
     "authors": ["H. Vosteen"],
     "date": "2026-04-21",
     "version": "0.1",
-    "abstract": "Dies ist ein Platzhalter-Eintrag. Lösche ihn, sobald dein erstes echtes Paper online ist. Das Feld 'abstract' darf ruhig zwei, drei Sätze lang sein – es taucht direkt in der Karte auf.",
-    "tags": ["beispiel", "setup"],
-    "file": "papers/beispiel-paper.pdf",
+    "abstract": "Placeholder entry. Remove this once your first real paper is online. The 'abstract' field can run two or three sentences – it shows up directly on the card.",
+    "tags": ["example", "setup"],
+    "file": "papers/example-paper.pdf",
     "draft": true,
-    "bibkey": "vosteen2026beispiel"
+    "bibkey": "vosteen2026example"
   }
 ]

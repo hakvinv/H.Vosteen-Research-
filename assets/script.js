@@ -23,7 +23,7 @@
     if (!iso) return "";
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString("de-DE", {
+    return d.toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -69,7 +69,7 @@
     for (const paper of list) {
       const node = els.template.content.cloneNode(true);
 
-      node.querySelector(".paper-title").textContent = paper.title || "Ohne Titel";
+      node.querySelector(".paper-title").textContent = paper.title || "Untitled";
       node.querySelector(".paper-authors").textContent = Array.isArray(paper.authors)
         ? paper.authors.join(", ")
         : paper.authors || "H. Vosteen";
@@ -109,7 +109,7 @@
       citeBtn.addEventListener("click", () => {
         const show = bibtexEl.hidden;
         bibtexEl.hidden = !show;
-        citeBtn.textContent = show ? "BibTeX ausblenden" : "Zitieren";
+        citeBtn.textContent = show ? "Hide BibTeX" : "Cite";
         if (show && navigator.clipboard) {
           navigator.clipboard.writeText(bibtexEl.textContent).catch(() => {});
         }
@@ -143,7 +143,7 @@
         case "date-asc":
           return (a.date || "").localeCompare(b.date || "");
         case "title-asc":
-          return (a.title || "").localeCompare(b.title || "", "de");
+          return (a.title || "").localeCompare(b.title || "", "en");
         case "date-desc":
         default:
           return (b.date || "").localeCompare(a.date || "");
@@ -168,7 +168,7 @@
 
     const all = document.createElement("button");
     all.className = "tag-chip" + (state.activeTag ? "" : " active");
-    all.textContent = "Alle";
+    all.textContent = "All";
     all.type = "button";
     all.addEventListener("click", () => {
       state.activeTag = null;
@@ -213,6 +213,6 @@
     .catch((err) => {
       console.error(err);
       els.list.innerHTML =
-        '<p class="empty-state">Konnte papers.json nicht laden. Läuft die Seite über GitHub Pages?</p>';
+        '<p class="empty-state">Could not load papers.json. Is the site being served over HTTP (e.g. GitHub Pages)?</p>';
     });
 })();
