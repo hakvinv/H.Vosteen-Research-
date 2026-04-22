@@ -1,0 +1,23 @@
+# Copy this file, rename it to match your PDF's basename, fill in fields.
+# Only `title` is strictly required — the rest have sensible defaults.
+
+title:    "Your Paper Title Here"
+# authors: list; default ["Hakvin Vosteen"]
+authors:
+  - Hakvin Vosteen
+# date:    YYYY-MM-DD, default = today
+date:     2026-04-22
+# version: string, default "1.0"
+version:  "1.0"
+# slug:    kebab-case, default = derived from filename
+slug:     your-paper-slug
+# tags:    list of topic keywords, default []
+tags:
+  - topic-one
+  - topic-two
+# abstract: 2-5 sentences, default = extracted from PDF if possible
+abstract: |
+  One or two short paragraphs summarizing the paper. Shows up directly on
+  the card on the public site.
+# bibkey:  optional custom BibTeX key, default auto-generated
+# bibkey: vosteen2026slug

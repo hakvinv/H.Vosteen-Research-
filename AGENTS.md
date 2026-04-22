@@ -1,0 +1,85 @@
+# AGENTS.md
+
+Instructions for any LLM automation (Claude, Cursor background agent, cron
+job, etc.) that periodically processes new papers on this repo.
+
+## Purpose
+
+H. Vosteen drops new working papers into `inbox/` whenever he finishes one.
+Your job is to turn each inbox item into a properly indexed entry on the
+public site (https://hakvinv.github.io/h.vosteen-research-/).
+
+## Trigger
+
+Run whenever `inbox/` is non-empty. Ignore hidden files (`.gitkeep`,
+`.DS_Store`, etc.) and the `inbox/README.md`.
+
+## Expected inbox contents
+
+Each paper appears in one of two shapes:
+
+1. **PDF-only** — just `something.pdf`. Fall back to filename-derived slug,
+   today's date, and `title` = PDF metadata title (or filename, beautified).
+2. **PDF + sidecar YAML** — `something.pdf` and `something.yml` with the
+   same basename. The YAML overrides any auto-detected fields. See
+   `inbox/template.yml` for the full schema.
+
+Optionally a `.tex` file with the same basename can be present; if so,
+archive it alongside the PDF under `sources/<slug>.tex` so the source is
+preserved.
+
+## Processing steps (for each paper)
+
+1. **Derive a slug**: lowercase, kebab-case, max 48 chars, stripped of
+   punctuation. Either taken from the YAML `slug` field, or derived from
+   the filename minus any leading date prefix.
+2. **Derive a filename**: `papers/<YYYY-MM-DD>-<slug>.pdf`. The date is the
+   YAML `date` field, falling back to today's date in UTC.
+3. **Move** the PDF to that path. Don't copy — move. If a file with the
+   same name already exists, bump the version field (see below) and suffix
+   the filename `-v2`, `-v3`, etc.
+4. **Archive** an accompanying `.tex` (if present) as `sources/<slug>.tex`.
+5. **Append** a JSON object to `data/papers.json` (at the **top** of the
+   array, so newest comes first). Use this shape:
+
+   ```json
+   {
+     "slug": "cartel-schumpeter",
+     "title": "Cartel or Creative Destruction?",
+     "authors": ["Hakvin Vosteen"],
+     "date": "2026-04-22",
+     "version": "1.0",
+     "abstract": "...",
+     "tags": ["industrial-organization", "spectral"],
+     "file": "papers/2026-04-22-cartel-schumpeter.pdf",
+     "bibkey": "vosteen2026cartel"
+   }
+   ```
+
+   Fields and defaults are documented in `README.md`. Missing fields:
+   prefer empty over invented. The `abstract` field is the one exception —
+   if the YAML doesn't supply one, try to extract the first paragraph of
+   the PDF's abstract. If you can't get one, leave it out (the UI handles
+   it gracefully).
+6. **Delete** the processed files from `inbox/`.
+7. **Validate** `data/papers.json` is still valid JSON and that every
+   `file` path exists.
+8. **Commit** with message
+   `Publish <n> paper(s): <comma-separated titles>` and push to `main`.
+   The GitHub Pages workflow handles deployment.
+
+## Never do
+
+- Don't edit the HTML/CSS/JS. Only touch `data/papers.json`, `papers/`,
+  `sources/` and `inbox/`.
+- Don't rewrite or summarize the author's abstract beyond light
+  copy-editing (trimming trailing whitespace, collapsing double spaces).
+- Don't skip the commit — partial state is bad state.
+- Don't process files with unresolved issues (broken PDF, unparseable
+  YAML). Leave them in `inbox/` and add a note to a new file
+  `inbox/_issues.md` describing what went wrong.
+
+## Rollback
+
+Every publish is a single commit, so `git revert <sha>` removes a paper
+cleanly. The original PDF stays on disk; only the index entry disappears.
