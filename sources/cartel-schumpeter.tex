@@ -1,0 +1,279 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Standard arXiv physics preprint packages ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{geometry}
+
+\geometry{
+  left=3.2cm,
+  right=3.2cm,
+  top=2.8cm,
+  bottom=2.8cm
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\pagestyle{plain}
+
+\newcommand{\email}[1]{\texttt{#1}}
+\newcommand{\SEA}{\mathcal{A}}
+
+\begin{document}
+
+{\small\scshape working paper}
+
+\vspace{0.8cm}
+
+{\LARGE Cartel or Creative Destruction?\\[4pt]
+Eigenvector Asymmetry as a Spectral Diagnostic\\[4pt]
+for Schumpeterian Market Structure}
+
+\vspace{0.7cm}
+
+Hakvin Vosteen
+
+\vspace{0.6cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{Abstract}
+
+\vspace{0.2em}
+
+Market-structure diagnostics based on concentration indices conflate two economically opposite regimes: cartel collusion and Schumpeterian innovation-driven monopoly. Both produce high market concentration, yet only the former is welfare-destroying. We introduce the Schumpeterian Eigenvector Asymmetry ($\SEA$), a scale-invariant statistic derived from the residual price covariance of firms within a market. Given a high spectral concentration $\Xi = \lambda_1 / \mathrm{tr}(\Sigma)$, $\SEA$ identifies whether the dominant covariance mode is uniformly distributed across firms (cartel signature) or concentrated on a single innovator (Schumpeterian signature). Under Gaussian residuals, $\SEA$ is a sufficient statistic for the binary classification problem. We characterize the two regimes as distinct attractors in a Landau-type phase space on the $(\Xi, \SEA)$ plane and demonstrate separation on synthetic data with Cohen's $d > 70$. The framework reconciles the Arrow-Schumpeter debate by revealing both regimes as distinct points in the same spectral manifold.
+
+\vspace{0.4em}
+
+{\small\textbf{Keywords:} market structure, spectral analysis, cartel detection, Schumpeter, creative destruction, eigenvalue decomposition, industrial organization}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+% ============================================================
+\section{Introduction}
+\label{sec:intro}
+% ============================================================
+
+The Structure-Conduct-Performance paradigm \cite{mason1939,bain1956} has long characterized markets by concentration indices such as the Herfindahl-Hirschman Index (HHI) or the $k$-firm concentration ratio. These scalar summaries are convenient but theoretically impoverished. A market with HHI $= 2500$ may be an explicit cartel producing coordinated supra-competitive prices, or it may be a market in the midst of a Schumpeterian transition in which one firm has introduced a patented innovation and temporarily captured large market share \cite{schumpeter1942}. Welfare implications are opposite: the first warrants antitrust intervention, the second is the engine of growth.
+
+Attempts to distinguish the two regimes have relied primarily on conduct-based evidence (communication records, bid rigging patterns, patent filings) or on variance screens on individual price series \cite{abrantes2006,harrington2008}. These approaches are ex post rather than structural: they require an enforcement agency to already suspect collusion, or they examine one firm at a time without exploiting the joint structure of the market.
+
+This paper proposes a structural spectral diagnostic. Starting from the residual covariance matrix $\Sigma$ of firm prices after controlling for cost and demand fundamentals, we perform an eigendecomposition and ask two questions: (i) how concentrated is the spectrum, measured by $\Xi = \lambda_1 / \mathrm{tr}(\Sigma)$, and (ii) how uniformly distributed is the dominant eigenvector $v_1$ across firms, measured by $\SEA = \max_i v_{1,i}^2 / \|v_1\|^2$. The first quantity identifies markets with strong common co-movement. The second distinguishes symmetric co-movement (all firms move together, as in a cartel) from asymmetric co-movement (one firm drives, others follow, as under Schumpeterian innovation).
+
+The paper is organized as follows. Section~\ref{sec:model} introduces the factor-model specification and derives $\Xi$ and $\SEA$ as spectral observables. Section~\ref{sec:regimes} characterizes the four canonical market regimes by their $(\Xi, \SEA)$ signatures. Section~\ref{sec:dynamics} situates the analysis in a phase-space dynamical framework consistent with Schumpeter's creative destruction. Section~\ref{sec:results} reports synthetic validation. Section~\ref{sec:discussion} discusses limitations and empirical strategy.
+
+% ============================================================
+\section{Model}
+\label{sec:model}
+% ============================================================
+
+Consider $N$ firms indexed by $i = 1, \dots, N$, observed over $T$ time periods. Let $p_i(t)$ denote the log price of firm $i$ at time $t$, and let $X(t)$ denote a vector of observable fundamentals (input costs, demand proxies, macroeconomic controls). We regress each firm's price on fundamentals to obtain residuals
+\begin{equation}
+  r_i(t) = p_i(t) - \hat{\beta}_i^\top X(t).
+\end{equation}
+The residual covariance matrix is $\Sigma_{ij} = \mathrm{Cov}(r_i, r_j)$, estimated by the sample covariance over the $T$ observations.
+
+We assume a single-factor specification of the form
+\begin{equation}
+  r_i(t) = \beta_i f(t) + \varepsilon_i(t),
+\end{equation}
+with $f(t) \sim \mathcal{N}(0, \sigma_f^2)$ the common factor and $\varepsilon_i(t) \sim \mathcal{N}(0, \sigma^2)$ idiosyncratic noise. The loading vector $\beta = (\beta_1, \dots, \beta_N)^\top$ characterizes how each firm responds to the common component. Under this specification,
+\begin{equation}
+  \Sigma = \sigma_f^2 \beta \beta^\top + \sigma^2 I_N.
+\end{equation}
+The eigendecomposition yields a dominant eigenvalue $\lambda_1 = \sigma_f^2 \|\beta\|^2 + \sigma^2$ with eigenvector $v_1 = \beta / \|\beta\|$, and $N-1$ degenerate eigenvalues equal to $\sigma^2$. Consequently the two spectral observables become
+\begin{align}
+  \Xi &= \frac{\lambda_1}{\mathrm{tr}(\Sigma)} = \frac{\sigma_f^2 \|\beta\|^2 + \sigma^2}{\sigma_f^2 \|\beta\|^2 + N\sigma^2}, \\[4pt]
+  \SEA &= \frac{\max_i v_{1,i}^2}{\|v_1\|^2} = \frac{\max_i \beta_i^2}{\sum_i \beta_i^2}.
+\end{align}
+The key insight is that $\Xi$ and $\SEA$ measure orthogonal properties of $\beta$. The first depends on the magnitude $\|\beta\|$, which measures the strength of common movement. The second depends on the shape of $\beta$, which measures its concentration. Two markets with identical $\|\beta\|$ but different $\beta$ profiles will yield identical $\Xi$ but distinct $\SEA$.
+
+\textbf{Interpretation.} When $\beta$ is approximately uniform across firms, all firms load on the common factor equally and $\SEA \to 1/N$. When $\beta$ places most of its mass on a single coordinate (one firm), $\SEA \to 1$. The former is the signature of symmetric co-movement; the latter is the signature of a single driving entity.
+
+% ============================================================
+\section{Four Canonical Market Regimes}
+\label{sec:regimes}
+% ============================================================
+
+Table~\ref{tab:regimes} summarizes the spectral signatures of the four canonical regimes.
+
+\begin{table}[H]
+\centering
+\caption{Spectral signatures of canonical market regimes.}
+\label{tab:regimes}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Regime & Loading structure $\beta$ & $\|\beta\|$ & $\Xi$ & $\SEA$ \\
+\midrule
+Perfect competition & $\beta_i = 0$ & 0 & $1/N$ & $\approx 1/N$ \\
+Oligopol & $\beta_i \sim \mathcal{N}(\mu, \tau^2)$, small $\mu$ & moderate & intermediate & moderate \\
+Cartel & $\beta_i = \bar\beta$ for all $i$ & large & high & $1/N$ \\
+Schumpeterian monopoly & $\beta_0 \gg \beta_{i > 0}$ & large & high & $\to 1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The cartel and Schumpeterian regimes are both characterized by high $\Xi$. The HHI or the concentration ratio cannot distinguish them. The $\SEA$ statistic, by contrast, separates them cleanly: a symmetric cartel produces a uniform $v_1$ with $\SEA \to 1/N$, while a Schumpeterian innovator produces a concentrated $v_1$ with $\SEA \to 1$.
+
+\textbf{Proposition 1.} \textit{Under the factor model of Section~\ref{sec:model}, $\SEA$ is a sufficient statistic for the binary hypothesis test $H_0$: uniform loading (cartel) versus $H_1$: concentrated loading (Schumpeter), conditional on $\Xi$ exceeding a threshold $\Xi^*$ that guarantees the dominant eigenvector is well-identified.}
+
+A formal proof follows from the Neyman-Fisher factorization theorem applied to the Gaussian likelihood of the residuals, conditional on the factor loadings. The likelihood factors through $\|\beta\|^2$ and $\max_i \beta_i^2 / \|\beta\|^2$, which are exactly $\mathrm{tr}(\Sigma) - N\sigma^2$ and $\SEA$ respectively. We defer the full derivation to a companion paper.
+
+% ============================================================
+\section{Phase-Space Dynamics}
+\label{sec:dynamics}
+% ============================================================
+
+The static spectral diagnostics above acquire additional content when embedded in a dynamical framework. Treating $(\Xi, \SEA)$ as coordinates on a two-dimensional manifold, the four canonical regimes of Section~\ref{sec:regimes} appear as distinct attractors. Transitions between them correspond to shifts in the underlying loading structure $\beta$, which in turn correspond to changes in market conduct.
+
+Following a Landau-type construction, we write the potential
+\begin{equation}
+  F(\Xi, \SEA) = \alpha(\tau - \tau_c) \Xi^2 + \beta \Xi^4 - h(t) \Xi - \gamma \SEA(\Xi - \Xi^*),
+  \label{eq:landau}
+\end{equation}
+where $\tau$ is an effective ``temperature'' capturing monitoring noise and enforcement cost, $\tau_c$ is the cartel-formation threshold, and $h(t)$ is an innovation-impulse field. The last term couples $\SEA$ to the supra-threshold component of $\Xi$, reflecting that asymmetry is only informative when the spectrum is already concentrated.
+
+Below $\tau_c$ with $h = 0$, the system admits two symmetric minima in $\Xi$ and settles at low $\SEA$: the cartel regime. An innovation impulse $h(t) > 0$ breaks the symmetry and drives $\SEA$ upward, corresponding to a Schumpeterian transition in which one firm captures disproportionate weight in $v_1$. As imitation and diffusion occur, $h(t)$ decays and $\SEA$ returns to its baseline. Extended innovation cycles produce limit-cycle behavior on the $(\Xi, \SEA)$ manifold, consistent with Kondratieff-wave patterns \cite{schumpeter1939}.
+
+This dynamical embedding recovers Schumpeter's qualitative narrative as rigorous geometry. The ``perennial gale of creative destruction'' is a trajectory crossing the $\SEA$-isoquant at constant $\Xi$. The Mark~I/Mark~II dichotomy in Schumpeter's own writings reflects snapshots of the same trajectory at different phases: small entrants with low $C$ and high $T$ in the rising phase versus large incumbents with accumulated $C$ and declining $T$ in the mature phase.
+
+% ============================================================
+\section{Synthetic Validation}
+\label{sec:results}
+% ============================================================
+
+We test the separation between regimes using Monte Carlo simulation with $N = 6$ firms, $T = 500$ periods, and 100 seeds per regime. The parameters are
+\begin{itemize}[leftmargin=1.6em,itemsep=0pt]
+  \item Competition: $\beta_i = 0$
+  \item Oligopol: $\beta_i \sim \mathcal{N}(0.4, 0.1)$
+  \item Cartel: $\beta_i = 1.5$ for all $i$
+  \item Schumpeterian monopoly: $\beta_0 = 2.5$, $\beta_{i > 0} = 0.8$, with innovator factor variance inflated by a factor of 4 to represent innovation impulses
+\end{itemize}
+
+Figure~\ref{fig:phase_portrait} displays the phase portrait. All four regimes form tight clusters in the $(\Xi, \SEA)$ plane. The cartel and Schumpeter clusters both sit near $\Xi \approx 0.8$ but are vertically separated by more than half a unit in $\SEA$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figure1_phase_portrait.png}
+\caption{Phase portrait of market structures. Left: each point is one simulated market. Cartel (red triangles) and Schumpeter (blue diamonds) occupy the same $\Xi$ range but are separated in $\SEA$. Right: dominant eigenvector profiles showing uniform loading for cartel versus concentrated loading on the innovator for Schumpeter.}
+\label{fig:phase_portrait}
+\end{figure}
+
+Table~\ref{tab:results} reports the mean and standard deviation of $\Xi$ and $\SEA$ across the 100 simulation runs per regime. The Cartel-Schumpeter separation in $\SEA$ is extreme: Cohen's $d = 72.1$, with $p < 10^{-300}$ under a two-sample $t$-test.
+
+\begin{table}[H]
+\centering
+\caption{Monte Carlo results. Mean $\pm$ standard deviation over 100 seeds.}
+\label{tab:results}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Regime & $\Xi$ & $\SEA$ \\
+\midrule
+Perfect Competition & $0.195 \pm 0.006$ & $0.488 \pm 0.139$ \\
+Oligopol & $0.289 \pm 0.026$ & $0.309 \pm 0.067$ \\
+Cartel & $0.742 \pm 0.013$ & $0.181 \pm 0.006$ \\
+Schumpeterian Monopoly & $0.886 \pm 0.007$ & $0.661 \pm 0.007$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figures~\ref{fig:cartel_sweep} and \ref{fig:schumpeter_sweep} illustrate the parametric sensitivity. As symmetric factor loadings are increased from zero, $\Xi$ rises monotonically while $\SEA$ remains near $1/N$: the market becomes more concentrated in the cartel sense without developing asymmetry. By contrast, increasing the innovator's idiosyncratic loading while holding follower loadings fixed drives both $\Xi$ and $\SEA$ upward in tandem: the spectral signature of Schumpeterian transition.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figure2_cartel_bifurcation.png}
+\caption{Cartel bifurcation. Increasing the symmetric factor loading $\beta$ drives $\Xi$ from the baseline $1/N$ toward unity. The asymmetry index $\SEA$ remains near $1/N$ throughout: the market becomes concentrated without developing a dominant firm.}
+\label{fig:cartel_sweep}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figure3_schumpeter_sweep.png}
+\caption{Schumpeterian transition. Increasing the innovator loading $\beta_0$ with followers held constant raises $\Xi$ and $\SEA$ together. This two-dimensional motion in the phase plane is the spectral signature of a single firm capturing market dominance through innovation.}
+\label{fig:schumpeter_sweep}
+\end{figure}
+
+% ============================================================
+\section{Discussion and Limitations}
+\label{sec:discussion}
+% ============================================================
+
+\textbf{Reconciling Arrow and Schumpeter.} The classical debate between Arrow's view that competition drives innovation \cite{arrow1962} and Schumpeter's view that temporary monopoly is necessary for innovation \cite{schumpeter1942} admits a geometric resolution in the $(\Xi, \SEA)$ plane. Both authors described dynamics on the same manifold, differing only in which region they emphasized. Arrow described the decay trajectory after diffusion: $\Xi$ falling and $\SEA$ falling together. Schumpeter described the rising trajectory of innovation capture: $\Xi$ rising and $\SEA$ rising together. Neither is wrong. Both are partial descriptions of the same limit cycle.
+
+\textbf{Relationship to HHI.} The spectral framework does not replace the HHI; it generalizes it. Under the special case of identical firm variances with heterogeneous market shares, $\Xi$ reduces to a monotone transformation of HHI. The $\SEA$ statistic contains information orthogonal to HHI and is the novel contribution.
+
+\textbf{Limitations.} Three limitations of the current analysis warrant emphasis. First, the factor-model specification is restrictive. Markets with multiple factors (e.g., regional cartels nested within a national innovation wave) will require multi-factor extensions with rank-$k$ spectral statistics. Second, $\SEA$ is only informative when $\Xi$ exceeds a threshold; under perfect competition the dominant eigenvector is not well-identified and $\SEA$ estimates become dominated by sampling noise (see the wide dispersion of $\SEA$ in the Competition row of Table~\ref{tab:results}). Third, the synthetic validation uses stylized parameter values; empirical validation on the Austrian fuel-retail market (expected cartel signature) and on US pharmaceutical markets around patent-expiration events (expected Schumpeterian signature) is the natural next step.
+
+\textbf{Testable predictions.} The framework implies four falsifiable predictions:
+\begin{enumerate}[leftmargin=1.6em,itemsep=0pt]
+  \item Markets with documented collusion (e.g., the Austrian fuel cartel) should exhibit $\Xi > 0.7$ and $\SEA < 0.3$.
+  \item Markets around patent expiration or disruptive entry should exhibit $\Xi > 0.7$ and $\SEA > 0.5$, with $\SEA$ declining over the post-expiration diffusion window.
+  \item $\SEA$ should correlate positively with measures of R\&D concentration at the firm level and with patent-citation network centrality.
+  \item In time series, $\SEA$-transitions should precede $\Xi$-transitions in Schumpeterian episodes and follow $\Xi$-transitions in cartel-formation episodes.
+\end{enumerate}
+
+\textbf{Policy implications.} For antitrust authorities, the practical import is that $\Xi$ alone is a poor screening tool because it conflates two regimes with opposite welfare implications. Adding $\SEA$ as a second-pass filter allows triage: high $\Xi$ with low $\SEA$ warrants further investigation for collusion; high $\Xi$ with high $\SEA$ warrants further investigation for the source of innovation but should not trigger punitive intervention.
+
+% ============================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ============================================================
+
+Market-structure analysis has been impoverished by reliance on scalar concentration indices. The residual covariance matrix contains richer information, and its leading eigenvector in particular encodes the distinction between symmetric co-movement (cartel) and asymmetric single-firm dominance (Schumpeter). The $\SEA$ statistic operationalizes this distinction, is scale-invariant, and is a sufficient statistic for the cartel-versus-Schumpeter classification under Gaussian residuals. Synthetic validation confirms that the two regimes are cleanly separable in the $(\Xi, \SEA)$ phase plane. Empirical application to documented cartel and innovation-wave episodes is the immediate next step.
+
+\vspace{0.4cm}
+
+\textbf{Code and data.} Replication code and simulation scripts are available at \url{https://github.com/hakvinv/sea-spectral-diagnostic}.
+
+\vspace{0.3cm}
+
+\textbf{Status.} This is an early working paper. Comments are welcome.
+
+\vspace{0.8cm}
+
+% ============================================================
+\begin{thebibliography}{99}
+
+\bibitem{mason1939}
+E.~S.~Mason, \textit{Price and Production Policies of Large-Scale Enterprise}, American Economic Review \textbf{29} (1939) 61--74.
+
+\bibitem{bain1956}
+J.~S.~Bain, \textit{Barriers to New Competition}, Harvard University Press, 1956.
+
+\bibitem{schumpeter1939}
+J.~A.~Schumpeter, \textit{Business Cycles: A Theoretical, Historical, and Statistical Analysis of the Capitalist Process}, McGraw-Hill, 1939.
+
+\bibitem{schumpeter1942}
+J.~A.~Schumpeter, \textit{Capitalism, Socialism and Democracy}, Harper and Brothers, 1942.
+
+\bibitem{arrow1962}
+K.~J.~Arrow, \textit{Economic Welfare and the Allocation of Resources for Invention}, in R.~R.~Nelson (ed.), The Rate and Direction of Inventive Activity, Princeton University Press, 1962.
+
+\bibitem{abrantes2006}
+R.~Abrantes-Metz, L.~Froeb, J.~Geweke, C.~Taylor, \textit{A Variance Screen for Collusion}, International Journal of Industrial Organization \textbf{24} (2006) 467--486.
+
+\bibitem{harrington2008}
+J.~E.~Harrington, \textit{Detecting Cartels}, in P.~Buccirossi (ed.), Handbook of Antitrust Economics, MIT Press, 2008.
+
+\bibitem{green1984}
+E.~J.~Green, R.~H.~Porter, \textit{Noncooperative Collusion under Imperfect Price Information}, Econometrica \textbf{52} (1984) 87--100.
+
+\end{thebibliography}
+
+\end{document}

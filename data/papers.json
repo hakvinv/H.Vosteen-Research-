@@ -1,23 +1,13 @@
 [
   {
-    "slug": "dummy-preview",
-    "title": "Dummy Working Paper: A Template for Preview",
-    "authors": ["H. Vosteen"],
-    "date": "2026-04-15",
+    "slug": "cartel-schumpeter",
+    "title": "Cartel or Creative Destruction? Eigenvector Asymmetry as a Spectral Diagnostic for Schumpeterian Market Structure",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-22",
     "version": "1.0",
-    "abstract": "A placeholder paper so you can see how the hub renders a real entry. Download and View open the generated PDF; Cite reveals a BibTeX snippet and copies it to the clipboard.",
-    "tags": ["preview", "template"],
-    "file": "papers/2026-04-dummy-preview.pdf",
-    "bibkey": "vosteen2026dummy"
-  },
-  {
-    "slug": "older-dummy",
-    "title": "An Older Dummy Note on Nothing in Particular",
-    "authors": ["H. Vosteen"],
-    "date": "2025-11-03",
-    "version": "0.2",
-    "abstract": "Second dummy entry with a different date and tag set, so the sorting and tag filter have something to chew on. No PDF attached – the buttons will hide when the 'file' field is missing.",
-    "tags": ["preview", "notes"],
-    "bibkey": "vosteen2025note"
+    "abstract": "Market-structure diagnostics based on concentration indices conflate two economically opposite regimes: cartel collusion and Schumpeterian innovation-driven monopoly. Both produce high market concentration, yet only the former is welfare-destroying. We introduce the Schumpeterian Eigenvector Asymmetry (A), a scale-invariant statistic derived from the residual price covariance of firms within a market. Given a high spectral concentration, A identifies whether the dominant covariance mode is uniformly distributed across firms (cartel signature) or concentrated on a single innovator (Schumpeterian signature). We characterize the two regimes as distinct attractors in a Landau-type phase space and demonstrate separation on synthetic data with Cohen's d > 70.",
+    "tags": ["industrial-organization", "spectral-analysis", "cartel-detection", "schumpeter"],
+    "file": "papers/2026-04-22-cartel-schumpeter.pdf",
+    "bibkey": "vosteen2026cartel"
   }
 ]
