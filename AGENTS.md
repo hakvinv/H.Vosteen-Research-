@@ -39,6 +39,15 @@ the normal white-background rendering.** Before archiving:
   supplied dark PDF).
 - Ignore `slide-*.png` and `POST.txt` — do not archive them anywhere.
 
+TikTok-origin pieces are almost always **stubs**, not full papers. A
+stub has: short length (≈4 pages), a hook-style title phrased to grab
+attention ("Why X...", "X Isn't Y. It's Z.", "How One Thing Does Z"),
+sparse page 1 with a single figure, and accompanying
+`slide-*.png`/`POST.txt` artifacts. Mark these with `"type": "stub"` in
+`data/papers.json`. Longer, conventionally titled working papers without
+TikTok artifacts are `"type": "paper"` (default). The site renders the
+two types in separate groups.
+
 Bundles dropped in a single subfolder (e.g.
 `inbox/all_posts_kw_YYYY-MM-DD/<paper>/`) are allowed and should be
 processed as one publish batch.
@@ -72,6 +81,7 @@ already exists).
      "authors": ["Hakvin Vosteen"],
      "date": "2026-04-22",
      "version": "1.0",
+     "type": "paper",
      "abstract": "...",
      "tags": ["industrial-organization", "spectral"],
      "file": "papers/2026-04-22-cartel-schumpeter.pdf",

@@ -55,18 +55,14 @@
       .join("\n");
   };
 
-  const render = () => {
-    els.list.innerHTML = "";
-    const list = state.filtered;
+  const typeOf = (p) => (p.type === "stub" ? "stub" : "paper");
 
-    if (!list.length) {
-      els.empty.hidden = false;
-      return;
-    }
-    els.empty.hidden = true;
+  const GROUPS = [
+    { key: "paper", label: "Working Papers" },
+    { key: "stub", label: "Notes" },
+  ];
 
-    const frag = document.createDocumentFragment();
-    for (const paper of list) {
+  const renderCard = (paper, frag) => {
       const node = els.template.content.cloneNode(true);
 
       node.querySelector(".paper-title").textContent = paper.title || "Untitled";
@@ -136,6 +132,27 @@
       });
 
       frag.appendChild(node);
+  };
+
+  const render = () => {
+    els.list.innerHTML = "";
+    const list = state.filtered;
+
+    if (!list.length) {
+      els.empty.hidden = false;
+      return;
+    }
+    els.empty.hidden = true;
+
+    const frag = document.createDocumentFragment();
+    for (const group of GROUPS) {
+      const items = list.filter((p) => typeOf(p) === group.key);
+      if (!items.length) continue;
+      const h3 = document.createElement("h3");
+      h3.className = "group-label";
+      h3.textContent = group.label;
+      frag.appendChild(h3);
+      for (const paper of items) renderCard(paper, frag);
     }
     els.list.appendChild(frag);
   };

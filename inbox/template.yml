@@ -9,6 +9,10 @@ authors:
 date:     2026-04-22
 # version: string, default "1.0"
 version:  "1.0"
+# type:    "paper" (full working paper) or "stub" (short 4-page hook
+#          with a catchy title — social-media-first sketch). Default "paper".
+#          Renders in a separate "Notes" group on the site.
+type:     "paper"
 # slug:    kebab-case, default = derived from filename
 slug:     your-paper-slug
 # tags:    list of topic keywords, default []
