@@ -1,5 +1,16 @@
 [
   {
+    "slug": "magic-methyl",
+    "title": "Why One Methyl Group Makes a Drug 1000× Stronger",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-24",
+    "version": "1.0",
+    "abstract": "Pharmaceutical chemists have a name for it: Magic Methyl. Adding a single CH3 group at exactly the right atom in a drug candidate sometimes increases binding affinity by three orders of magnitude, while at every other position the same modification does almost nothing. We formalize the phenomenon via a Boltzmann bridge equation relating the binding free-energy change to the ratio of partition functions of accessible bound microstates, and identify Sensitivity Sites as positions where this ratio is finite. An information-theoretic reading recasts the bridge as ΔΔG = −kT · I_conformational, where I is the mutual information between methyl presence and bound conformation. The framework explains why rational prediction is hard (the relevant quantity is conformational, not chemical) and suggests AlphaFold-Multimer plus FEP scanning as a tractable attack.",
+    "tags": ["statistical-mechanics", "drug-discovery", "information-theory", "binding-affinity"],
+    "file": "papers/2026-04-24-magic-methyl.pdf",
+    "bibkey": "vosteen2026methyl"
+  },
+  {
     "slug": "cartel-schumpeter",
     "title": "Cartel or Creative Destruction? Eigenvector Asymmetry as a Spectral Diagnostic for Schumpeterian Market Structure",
     "authors": ["Hakvin Vosteen"],
