@@ -21,3 +21,10 @@ abstract: |
   the card on the public site.
 # bibkey:  optional custom BibTeX key, default auto-generated
 # bibkey: vosteen2026slug
+# links:   extra buttons shown on the paper card (code, data, slides, video...)
+#          each entry needs a label and a url. GitHub URLs get a github icon.
+# links:
+#   - label: Code
+#     url:   https://github.com/hakvinv/your-repo
+#   - label: Data
+#     url:   https://zenodo.org/record/...
