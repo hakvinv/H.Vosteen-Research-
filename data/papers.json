@@ -1,5 +1,75 @@
 [
   {
+    "slug": "burnout",
+    "title": "Burnout Is Not Too Much Work",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-24",
+    "version": "1.0",
+    "abstract": "The standard explanation of burnout is that you have done too much work. This paper recasts burnout as an overhead-to-output energy ratio ρ_burn = E_overhead / E_output, with a collapse at ρ_burn → 1. Under finite-budget free-energy dynamics the fixed point at ρ_burn = 1 is a transcritical bifurcation, stable below and unstable above. The model explains why rest often fails (it lowers E_total but not the ratio) and why the effective intervention is to reduce overhead (meetings, interruptions, facade maintenance, decision count) rather than workload. Thermodynamic and Bayesian formulations are shown to be equivalent via D_KL of task vs. noise against prior.",
+    "tags": ["thermodynamics", "free-energy-principle", "psychology", "burnout"],
+    "file": "papers/2026-04-24-burnout.pdf",
+    "bibkey": "vosteen2026burnout",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
+    ]
+  },
+  {
+    "slug": "adhd-attractor",
+    "title": "ADHD Is Not a Deficit. It's a Different Attractor.",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-24",
+    "version": "1.0",
+    "abstract": "ADHD is usually framed as a deficit. Under a dynamical-systems reading, attention is a state in a phase space with multiple stable attractors. Neurotypical brains occupy a basin near the profile Φ = T − R ≈ 0 (balanced transformation rate and filter friction). ADHD brains occupy a distinct basin near Φ ≈ +2.5 with high variance in attentional bandwidth. Under a two-component free-energy generative model (constraint vs. novelty), the steady-state distribution of Φ is bimodal with an unstable saddle between basins. Stimulants shift the attractor geometrically toward the NT basin rather than eliminating any deficit. Bridge equation: Φ = π_T^-1 − π_R^-1. Testable predictions include failure of Hartigan's dip test for unimodality and reaction-time-variance AUC > 0.85 for ADHD vs non-ADHD separation.",
+    "tags": ["dynamical-systems", "free-energy-principle", "psychiatry", "adhd"],
+    "file": "papers/2026-04-24-adhd-attractor.pdf",
+    "bibkey": "vosteen2026adhd",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/adhd-attractor"}
+    ]
+  },
+  {
+    "slug": "post-recovery",
+    "title": "Why a Bad Post Doesn't Tank Your Account",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-24",
+    "version": "1.0",
+    "abstract": "A bad post on TikTok or Instagram appears to tank an account. The mechanism is simpler: within ~90 seconds the platform's posterior over creator class converges and the trial is closed. We model Algorithmic Recovery Time as τ_R ≤ −log α / D_KL · τ_trial, bounded by Bayesian convergence under Bernoulli-like engagement trials. For TikTok-typical parameters (α = 0.05, D_KL ≈ 3 bits, τ_trial ≈ 30s), τ_R ≈ 30–120s — matching creator-reported recovery windows. Cross-platform predictions differ by architecture: ~90s on TikTok, 2–4 hours on Instagram Reels, 30–60 minutes on YouTube Shorts. The platform does not punish bad posts; it reallocates attention via cheap Bayesian inference.",
+    "tags": ["bayesian-inference", "recommender-systems", "platforms", "information-theory"],
+    "file": "papers/2026-04-24-post-recovery.pdf",
+    "bibkey": "vosteen2026postrecovery",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/post-recovery"}
+    ]
+  },
+  {
+    "slug": "bumble-filters",
+    "title": "Why Two Bumble Filters Cut Your Pool by 80 Percent",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-24",
+    "version": "1.0",
+    "abstract": "Dating-app filters collapse the pool multiplicatively, not additively. For n independent filters with average pass-rate p̄, surviving pool size is N(n) = N_0 · p̄^n. Two typical filters (distance 0.85, age 0.70) eliminate ~40% of the pool; six eliminate 95%+; ten approach statistical zero. This is the curse of dimensionality for compatibility: log N(n) = log N_0 + n · log p̄, linear in filter count with negative slope. Human probability intuition is approximately additive for small n, which is why the collapse feels counterintuitive. The optimal filter count is small (2–4); beyond that, lost pool size outweighs additional selectivity and the 'perfect partner' filter becomes an empty set.",
+    "tags": ["combinatorics", "curse-of-dimensionality", "dating-apps", "filter-design"],
+    "file": "papers/2026-04-24-bumble-filters.pdf",
+    "bibkey": "vosteen2026bumble",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/bumble-filters"}
+    ]
+  },
+  {
+    "slug": "ghosting-math",
+    "title": "Ghosting Isn't Cowardice. It's Math.",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-24",
+    "version": "1.0",
+    "abstract": "Ghosting is usually framed as cowardice. Under a sequential dyadic exit game, the equilibrium is determined by the Silence-Cost-Ratio σ_R = c_silence / c_response. When σ_R > 1 the subgame-perfect equilibrium is honest exit; when σ_R < 1 it is ghosting; the transition is sharp. σ_R is driven by the recurrence probability p that the parties or their networks meet again. Pre-2010 (small networks, high p): σ_R ≈ 3. On dating apps (p → 0): σ_R ≈ 0. The shift is structural, not generational — replacing the user pool with people from 1995 under the same platform architecture produces the same equilibrium. The fix is mechanism redesign (e.g. Hinge's 'Your Turn' adds algorithmic c_silence) rather than individual moral change.",
+    "tags": ["game-theory", "mechanism-design", "dating-apps", "information-theory"],
+    "file": "papers/2026-04-24-ghosting-math.pdf",
+    "bibkey": "vosteen2026ghosting",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/ghosting-math"}
+    ]
+  },
+  {
     "slug": "magic-methyl",
     "title": "Why One Methyl Group Makes a Drug 1000× Stronger",
     "authors": ["Hakvin Vosteen"],

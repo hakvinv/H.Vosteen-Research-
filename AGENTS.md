@@ -28,6 +28,21 @@ Optionally a `.tex` file with the same basename can be present; if so,
 archive it alongside the PDF under `sources/<slug>.tex` so the source is
 preserved.
 
+Papers may arrive with TikTok-specific styling (dark page background,
+white text — `\pagecolor[HTML]{0d1117}` + `\color{white}` in the `.tex`,
+often alongside `slide-*.png` exports and a `POST.txt` caption). These
+are for social media only. **The archived version on the site must be
+the normal white-background rendering.** Before archiving:
+
+- Strip `\pagecolor{...}` and `\color{white}` from the `.tex`.
+- Recompile to regenerate a white-background PDF (do not publish the
+  supplied dark PDF).
+- Ignore `slide-*.png` and `POST.txt` — do not archive them anywhere.
+
+Bundles dropped in a single subfolder (e.g.
+`inbox/all_posts_kw_YYYY-MM-DD/<paper>/`) are allowed and should be
+processed as one publish batch.
+
 Optionally a `code/` subdirectory can be bundled alongside the paper
 (either as a `<slug>_code/` folder dropped into the inbox, or a zip
 archive). Move its contents to `code/<slug>/`. When a non-empty

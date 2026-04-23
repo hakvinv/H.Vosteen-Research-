@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+% ===== PAGE 1 — SPARSE =====
+\noindent{\LARGE\textbf{Ghosting Isn't Cowardice. It's Math.}}\\[0.3em]
+\noindent{\small Hakvin Vosteen \hfill 2026}
+\vspace{0.3cm}
+
+\noindent{\small\textit{Theoretical model. Cost ratio values are structural estimates, not measured.}}
+\vspace{0.7cm}
+
+\noindent A match goes silent. The intuition is that the other person is afraid of confrontation, emotionally immature, or playing games. The mechanism is more boring. Dating-app architecture has driven the cost of silent exit below the cost of an honest goodbye. The Nash equilibrium has shifted. Most people are doing what the math tells them to do.
+
+\vspace{0.5cm}
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{hook_fig.pdf}}
+\end{center}
+
+\vspace{0.3cm}
+\medskip\noindent\textbf{Setup.}\quad Define the \textit{Silence-Cost-Ratio} $\sigma_R = c_{\text{silence}} / c_{\text{response}}$, where $c_{\text{silence}}$ is the social-reputation cost of leaving a conversation without acknowledgment and $c_{\text{response}}$ is the cost of writing an honest exit message. When $\sigma_R > 1$, honest goodbye is dominant. When $\sigma_R < 1$, ghosting is dominant. Pre-2010, $\sigma_R \approx 3$. Today on dating apps, $\sigma_R \approx 0$.
+
+\newpage
+
+% ===== PAGE 2 — DENSE: GT =====
+\begin{definition}[Silence-Cost-Ratio]
+For a sequential dyadic game with exit option at each step, $\sigma_R = c_{\text{silence}} / c_{\text{response}}$ is the ratio of expected social cost of silent exit to the cost of an honest exit message. Both costs are functions of the recurrence probability $p$ that the parties or their networks will encounter each other again.
+\end{definition}
+
+\bigskip
+
+\begin{theorem}[Equilibrium Switch]
+In a sequential dyadic exit game with finite horizon and discount factor $\delta < 1$:
+\begin{itemize}
+\item If $\sigma_R > 1$, the unique subgame-perfect equilibrium has both players sending honest exit messages when payoff falls below the continuation threshold.
+\item If $\sigma_R < 1$, the unique subgame-perfect equilibrium has both players ghosting at the first sign of declining payoff.
+\end{itemize}
+The transition at $\sigma_R = 1$ is sharp.
+\end{theorem}
+
+\begin{proof}[Sketch]
+By backward induction. At the final exit decision, the dominated strategy is whichever has higher cost. By stage-game dominance, the same applies at every prior decision. The threshold is exactly $\sigma_R = 1$ where the costs equate.
+\end{proof}
+
+\bigskip
+
+\medskip\noindent\textbf{Why $\sigma_R$ collapsed.}\quad The cost of being known as a ghoster depends on the recurrence probability $p$. In a small-network world (mutual friends, workplace, geographic proximity), $p$ is high and reputation enforcement is real. In a continent-wide app pool, $p \to 0$, reputation memory disappears, and $c_{\text{silence}} \to 0$. Meanwhile $c_{\text{response}}$ stays roughly constant: writing a goodbye message is no easier or harder than it ever was. The ratio collapses.
+
+\begin{corollary}
+The shift in ghosting behavior between 2010 and 2026 is structural, not generational. Replacing the user pool with people from 1995 would produce the same equilibrium under the same platform architecture.
+\end{corollary}
+
+\newpage
+
+% ===== PAGE 3 — DENSE: BRIDGE + INTERVENTION =====
+\medskip\noindent\textbf{Information-theoretic view.}\quad Communication consumes channel capacity. Honest exit messages carry $H_{\text{message}} \approx 5$--$10$ bits of information (acknowledgment plus reason). Ghosting transmits $H_{\text{silence}} = 0$ bits. The platform optimizes for total user retention, which is maximized when low-engagement conversations end with $0$ bits of "negative" content rather than $5$--$10$ bits of explicit rejection. The architecture rewards silent exit.
+
+\bigskip
+
+\medskip\noindent\textbf{The Bridge.}
+\[
+\boxed{\;\sigma_R \;=\; f(p,\, \text{platform architecture}) \;=\; \frac{c_{\text{silence}}^{\text{base}} \cdot p}{c_{\text{response}}^{\text{base}}}\;}
+\]
+The Game-Theoretic equilibrium switch is driven by an Information-Theoretic property of the channel: anonymous platforms reduce $p$, which collapses $c_{\text{silence}}$, which flips the equilibrium.
+
+\bigskip
+
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.74\textwidth]{sigma_evolution.pdf}}
+\end{center}
+
+\bigskip
+
+\medskip\noindent\textbf{Intervention pattern.}\quad The fix is not "be more emotionally mature." The fix is mechanism redesign that pushes $\sigma_R$ back above $1$. Hinge's "Your Turn" feature flags accounts that consistently leave conversations dangling and may down-rank them, adding an algorithmic $c_{\text{silence}}$. If the intervention works, $\sigma_R$ rises and ghosting frequency drops in the affected cohort. This is empirically testable and falsifies the platform architecture hypothesis if no effect is observed.
+
+\bigskip
+
+\medskip\noindent\textbf{Cross-domain pattern.}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Domain & $\sigma_R$ collapse trigger & Observed pattern \\
+\midrule
+Dating apps & Anonymous matching ($p \to 0$) & Ghosting normalized \\
+Restaurant reservations & Online booking, no shared community & No-show rate up \\
+Job applications & Employer one-sided platforms & Application ghosting \\
+Friendships in group chats & Silent exit with no acknowledgment & Friendship fade-outs \\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+% ===== PAGE 4 — REFERENCES + NOTES =====
+\noindent\textbf{Empirical anchors.}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Quantity & Value & Source \\
+\midrule
+Pew Research dating-app survey & 46\% UK users describe experience "bad" & Pew 2024 \\
+Tinder UK user loss 2023--24 & 500{,}000 users (16\% drop) & Mentor Research Institute \\
+Male US users feeling "insecure" & 64\% & Mentor Research Institute \\
+Restaurant no-show rate post-OpenTable & up $\sim 30\%$ vs phone era & industry estimates \\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+\noindent\textbf{References}
+
+\medskip
+\noindent[1] Akerlof, G. (1970). The market for lemons: Quality uncertainty and the market mechanism. \textit{QJE} 84, 488--500.
+
+\medskip
+\noindent[2] Fudenberg, D., Tirole, J. (1991). \textit{Game Theory.} MIT Press.
+
+\medskip
+\noindent[3] Mentor Research Institute (2026). Men are disillusioned with dating apps in the US and England.
+
+\medskip
+\noindent[4] Pew Research Center (2024). Online dating in the United States.
+
+\medskip
+\noindent[5] Tucker, C. (2019). Privacy, algorithms, and artificial intelligence. NBER Working Paper.
+
+\vspace{0.6cm}
+
+\noindent\textbf{Notes on parameter estimates}
+
+\medskip
+\noindent The numerical values $\sigma_R \approx 3$ pre-2010 and $\sigma_R \approx 0$ on Tinder are illustrative structural estimates, not measured. The exact values depend on community size, mobility, and network density. The claim is the direction of change and the equilibrium threshold at $\sigma_R = 1$, both of which are mathematically exact under the model.
+
+\medskip
+\noindent What the model does not explain: ghosting in long-term relationships (where $p$ is high and the model predicts honest exit), individual variance within a fixed $\sigma_R$ regime, and emotional or trauma-related avoidance (which operates on different timescales than rational equilibrium analysis). Those phenomena require additional mechanisms.
+
+\end{document}

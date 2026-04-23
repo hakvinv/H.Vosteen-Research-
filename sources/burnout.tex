@@ -1,0 +1,136 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+% ===== PAGE 1 =====
+\noindent{\LARGE\textbf{Burnout Is Not Too Much Work}}\\[0.3em]
+\noindent{\small Hakvin Vosteen \hfill 2026}
+\vspace{0.3cm}
+
+\noindent{\small\textit{Theoretical model. Energy-budget percentages illustrative.}}
+\vspace{0.7cm}
+
+\noindent The standard explanation of burnout is that you have done too much work. The intervention follows: rest, do less, take a sabbatical. This sometimes works. Often it does not. People come back from rest still burned out. The reason is that burnout is not about total work. It is about the ratio of overhead energy to productive output. When that ratio crosses one, the system collapses no matter how much rest you have had.
+
+\vspace{0.5cm}
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{hook_fig.pdf}}
+\end{center}
+
+\vspace{0.3cm}
+\medskip\noindent\textbf{Setup.}\quad Define $E_{\mathrm{out}}$ as the energy spent on the actual task and $E_{\mathrm{ovr}}$ as overhead: context switching, suppressing intrusive thoughts, maintaining a professional facade, decision fatigue from too many small choices. The Friction-Output Ratio is $\rho_{\mathrm{burn}} = E_{\mathrm{ovr}} / E_{\mathrm{out}}$. Burnout begins when $\rho_{\mathrm{burn}} \to 1$ and the system spends as much energy on overhead as on work.
+
+\newpage
+
+% ===== PAGE 2 =====
+\begin{definition}[Friction-Output Ratio]
+For a working system over a sustained period, the Friction-Output Ratio is
+\[
+\rho_{\mathrm{burn}} \;=\; \frac{E_{\mathrm{overhead}}}{E_{\mathrm{output}}},
+\]
+where $E_{\mathrm{overhead}}$ aggregates all energy spent on context switching, intrusion suppression, social facade maintenance, and decision fatigue, and $E_{\mathrm{output}}$ is the energy delivered to the actual task.
+\end{definition}
+
+\bigskip
+
+\begin{theorem}[Burnout Threshold]
+Under a free-energy minimization dynamic with finite total energy budget $E_{\mathrm{tot}} = E_{\mathrm{ovr}} + E_{\mathrm{out}}$, the system is sustainable iff $\rho_{\mathrm{burn}} < 1$. When $\rho_{\mathrm{burn}} \to 1$, the marginal cost of overhead exceeds the marginal benefit of output, and the system enters a positive-feedback collapse: more overhead reduces output, which raises $\rho_{\mathrm{burn}}$ further.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Free energy $F = E - TS$ where $E$ is total energy and $TS$ is the entropy-discounted productive component. When $\rho_{\mathrm{burn}} = 1$, the system has no surplus to invest in maintenance, so its entropy grows uncontrolled, $TS$ falls, $F$ rises, and the dynamics become unstable. The fixed point at $\rho_{\mathrm{burn}} = 1$ is a transcritical bifurcation: stable below, unstable above.
+\end{proof}
+
+\bigskip
+
+\begin{corollary}[Why ``rest'' often fails]
+Rest reduces $E_{\mathrm{tot}}$ but does not change $\rho_{\mathrm{burn}}$. If the underlying overhead structure (toxic workplace, ADHD without scaffolding, chronic context-switching) is unchanged, the system returns to $\rho_{\mathrm{burn}} \approx 1$ within weeks of returning to work.
+\end{corollary}
+
+\bigskip
+
+\medskip\noindent\textbf{What raises $\rho_{\mathrm{burn}}$.}\quad Bad meetings (overhead, no output). Slack notifications (interrupt, no output). Performance reviews requiring self-promotion (facade overhead). Open-plan offices (intrusion suppression). Multi-project assignment (context switching). Each of these has small per-event cost. The sum is what matters, and the sum scales linearly with each addition.
+
+\newpage
+
+% ===== PAGE 3 =====
+\medskip\noindent\textbf{Thermodynamic view.}\quad In a non-equilibrium steady state, a system maintains itself by dissipating entropy. The dissipation requires free energy. When the energy budget shrinks (lower $E_{\mathrm{tot}}$) or the overhead grows ($E_{\mathrm{ovr}} \uparrow$), dissipation falls short of the entropy production rate, and the system's internal organization degrades. In humans this manifests as cognitive slowness, emotional flatness, and decision paralysis. None of these are character flaws. They are predictions of the second law of thermodynamics applied to a system out of energy balance.
+
+\bigskip
+
+\medskip\noindent\textbf{The Bridge.}
+\[
+\boxed{\;\rho_{\mathrm{burn}} \;=\; \frac{\dot S_{\mathrm{ovr}}}{\dot S_{\mathrm{out}}} \;=\; \frac{D_{\mathrm{KL}}(P_{\mathrm{noise}} \| P_{\mathrm{prior}})}{D_{\mathrm{KL}}(P_{\mathrm{task}} \| P_{\mathrm{prior}})}\;}
+\]
+The Thermodynamic ratio of overhead-to-output entropy production equals the Free-Energy ratio of how much Bayesian work is wasted on noise vs how much on the task. The two languages quantify the same dysfunction.
+
+\bigskip
+
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{budget.pdf}}
+\end{center}
+
+\bigskip
+
+\medskip\noindent\textbf{Intervention pattern.}\quad The fix is not "reduce work" but "reduce overhead." Specifically: consolidate meetings, batch interruptions, reduce decision count per day, eliminate facade-maintenance contexts, change environments that require chronic intrusion-suppression. These interventions lower $E_{\mathrm{ovr}}$ without touching $E_{\mathrm{out}}$, which directly lowers $\rho_{\mathrm{burn}}$.
+
+\newpage
+
+% ===== PAGE 4 =====
+\noindent\textbf{Empirical anchors.}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Quantity & Value & Source \\
+\midrule
+Burnout prevalence (US workers, 2024) & $\sim 67\%$ report symptoms & Gallup \\
+Average meeting hours/week (knowledge worker) & $\sim 23$ hours & Microsoft Workplace Analytics \\
+Recovery-time after context switch & $\sim 23$ minutes & Mark et al.\ (2008) \\
+Daily decision count & $\sim 35{,}000$ (estimate) & various review papers \\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+\noindent\textbf{References}
+
+\medskip
+\noindent[1] Friston, K. (2010). The free-energy principle: A unified brain theory? \textit{Nature Reviews Neuroscience} 11, 127--138.
+
+\medskip
+\noindent[2] Mark, G., Gudith, D., Klocke, U. (2008). The cost of interrupted work. \textit{Proc.\ CHI} 2008, 107--110.
+
+\medskip
+\noindent[3] Maslach, C., Leiter, M.P. (2016). Understanding the burnout experience. \textit{World Psychiatry} 15(2), 103--111.
+
+\medskip
+\noindent[4] Schaufeli, W.B., Leiter, M.P., Maslach, C. (2009). Burnout: 35 years of research and practice. \textit{Career Development International} 14(3), 204--220.
+
+\vspace{0.5cm}
+
+\noindent\textbf{Notes on parameter estimates}
+
+\medskip
+\noindent The threshold $\rho_{\mathrm{burn}} = 1$ is derived under the assumption of finite energy budget and zero baseline maintenance cost. In practice, the empirical collapse threshold may be at $\rho_{\mathrm{burn}} \approx 0.7$--$0.8$ because some maintenance overhead is always present and unavoidable. The bifurcation structure (stable $\to$ unstable transition) is the testable structural claim; the exact threshold is convention.
+
+\medskip
+\noindent What the model does not address: depression as an independent contributor to burnout (which can drop $E_{\mathrm{tot}}$ below sustainable levels even at low $\rho_{\mathrm{burn}}$), purely physical exhaustion from manual labor, and burnout-by-meaninglessness where output is high but its perceived value is zero. Those phenomena need additional terms.
+
+\end{document}
