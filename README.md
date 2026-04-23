@@ -80,6 +80,11 @@ python3 -m http.server 8000
 ├── data/
 │   └── papers.json      # <-- Hier werden neue Paper eingetragen
 ├── papers/              # <-- Hier liegen die PDFs
+├── sources/             # LaTeX-Quellen (Archiv)
+├── code/                # Replikations-Code, je Paper ein Unterordner
+├── inbox/               # Drop-Zone fuer neue Paper (siehe AGENTS.md)
+├── .github/workflows/   # Pages-Deploy via GitHub Actions
 ├── .nojekyll            # Damit GitHub Pages nichts umbaut
+├── AGENTS.md            # Anleitung fuer LLM-Automation
 └── README.md
 ```

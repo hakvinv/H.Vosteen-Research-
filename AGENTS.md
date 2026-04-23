@@ -28,6 +28,14 @@ Optionally a `.tex` file with the same basename can be present; if so,
 archive it alongside the PDF under `sources/<slug>.tex` so the source is
 preserved.
 
+Optionally a `code/` subdirectory can be bundled alongside the paper
+(either as a `<slug>_code/` folder dropped into the inbox, or a zip
+archive). Move its contents to `code/<slug>/`. When a non-empty
+`code/<slug>/` exists after processing, automatically append
+`{"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/<slug>"}`
+to the paper's `links` array (unless a `links` entry with label `Code`
+already exists).
+
 ## Processing steps (for each paper)
 
 1. **Derive a slug**: lowercase, kebab-case, max 48 chars, stripped of
@@ -71,7 +79,7 @@ preserved.
 ## Never do
 
 - Don't edit the HTML/CSS/JS. Only touch `data/papers.json`, `papers/`,
-  `sources/` and `inbox/`.
+  `sources/`, `code/` and `inbox/`.
 - Don't rewrite or summarize the author's abstract beyond light
   copy-editing (trimming trailing whitespace, collapsing double spaces).
 - Don't skip the commit — partial state is bad state.
