@@ -69,9 +69,15 @@ already exists).
    if the YAML doesn't supply one, try to extract the first paragraph of
    the PDF's abstract. If you can't get one, leave it out (the UI handles
    it gracefully).
-6. **Delete** the processed files from `inbox/`.
-7. **Validate** `data/papers.json` is still valid JSON and that every
-   `file` path exists.
+6. **Delete** the processed files from `inbox/`. Only `rm` files that you
+   have actually consumed (PDF, YAML, tex). Never `rm -rf` a subfolder
+   like `inbox/code/` — move its contents to the destination first
+   (`code/<slug>/`), then `rmdir` the now-empty folder. If something is
+   unclear, leave it in `inbox/` and add a note to `inbox/_issues.md`.
+7. **Validate** by running `scripts/validate_publish.sh`. It checks that
+   `inbox/` is back to scaffolding only, `data/papers.json` parses and
+   every `file` path exists, and every non-empty `code/<slug>/` has a
+   matching Code link (and vice versa). Do not commit if it fails.
 8. **Commit** with message
    `Publish <n> paper(s): <comma-separated titles>` and push to `main`.
    The GitHub Pages workflow handles deployment.
