@@ -40,8 +40,8 @@ for i, p in enumerate(papers):
     slugs.add(p["slug"])
     if not os.path.isfile(p["file"]):
         sys.exit(f"paper[{p['slug']}] file not found: {p['file']}")
-    if "type" in p and p["type"] not in ("paper", "stub"):
-        sys.exit(f"paper[{p['slug']}] invalid type: {p['type']!r} (expected 'paper' or 'stub')")
+    if "type" in p and p["type"] not in ("paper", "essay"):
+        sys.exit(f"paper[{p['slug']}] invalid type: {p['type']!r} (expected 'paper' or 'essay')")
     for link in p.get("links", []):
         if link.get("label") == "Code":
             expected = f"code/{p['slug']}"

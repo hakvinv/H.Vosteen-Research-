@@ -55,11 +55,11 @@
       .join("\n");
   };
 
-  const typeOf = (p) => (p.type === "stub" ? "stub" : "paper");
+  const typeOf = (p) => (p.type === "essay" ? "essay" : "paper");
 
   const GROUPS = [
     { key: "paper", label: "Working Papers" },
-    { key: "stub", label: "Notes" },
+    { key: "essay", label: "Essays" },
   ];
 
   const renderCard = (paper, frag) => {
