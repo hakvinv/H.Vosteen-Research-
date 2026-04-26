@@ -1,5 +1,17 @@
 [
   {
+    "slug": "tier-list-identity",
+    "title": "Tier Lists as Identity Filters",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-27",
+    "version": "1.0",
+    "type": "essay",
+    "abstract": "A math tier list posted to TikTok ran for two days and pulled comments. Of seven substantive responses, five were identity-positioning rather than ranking discussion. We formalize the observation: for any tier list T constructed by a single author drawn from a population with ≥4 subdisciplines, and at least one item whose importance varies across subdisciplines, the mutual information I(T;A) about the author's identity exceeds I(T;Θ) about ground-truth importance, provided within-subdiscipline tier assignments are more consistent than between-subdiscipline ones. The structure looks objective. The signal is identity broadcast and audience self-sorting. Boundary: the result fails inside a single subdiscipline or for consensus-objective domains.",
+    "tags": ["information-theory", "social-signaling", "identity", "tier-lists"],
+    "file": "papers/2026-04-27-tier-list-identity.pdf",
+    "bibkey": "vosteen2026tierlist"
+  },
+  {
     "slug": "tiktok-peer-review",
     "title": "The TikTok Peer Review",
     "authors": ["Hakvin Vosteen"],
