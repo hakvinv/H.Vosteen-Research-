@@ -1,5 +1,17 @@
 [
   {
+    "slug": "tiktok-peer-review",
+    "title": "The TikTok Peer Review",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-26",
+    "version": "1.0",
+    "type": "paper",
+    "abstract": "Academic peer review is sequential. Platform comments are parallel. The latency ratio τ_a/τ_p ≈ 3,000 produces a 9,000× speedup at typical parameters. The depth condition requires N_p ≥ 71 substantive commenters when q_a = 0.7 and q_p = 0.05. We compute both quantities and identify the regime in which platform comments substitute for academic peer review. The model predicts cycle times of two to three weeks for early-stage iteration, consistent with the dz-cascade on B1 Burnout (TikTok, April 2026), where a substantive flaw was identified within 24 hours of posting and the model revised within 14 days. The equivalence breaks for replication, longitudinal validation, and any task requiring institutional infrastructure.",
+    "tags": ["peer-review", "platform-architecture", "verification-complexity", "sociology-of-science"],
+    "file": "papers/2026-04-26-tiktok-peer-review.pdf",
+    "bibkey": "vosteen2026tiktokpeerreview"
+  },
+  {
     "slug": "burnout",
     "title": "Burnout Is Not Too Much Work",
     "authors": ["Hakvin Vosteen"],
