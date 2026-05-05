@@ -74,5 +74,28 @@ print("code/ folders reconciled with papers.json")
 PY
 ok "code/ folders reconciled"
 
+# 4. data/goodies.json (if present) parses and every file resolves.
+if [ -f data/goodies.json ]; then
+python3 - <<'PY'
+import json, os, sys
+with open("data/goodies.json") as f:
+    goodies = json.load(f)
+if not isinstance(goodies, list):
+    sys.exit("goodies.json root must be an array")
+slugs = set()
+for i, g in enumerate(goodies):
+    for k in ("slug", "title", "image"):
+        if k not in g:
+            sys.exit(f"goodie[{i}] missing required field: {k}")
+    if g["slug"] in slugs:
+        sys.exit(f"duplicate goodie slug: {g['slug']}")
+    slugs.add(g["slug"])
+    if not os.path.isfile(g["image"]):
+        sys.exit(f"goodie[{g['slug']}] image not found: {g['image']}")
+print(f"goodies.json: {len(goodies)} entries, all files resolved")
+PY
+ok "goodies.json valid"
+fi
+
 echo
 echo "All checks passed."
