@@ -45,6 +45,13 @@
         No papers match. Try adjusting the filters or clearing the search.
       </p>
     </section>
+
+    <section id="goodies">
+      <div class="section-head">
+        <h2>Goodies</h2>
+      </div>
+      <div id="goodies-grid" class="goodies-grid" aria-live="polite"></div>
+    </section>
   </main>
 
   <footer>
@@ -56,6 +63,25 @@
       </p>
     </div>
   </footer>
+
+  <template id="goodie-card-template">
+    <article class="goodie-card">
+      <button class="goodie-thumb" type="button" aria-label="Open larger view">
+        <img alt="" loading="lazy" />
+      </button>
+      <div class="goodie-body">
+        <h3 class="goodie-title"></h3>
+        <p class="goodie-description"></p>
+        <ul class="goodie-tags"></ul>
+        <a class="btn btn-primary goodie-download" download>Download</a>
+      </div>
+    </article>
+  </template>
+
+  <div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
+    <img id="lightbox-img" alt="" />
+  </div>
 
   <template id="paper-card-template">
     <article class="paper-card">

@@ -237,6 +237,78 @@
     applyFilters();
   });
 
+  // ---------- Goodies ----------
+  const goodiesEls = {
+    grid: document.getElementById("goodies-grid"),
+    section: document.getElementById("goodies"),
+    template: document.getElementById("goodie-card-template"),
+    lightbox: document.getElementById("lightbox"),
+    lightboxImg: document.getElementById("lightbox-img"),
+    lightboxClose: document.querySelector(".lightbox-close"),
+  };
+
+  const openLightbox = (src, alt) => {
+    goodiesEls.lightboxImg.src = src;
+    goodiesEls.lightboxImg.alt = alt || "";
+    goodiesEls.lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+  const closeLightbox = () => {
+    goodiesEls.lightbox.hidden = true;
+    goodiesEls.lightboxImg.src = "";
+    document.body.style.overflow = "";
+  };
+  goodiesEls.lightbox.addEventListener("click", (e) => {
+    if (e.target === goodiesEls.lightbox || e.target === goodiesEls.lightboxImg) {
+      closeLightbox();
+    }
+  });
+  goodiesEls.lightboxClose.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !goodiesEls.lightbox.hidden) closeLightbox();
+  });
+  goodiesEls.lightboxImg.addEventListener("click", (e) => e.stopPropagation());
+
+  const renderGoodies = (items) => {
+    if (!items.length) {
+      goodiesEls.section.hidden = true;
+      return;
+    }
+    items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    goodiesEls.grid.innerHTML = "";
+    const frag = document.createDocumentFragment();
+    for (const g of items) {
+      const node = goodiesEls.template.content.cloneNode(true);
+      const img = node.querySelector("img");
+      img.src = g.image || "";
+      img.alt = g.title || "";
+      node.querySelector(".goodie-title").textContent = g.title || "Untitled";
+      const desc = node.querySelector(".goodie-description");
+      if (g.description) desc.textContent = g.description;
+      else desc.remove();
+      const tagsEl = node.querySelector(".goodie-tags");
+      (g.tags || []).forEach((tag) => {
+        const li = document.createElement("li");
+        li.textContent = tag;
+        tagsEl.appendChild(li);
+      });
+      const dl = node.querySelector(".goodie-download");
+      if (g.image) dl.href = g.image;
+      else dl.remove();
+      const thumb = node.querySelector(".goodie-thumb");
+      thumb.addEventListener("click", () => openLightbox(g.image, g.title));
+      frag.appendChild(node);
+    }
+    goodiesEls.grid.appendChild(frag);
+  };
+
+  fetch("data/goodies.json", { cache: "no-cache" })
+    .then((r) => (r.ok ? r.json() : []))
+    .then((data) => renderGoodies(Array.isArray(data) ? data : data.goodies || []))
+    .catch(() => {
+      goodiesEls.section.hidden = true;
+    });
+
   fetch("data/papers.json", { cache: "no-cache" })
     .then((r) => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
