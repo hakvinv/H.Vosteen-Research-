@@ -14,6 +14,18 @@ public site (https://hakvinv.github.io/h.vosteen-research-/).
 Run whenever `inbox/` is non-empty. Ignore hidden files (`.gitkeep`,
 `.DS_Store`, etc.) and the `inbox/README.md`.
 
+## Two content types
+
+This repo holds two kinds of items:
+
+- **Working papers** — PDFs, indexed in `data/papers.json`, served from
+  `papers/`, optional source under `sources/`, optional code under
+  `code/<slug>/`.
+- **Goodies** — images (PNG/JPG/SVG) for the public download section,
+  indexed in `data/goodies.json`, served from `goodies/`.
+
+Decide based on the inbox file's extension: `.pdf` → paper, image → goodie.
+
 ## Expected inbox contents
 
 Each paper appears in one of two shapes:
@@ -108,10 +120,31 @@ already exists).
    `Publish <n> paper(s): <comma-separated titles>` and push to `main`.
    The GitHub Pages workflow handles deployment.
 
+## Processing steps for goodies (images)
+
+For each `.png`/`.jpg`/`.jpeg`/`.svg` in `inbox/`:
+
+1. **Slug** from YAML or filename (kebab-case, no extension).
+2. **Move** the image to `goodies/<slug>.<ext>`.
+3. **Append** an entry to `data/goodies.json` (newest first):
+   ```json
+   {
+     "slug": "neurotransmitter-tier-list",
+     "title": "Neurotransmitter Tier List",
+     "description": "Optional caption.",
+     "date": "2026-04-23",
+     "tags": ["neuroscience", "tier-list"],
+     "image": "goodies/neurotransmitter-tier-list.png"
+   }
+   ```
+4. **Delete** processed files from `inbox/`.
+5. Same commit-and-push convention as for papers.
+
 ## Never do
 
-- Don't edit the HTML/CSS/JS. Only touch `data/papers.json`, `papers/`,
-  `sources/`, `code/` and `inbox/`.
+- Don't edit the HTML/CSS/JS. Only touch `data/papers.json`,
+  `data/goodies.json`, `papers/`, `goodies/`, `sources/`, `code/` and
+  `inbox/`.
 - Don't rewrite or summarize the author's abstract beyond light
   copy-editing (trimming trailing whitespace, collapsing double spaces).
 - Don't skip the commit — partial state is bad state.

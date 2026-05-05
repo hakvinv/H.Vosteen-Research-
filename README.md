@@ -78,11 +78,13 @@ python3 -m http.server 8000
 │   ├── style.css        # Styling (Dark/Light automatisch)
 │   └── script.js        # Lädt papers.json, Suche/Filter/BibTeX
 ├── data/
-│   └── papers.json      # <-- Hier werden neue Paper eingetragen
+│   ├── papers.json      # <-- Hier werden neue Paper eingetragen
+│   └── goodies.json     # <-- Hier kommen Bilder/Infografiken rein
 ├── papers/              # <-- Hier liegen die PDFs
+├── goodies/             # Bilder/Infografiken zum Download
 ├── sources/             # LaTeX-Quellen (Archiv)
 ├── code/                # Replikations-Code, je Paper ein Unterordner
-├── inbox/               # Drop-Zone fuer neue Paper (siehe AGENTS.md)
+├── inbox/               # Drop-Zone fuer neue Paper / Goodies (siehe AGENTS.md)
 ├── .github/workflows/   # Pages-Deploy via GitHub Actions
 ├── .nojekyll            # Damit GitHub Pages nichts umbaut
 ├── AGENTS.md            # Anleitung fuer LLM-Automation
