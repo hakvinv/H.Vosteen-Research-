@@ -1,5 +1,35 @@
 [
   {
+    "slug": "reels-echo",
+    "title": "Instagram Reels Is a TikTok Echo: A Stackelberg Imitation Model of Platform Convergence",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-05",
+    "version": "2.0",
+    "type": "paper",
+    "abstract": "Meta launched Reels in August 2020, the same month the United States threatened to ban TikTok. The simultaneity is the equilibrium of a rational imitation strategy. We formalise short-video recommendation as a sequential ranking problem solved by both platforms with structurally identical neural rankers and Upper Confidence Bound exploration, and show that the only material architectural difference is Instagram's social graph, which acts as a low-pass filter on cold-start virality. Modelling viral spread as contagion, the social prior produces a closed-form imitation lag Δτ = β_0^{-1} s^{-1} ln(1/λ) ≈ 2.55 months. A pilot of 8 documented mainstream-crossover trends (2023–2024) yields sample mean 2.19 months, median 2.25 months — within 15% of the theoretical value. We embed the dynamics in a Stackelberg game with TikTok as leader and Meta as follower, prove pure imitation is weakly dominant under supermodularity, and bound follower regret. The model predicts that micro-trends with half-life shorter than Δτ are structurally immune to Reels imitation, and identifies authenticity-driven content as the only persistent moat TikTok holds. We specify a four-prediction replication protocol using TikTok Research API access.",
+    "tags": ["platform-economics", "stackelberg-games", "recommender-systems", "contagion-models", "two-sided-markets"],
+    "file": "papers/2026-05-05-reels-echo.pdf",
+    "bibkey": "vosteen2026reelsecho",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/reels-echo"}
+    ]
+  },
+  {
+    "slug": "money-or-vibe",
+    "title": "Money or Vibe",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-05",
+    "version": "1.0",
+    "type": "essay",
+    "abstract": "A banker thinks the artist is irrational. The artist thinks the banker is empty. Both are correct from inside their own utility function, both wrong about each other, and the reason is structural. We model human preferences as two-asset utility U(M, V) where M is Money Capital (transferable, accumulable, measurable) and V is Vibe Capital (non-transferable, depreciable, context-specific), and show that for two agents whose utility weights α and β differ, no exchange rate ρ between ΔM and ΔV makes both indifferent — the required ρ_A and ρ_B differ by person. The disagreement between Money-People and Vibe-People is not a values disagreement solvable by sharing more information; they live in different optimization spaces. The eternal money-versus-meaning conversation is microeconomic, not moral.",
+    "tags": ["microeconomics", "utility-theory", "incommensurability", "preferences"],
+    "file": "papers/2026-05-05-money-or-vibe.pdf",
+    "bibkey": "vosteen2026moneyvibe",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/money-or-vibe"}
+    ]
+  },
+  {
     "slug": "tier-list-identity",
     "title": "Tier Lists as Identity Filters",
     "authors": ["Hakvin Vosteen"],

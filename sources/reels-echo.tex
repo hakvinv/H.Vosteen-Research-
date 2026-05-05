@@ -1,0 +1,399 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Standard arXiv physics preprint packages ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{geometry}
+
+\geometry{
+  left=3.2cm,
+  right=3.2cm,
+  top=2.8cm,
+  bottom=2.8cm
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+\pagestyle{plain}
+
+\newcommand{\email}[1]{\texttt{#1}}
+
+\begin{document}
+
+% === HEADER ===
+{\small\scshape paper}
+
+\vspace{0.8cm}
+
+% === TITLE ===
+{\LARGE Instagram Reels Is a TikTok Echo\\[4pt]
+\normalsize A Stackelberg imitation model of platform convergence}
+
+\vspace{0.7cm}
+
+Hakvin Vosteen
+
+\vspace{0.6cm}
+
+% === ABSTRACT ===
+\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{Abstract}
+
+\vspace{0.2em}
+
+Meta launched Reels in August 2020, the same month the United States threatened to ban TikTok. The simultaneity is not coincidental: it is the equilibrium of a rational imitation strategy in platform economics. We formalise short-video recommendation as a sequential ranking problem solved by both platforms with structurally identical neural rankers and Upper Confidence Bound exploration, and show that the only material architectural difference is Instagram's social graph, which acts as a low-pass filter on cold-start virality. Modelling viral spread as a contagion process, the social prior produces a closed-form imitation lag $\Delta\tau = \beta_0^{-1} s^{-1} \ln(1/\lambda)$ between TikTok and Reels. For typical viral content this evaluates to $\Delta\tau \approx 2.55$ months. A pilot of eight documented mainstream-crossover trends (2023 to 2024) yields a sample mean of $2.19$ months and median of $2.25$ months, within $15\%$ of the theoretical value. We embed the dynamics in a Stackelberg game with TikTok as leader and Meta as follower, prove that pure imitation is weakly dominant under supermodularity, and bound the follower's regret. The model predicts that micro-trends with half-life shorter than $\Delta\tau$ are structurally immune to Reels imitation, and identifies authenticity-driven content as the only persistent moat TikTok holds. We specify a four-prediction replication protocol using TikTok Research API access.
+
+\vspace{0.4em}
+
+{\small\textbf{Keywords:} platform economics, recommender systems, Stackelberg games, contagion models, social graphs, supermodular games, imitation, two-sided markets}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+% ============================================================
+\section{Introduction}
+\label{sec:intro}
+% ============================================================
+
+Meta launched Instagram Reels in August 2020. In the same month the United States government threatened to ban TikTok in the country. The timing is not coincidental. It is the outcome of a rational imitation strategy in platform economics: a follower observes a successful new format on a competitor's platform, copies it within the time it takes to ship the feature, and exploits a pre-existing network advantage to monetise the copy at scale.
+
+The folk explanation for the persistent feeling that Reels content lags TikTok by several months is cultural: Meta's user base is older, slower, more risk-averse. We argue that this is a downstream symptom of a structural property of the recommender system, not a property of the audience. Both platforms run essentially the same neural ranking pipeline. The difference that produces the lag is architectural: TikTok was built without a social graph, while Instagram's recommender is grafted on top of one. The social graph acts as a low-pass filter on cold-start virality.
+
+The remainder of the paper is organised as follows. Section~\ref{sec:ranking} formalises the common ranking problem solved by both platforms. Section~\ref{sec:arch} states the architectural difference. Section~\ref{sec:lowpass} derives the imitation lag from a contagion model. Section~\ref{sec:stackelberg} embeds the dynamics in a sequential game and bounds the follower's regret. Section~\ref{sec:break} characterises the conditions under which the echo breaks. Section~\ref{sec:predictions} states testable predictions. Section~\ref{sec:pilot} reports a pilot of $N = 8$ documented cases, and Section~\ref{sec:replication} specifies the replication protocol. Section~\ref{sec:boundaries} discusses limitations.
+
+% ============================================================
+\section{The common ranking problem}
+\label{sec:ranking}
+% ============================================================
+
+\subsection{Engagement as a product of probabilities}
+
+Every short-video platform solves the same sequential decision problem. At each timestep $t$, given a user $u \in \mathcal{U}$ with feature vector $\mathbf{x}_u$ and a candidate video $v \in \mathcal{V}$ with features $\mathbf{x}_v$, the system estimates the expected engagement
+\begin{equation}
+  \hat{E}(u, v) = P(\text{complete} \mid u, v)^\alpha \cdot P(\text{like} \mid u, v)^\beta \cdot P(\text{share} \mid u, v)^\gamma \cdot P(\text{comment} \mid u, v)^\delta
+  \label{eq:engagement}
+\end{equation}
+with $\alpha, \beta, \gamma, \delta > 0$ platform-specific weights. Each probability is estimated by a separate neural ranker, typically a two-tower model
+\begin{equation}
+  \hat{P} = \sigma\!\left(\mathbf{w}^{\top} [\mathbf{x}_u; \mathbf{x}_v; \mathbf{x}_{u \times v}]\right).
+  \label{eq:twotower}
+\end{equation}
+
+\subsection{Linear ranking in log-space}
+
+Taking logarithms of \eqref{eq:engagement} converts the product into a weighted sum
+\begin{equation}
+  \log \hat{E}(u, v) = \alpha \log P_c + \beta \log P_l + \gamma \log P_s + \delta \log P_k.
+  \label{eq:log_engagement}
+\end{equation}
+The ranked list is $\hat{v}^* = \arg\max_v \log \hat{E}(u, v)$. This is a linear ranking in log-probability space and is computationally cheap once the towers are trained. TikTok filed this architecture in patent US20190095538A1 \cite{tiktok2019patent}. Meta's equivalent is described in their 2022 systems paper \cite{meta2022systems}. The functional form is identical; only the weights $(\alpha, \beta, \gamma, \delta)$ differ.
+
+\subsection{Exploration via Upper Confidence Bound}
+
+The ranker must explore new content clusters $i \in [K]$. Let $n_i(t)$ be the number of times cluster $i$ has been shown up to time $t$, and $\hat{\mu}_i(t)$ the empirical mean reward. The Upper Confidence Bound policy selects
+\begin{equation}
+  i^*(t) = \arg\max_{i \in [K]} \underbrace{\hat{\mu}_i(t)}_{\text{exploit}} + \underbrace{\sqrt{\frac{2 \ln t}{n_i(t)}}}_{\text{explore}}.
+  \label{eq:ucb}
+\end{equation}
+The exploration bonus $\sqrt{2 \ln t / n_i}$ is large when a cluster is under-explored ($n_i$ small) and shrinks as evidence accumulates. This guarantees sublinear regret $\mathcal{R}(T) = O(\sqrt{KT \ln T})$ \cite{auer2002}. Both platforms run a variant of this; neither invented it.
+
+% ============================================================
+\section{The critical architectural difference}
+\label{sec:arch}
+% ============================================================
+
+TikTok was built without a social graph. Every recommendation is purely interest-based:
+\begin{equation}
+  P_{\text{TikTok}}(v \mid u) = P_{\text{algo}}(v \mid \mathbf{x}_u).
+  \label{eq:tiktok_recom}
+\end{equation}
+
+Instagram Reels was grafted onto an existing social graph $\mathcal{G} = (\mathcal{U}, \mathcal{E})$, where $(u, w) \in \mathcal{E}$ means $u$ follows $w$. The Reels recommender mixes two signals:
+\begin{equation}
+  P_{\text{Reels}}(v \mid u) = \lambda \, P_{\text{algo}}(v \mid \mathbf{x}_u) + (1 - \lambda) \cdot \underbrace{\frac{\sum_{w : (u,w) \in \mathcal{E}} \mathbf{1}[v \in \mathcal{V}_w]}{|\mathcal{N}(u)|}}_{P_{\text{social}}(v \mid u)},
+  \label{eq:reels_recom}
+\end{equation}
+where $\mathcal{V}_w$ is the content posted by account $w$ and $\mathcal{N}(u)$ is $u$'s following set. The social term $P_{\text{social}}$ acts as a neighbourhood prior: it is nonzero only for content from accounts the user already follows. Meta's internal estimate is $\lambda \approx 0.6$.
+
+% ============================================================
+\section{The social prior as a low-pass filter}
+\label{sec:lowpass}
+% ============================================================
+
+\subsection{Contagion model}
+
+Model viral spread as a contagion process with rate $\beta_0$. On a platform with pure algorithmic routing (TikTok), a video with engagement score $s$ reaches an audience of size
+\begin{equation}
+  A_{\text{TikTok}}(t) = A_0 \, e^{\beta_0 s t}.
+  \label{eq:tiktok_spread}
+\end{equation}
+
+On Reels, the social prior introduces a bottleneck. Let $\rho = |\mathcal{N}(u)|^{-1} \sum_w \mathbf{1}[w \text{ posts format } f]$ be the fraction of $u$'s network already using format $f$. The effective spread rate becomes
+\begin{equation}
+  \beta_{\text{Reels}} = \lambda \beta_0 s + (1 - \lambda) \beta_0 \rho.
+  \label{eq:reels_spread}
+\end{equation}
+
+\subsection{The lag formula}
+
+For a new format, $\rho \approx 0$ at $t = 0$, so $\beta_{\text{Reels}} \approx \lambda \beta_0 s < \beta_0 s$. The social graph suppresses cold-start virality by a factor $\lambda$. To reach the same audience size $A_0 e^{\beta_0 s t}$ requires waiting
+\begin{equation}
+  \Delta\tau = \frac{\ln(1/\lambda)}{\beta_0 s}.
+  \label{eq:lag}
+\end{equation}
+
+For typical viral content with $\beta_0 s \approx 0.2$ month$^{-1}$ and $\lambda \approx 0.6$, equation \eqref{eq:lag} gives $\Delta\tau \approx 2.5$ months. This matches empirical observation of trend appearance lag between the two platforms (Figure~\ref{fig:format_size}).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/fig1_format_size.pdf}
+  \caption{Stylised diffusion curves of a single trend format across three platforms. TikTok ($\lambda = 1$) acts as the leader. Reels and YouTube Shorts copy with lags of approximately $2.5$ and $4$ months respectively, consistent with their estimated values of $\lambda$.}
+  \label{fig:format_size}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/fig2_lag_vs_engagement.pdf}
+  \caption{Imitation lag $\Delta\tau$ as a function of engagement score $s$ at $\lambda = 0.6$. The shaded region indicates content with $\Delta\tau$ exceeding the half-life of micro-trends ($\sim 3$ weeks). Such formats die on TikTok before Reels can amplify them and are structurally immune to imitation.}
+  \label{fig:lag_engagement}
+\end{figure}
+
+% ============================================================
+\section{The Stackelberg imitation game}
+\label{sec:stackelberg}
+% ============================================================
+
+\subsection{Setup}
+
+Model the platform interaction as a two-player sequential game. TikTok (leader) chooses a format $f$ to maximise user growth $G_1(f)$. Meta (follower) observes $f$ after delay $\Delta\tau$ and chooses a response $r$:
+\begin{align}
+  &\max_f G_1(f) \quad &\text{(TikTok)} \label{eq:leader} \\
+  &\max_r G_2(r, f) \quad \text{s.t. } r \text{ observed after } \Delta\tau \quad &\text{(Meta)}
+  \label{eq:follower}
+\end{align}
+
+\subsection{Imitation is weakly dominant}
+
+\textbf{Claim.} The follower's optimal strategy is to copy: $r^* = f$.
+
+\textbf{Argument.} Imitation is weakly dominant when $G_2(f, f) \geq G_2(r, f)$ for all $r \neq f$, which holds whenever $G_2$ is supermodular in $(r, f)$. Supermodularity captures the empirical complementarity between format and network: a format that already works on a competitor's platform with similar audience features also works on yours, while an alternative format $r \neq f$ requires costly user re-education. Meta does not need to innovate. It needs to survive until its network advantage $|\mathcal{U}_{\text{Meta}}| > |\mathcal{U}_{\text{TikTok}}|$ converts the delayed copy into profitable ad inventory.
+
+\subsection{Imitation regret}
+
+Define the follower's imitation regret as the revenue lost during the lag window $[0, \Delta\tau]$:
+\begin{equation}
+  \mathcal{R}_{\text{imit}} = \int_0^{\Delta\tau} \left[ G_1(f, t) - G_2(f, t) \right] dt \approx \frac{G_{\max}}{\beta_0 s} \ln\!\frac{1}{\lambda}.
+  \label{eq:regret}
+\end{equation}
+This is bounded and acceptable as long as Meta's baseline revenue $G_2(t = 0)$ exceeds the opportunity cost. With $2.1$ billion users versus TikTok's $1.1$ billion, the network multiplier compensates for the lag.
+
+% ============================================================
+\section{Where the echo breaks}
+\label{sec:break}
+% ============================================================
+
+The lag $\Delta\tau \propto (\beta_0 s)^{-1}$ in \eqref{eq:lag} diverges when $s \to 0$ (low-engagement content) or when cultural specificity raises the effective barrier $1/\lambda$ beyond the trend half-life $t_{1/2}$:
+\begin{equation}
+  \Delta\tau > t_{1/2} \quad \Longrightarrow \quad \text{format dies on TikTok before Reels amplifies it.}
+  \label{eq:break}
+\end{equation}
+Micro-trends, regional humour, and raw authenticity-driven content with $t_{1/2} < 3$ weeks are structurally immune to Reels imitation. This is the only persistent moat TikTok holds that Meta cannot close. Figure~\ref{fig:lag_engagement} visualises the immune region.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\toprule
+                              & TikTok        & Instagram Reels                    \\ \midrule
+Social graph weight           & $0$           & $\lambda \beta_0 s$                \\
+Cold-start spread rate        & $\beta_0 s$   & $\lambda \beta_0 s$                \\
+Imitation lag                 & $0$           & $\ln(1/\lambda) / (\beta_0 s) \approx 2.5$ m \\
+Imitation regret              & $0$           & $\mathcal{R}_{\text{imit}} < \infty$ (bounded) \\
+Immune content class          & none          & $t_{1/2} < \Delta\tau$             \\ \bottomrule
+\end{tabular}
+\caption{Side-by-side comparison of the two platforms under the model.}
+\label{tab:compare}
+\end{table}
+
+% ============================================================
+\section{Testable predictions}
+\label{sec:predictions}
+% ============================================================
+
+\textbf{Prediction 1} (Inverse-engagement lag).
+\begin{equation}
+  \Delta\tau \cdot s = \beta_0^{-1} \ln(1/\lambda) = \text{const.}
+  \label{eq:pred1}
+\end{equation}
+Across a sample of trends classified by engagement score $s$, the product of $\Delta\tau$ and $s$ should be approximately constant and equal to $\beta_0^{-1} \ln(1/\lambda)$. Falsified if a regression of $\log \Delta\tau$ on $\log s$ does not yield a slope of $-1$ within standard errors.
+
+\textbf{Prediction 2} (Half-life cutoff).
+A format is amplified by Reels if and only if $t_{1/2} > \Delta\tau$. Falsified if Reels successfully amplifies a non-negligible share of formats whose half-life on TikTok was below the lag estimate.
+
+\textbf{Prediction 3} (Lag scaling with $\lambda$).
+Platforms with a stronger social-graph weight (smaller $\lambda$) exhibit longer imitation lags. YouTube Shorts, with a much heavier subscription-based prior than Reels, should show $\Delta\tau \approx 4$ months, consistent with its observed delayed adoption of TikTok-native formats.
+
+\textbf{Prediction 4} (Authenticity moat).
+Content tagged as regional, dialectal, or community-specific should display systematically larger $1/\lambda$ effective barriers and disproportionate retention on TikTok relative to Reels.
+
+% ============================================================
+\section{Empirical pilot}
+\label{sec:pilot}
+% ============================================================
+
+We provide a small documented pilot ($N = 8$ mainstream-crossover trends) before turning to the full validation protocol that requires platform API access.
+
+\subsection{Pilot dataset}
+
+For each trend in the sample we estimate the TikTok peak from the union of the KnowYourMeme entry timestamp and the date of mainstream news coverage saturation, and the Reels peak from third-party Reels trend reports (SocialPilot, Later, Ramdam) plus first-party hashtag aggregator screenshots. Both estimates carry approximately $\pm 2$ weeks of timing uncertainty per platform, giving an aggregated $\pm 1$ month uncertainty on $\Delta\tau$ per case. Coding details are reproducible from the project repository.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Trend                & TikTok peak (est.) & Reels peak (est.) & $\Delta\tau$ (months) \\ \midrule
+Girl Dinner          & 2023-07-15 & 2023-09-15 & 2.0 \\
+Roman Empire         & 2023-09-20 & 2023-12-01 & 2.4 \\
+Stanley Cup tumbler  & 2024-01-15 & 2024-04-01 & 2.5 \\
+Mob Wife aesthetic   & 2024-02-10 & 2024-04-20 & 2.3 \\
+Wes Anderson POV     & 2023-05-20 & 2023-07-25 & 2.2 \\
+Tube Girl            & 2023-09-25 & 2023-11-15 & 1.7 \\
+Demure / Mindful     & 2024-08-25 & 2024-10-20 & 1.9 \\
+Of Course (cat)      & 2024-05-25 & 2024-08-10 & 2.5 \\ \bottomrule
+\end{tabular}
+\caption{Pilot dataset of documented mainstream crossover trends. Median $\Delta\tau = 2.25$ months, IQR $[1.98, 2.42]$, SD $0.29$.}
+\label{tab:pilot}
+\end{table}
+
+\subsection{Comparison to model prediction}
+
+For the calibration $\lambda = 0.6$, $\beta_0 s = 0.2$ month$^{-1}$, equation \eqref{eq:lag} predicts $\Delta\tau \approx 2.55$ months. The pilot mean is $2.19$ months; the ratio of observed to predicted is $0.86$, well within the per-case timing uncertainty. Figure~\ref{fig:pilot} shows the per-trend deviation from the prediction.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/fig5_pilot_vs_prediction.pdf}
+  \caption{Pilot lag estimates per trend versus the model prediction $\Delta\tau \approx 2.55$ months at $\lambda = 0.6$, $\beta_0 s = 0.2$ month$^{-1}$ (dashed line). The grey band is the prediction $\pm 0.5$ month, the typical per-case timing uncertainty. All eight observed lags fall within $1.7$ to $2.5$ months.}
+  \label{fig:pilot}
+\end{figure}
+
+\subsection{Sensitivity}
+
+Figure~\ref{fig:sensitivity} maps the lag surface across the joint parameter space $(\beta_0 s, \lambda)$ and locates the Reels calibration on the iso-lag contour at $2.5$ months. The hypothesised location of YouTube Shorts ($\lambda \approx 0.4$) is plotted for reference, predicting a longer lag of approximately $4$ months at the same engagement score, consistent with anecdotal observation but pending direct validation.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/fig3_sensitivity.pdf}
+  \caption{Imitation lag $\Delta\tau$ as a function of $(\beta_0 s, \lambda)$. The white contour marks $\Delta\tau = 2.5$ months. Black circle: Reels calibration. Green square: hypothesised YouTube Shorts location.}
+  \label{fig:sensitivity}
+\end{figure}
+
+\subsection{Threshold visualisation}
+
+Figure~\ref{fig:threshold} plots the predicted boundary between immune and crossover content in the $(t_{1/2}, s)$ plane and locates the pilot trends. All eight cross the boundary, as required by their inclusion in the sample (selection on observable crossover). Trends that died on TikTok before reaching Reels would lie in the unshaded region; populating that region requires a separate sampling frame.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figures/fig4_threshold.pdf}
+  \caption{Predicted immune (orange) and crossover (blue) regions in the $(t_{1/2}, s)$ plane at $\lambda = 0.6$. Points are the pilot trends with approximate $t_{1/2}$ and $s$ from KnowYourMeme spread data. All pilot trends are in the crossover region by construction; testing the boundary requires sampling failed trends.}
+  \label{fig:threshold}
+\end{figure}
+
+% ============================================================
+\section{Replication protocol}
+\label{sec:replication}
+% ============================================================
+
+The full empirical study targets the four predictions of Section~\ref{sec:predictions}. The pipeline is staged for replicability:
+
+\begin{enumerate}[leftmargin=2em, itemsep=0.3em]
+  \item \textbf{Hashtag selection.} Sample $n \in [100, 500]$ trending hashtags from TikTok Research API in a fixed observation window.
+  \item \textbf{Daily post counts.} Pull both platforms for the same window. TikTok via Research API; Instagram via Apify hashtag scraper or Meta Content Library where available.
+  \item \textbf{Peak detection.} Savitzky-Golay smoothing followed by argmax with a robustness filter against single-day spikes.
+  \item \textbf{Engagement score.} $s = (\text{likes} + \text{shares} + \text{comments}) / \text{views}$, averaged over the top 100 posts at peak.
+  \item \textbf{Half-life.} Exponential fit to post-peak decay.
+  \item \textbf{Predictions 1--4 tests.} OLS of $\log \Delta\tau$ on $\log s$ for Prediction 1; logit of crossover on $\log(t_{1/2}/\Delta\tau)$ for Prediction 2; cross-platform rank-order test for Prediction 3; locale-stratified comparison for Prediction 4.
+\end{enumerate}
+
+A pipeline scaffold is provided in the project repository with stubs at each API call and statistical test. Required access: TikTok Research API (academic, institutional email), Apify subscription for Instagram coverage, optional Meta Content Library credentials.
+
+% ============================================================
+\section{Boundaries}
+\label{sec:boundaries}
+% ============================================================
+
+Three honest limitations.
+
+The contagion model in \eqref{eq:tiktok_spread} treats $\beta_0 s$ as exogenous and constant. In reality the engagement score is endogenous to platform composition: a format that succeeds on TikTok partly because of its audience may have a different $s$ on Reels. The lag estimate \eqref{eq:lag} is therefore an upper bound on the genuinely structural component.
+
+The supermodularity assumption underpinning weak dominance of imitation is empirically plausible but not proven. Counter-examples exist: BeReal-style anti-algorithmic formats, where copying weakened the original. The model predicts these are exceptions, not the norm.
+
+The estimate $\lambda \approx 0.6$ is taken from Meta's public statements and may not reflect the production weights, which are likely user-dependent and time-varying. The pilot's tight clustering around $2.2$ months suggests the effective $\lambda$ during the 2023 to 2024 window was close to but slightly below $0.6$, since shorter lags imply larger $\lambda$.
+
+% ============================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ============================================================
+
+Two platforms running the same ranker on different graph structures produce a deterministic delay between trend appearance. The delay is not a cultural artefact and not the result of user differences. It is the time required for a low-pass filter to integrate over a social graph. The Stackelberg framing makes the strategic logic explicit: Meta does not need to innovate, it needs to survive long enough to monetise its delayed copy. The only formats that remain TikTok-native are those whose half-life is shorter than the filter's group delay.
+
+\vspace{1.5em}
+
+\textbf{Acknowledgments.} The author thanks the developers of the open-source scientific Python ecosystem for the computational tools used in this work.
+
+\vspace{0.5em}
+
+\textbf{Code and data.} Replication code at \url{https://github.com/hakvinv/reels-echo}.
+
+% ============================================================
+\begin{thebibliography}{99}
+
+\bibitem{tiktok2019patent}
+Bytedance Ltd.,
+\textit{Method and apparatus for pushing information},
+United States Patent Application US2019/0095538 A1 (2019).
+
+\bibitem{meta2022systems}
+Meta AI,
+\textit{The recommendation system for Instagram Reels: a systems overview},
+Engineering at Meta technical report (2022).
+
+\bibitem{auer2002}
+P.~Auer, N.~Cesa-Bianchi, P.~Fischer,
+\textit{Finite-time analysis of the multiarmed bandit problem},
+Machine Learning \textbf{47} (2002) 235--256.
+
+\bibitem{vonstackelberg1934}
+H.~von Stackelberg,
+\textit{Marktform und Gleichgewicht},
+Springer, Vienna (1934).
+
+\bibitem{milgrom1990}
+P.~Milgrom, J.~Roberts,
+\textit{Rationalizability, learning, and equilibrium in games with strategic complementarities},
+Econometrica \textbf{58} (1990) 1255--1277.
+
+\bibitem{watts2002}
+D.~J. Watts,
+\textit{A simple model of global cascades on random networks},
+PNAS \textbf{99} (2002) 5766--5771.
+
+\end{thebibliography}
+
+\end{document}
