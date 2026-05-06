@@ -53,26 +53,27 @@ print(f"papers.json: {len(papers)} entries, all files resolved")
 PY
 ok "papers.json valid"
 
-# 3. Every non-empty code/<slug>/ has a matching Code link in papers.json.
+# 3. Every Code link in papers.json points at a real, non-empty code/<slug>/.
+#    Orphan code/<slug>/ folders (no link) are allowed — keeping the source
+#    around without advertising it on the paper card is a deliberate choice.
 python3 - <<'PY'
 import json, os, sys
 with open("data/papers.json") as f:
     papers = json.load(f)
-has_code_link = {
-    p["slug"] for p in papers
-    for l in p.get("links", [])
-    if l.get("label") == "Code"
-}
-if os.path.isdir("code"):
-    for slug in os.listdir("code"):
+errors = []
+for p in papers:
+    for l in p.get("links", []):
+        if l.get("label") != "Code": continue
+        url = l.get("url", "")
+        slug = url.rstrip("/").rsplit("/", 1)[-1]
         path = os.path.join("code", slug)
-        if not os.path.isdir(path): continue
-        if not os.listdir(path): continue
-        if slug not in has_code_link:
-            sys.exit(f"code/{slug}/ has content but no Code link in papers.json")
-print("code/ folders reconciled with papers.json")
+        if not os.path.isdir(path) or not os.listdir(path):
+            errors.append(f"paper[{p['slug']}] Code link points to missing/empty {path}")
+if errors:
+    sys.exit("\n".join(errors))
+print("Code links reconciled with code/ folders")
 PY
-ok "code/ folders reconciled"
+ok "Code links reconciled"
 
 # 4. data/goodies.json (if present) parses and every file resolves.
 if [ -f data/goodies.json ]; then
