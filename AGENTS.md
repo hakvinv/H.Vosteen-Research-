@@ -51,6 +51,13 @@ the normal white-background rendering.** Before archiving:
   supplied dark PDF).
 - Ignore `slide-*.png` and `POST.txt` — do not archive them anywhere.
 
+Bundle `.tex` files often contain a "Code" line like
+`\textbf{Code.} Replication code at \url{https://github.com/hakvinv/<some-repo>}.`
+pointing to a standalone repo that does **not** exist. Strip that line
+before archiving and recompile. The Code button on the paper card
+(populated from `links` in `papers.json`) is the canonical pointer to
+`code/<slug>/` in this repo.
+
 TikTok-origin pieces are almost always **essays**, not full papers. A
 theory essay has: short length (≈4 pages), a hook-style title phrased
 to grab attention ("Why X...", "X Isn't Y. It's Z.", "How One Thing
