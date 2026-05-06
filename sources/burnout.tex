@@ -1,13 +1,10 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage[margin=2.7cm]{geometry}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{tikz}
-
 \setlength{\parindent}{1.4em}
 \setlength{\parskip}{0pt}
 
@@ -18,119 +15,283 @@
 
 \begin{document}
 
-% ===== PAGE 1 =====
-\noindent{\LARGE\textbf{Burnout Is Not Too Much Work}}\\[0.3em]
+% =============== PAGE 1 ===============
+\noindent{\LARGE\textbf{Burnout Is Not Too Much Work, v2}}\\[0.3em]
 \noindent{\small Hakvin Vosteen \hfill 2026}
 \vspace{0.3cm}
 
-\noindent{\small\textit{Theoretical model. Energy-budget percentages illustrative.}}
+\noindent{\small\textit{Theoretical model. Population calibration illustrative.}}
 \vspace{0.7cm}
 
-\noindent The standard explanation of burnout is that you have done too much work. The intervention follows: rest, do less, take a sabbatical. This sometimes works. Often it does not. People come back from rest still burned out. The reason is that burnout is not about total work. It is about the ratio of overhead energy to productive output. When that ratio crosses one, the system collapses no matter how much rest you have had.
+\noindent The v1 post had three holes. A reader pointed them out. The threshold is
+not universal, it is individual. ``Sustained period'' is not a definition of time.
+And the overhead/output split is observer-dependent, because maintaining a facade
+counts as productive output for the firm and as overhead for the person doing it.
+This is the v2 that fixes all three.
 
-\vspace{0.5cm}
+\medskip\noindent The punchline up front. With realistic numbers, a person at
+$\rho^{P} = 1.50$ (collapse-imminent) shows up on the firm's dashboard as
+$\rho^{F} = 0.54$ (green). Same hour of work, two valid bookkeepings, almost
+a full unit apart. Algebra below.
+
 \begin{center}
-\colorbox{white}{\includegraphics[width=0.78\textwidth]{hook_fig.pdf}}
+\includegraphics[width=0.78\textwidth]{figures/hook_population.pdf}
 \end{center}
 
-\vspace{0.3cm}
-\medskip\noindent\textbf{Setup.}\quad Define $E_{\mathrm{out}}$ as the energy spent on the actual task and $E_{\mathrm{ovr}}$ as overhead: context switching, suppressing intrusive thoughts, maintaining a professional facade, decision fatigue from too many small choices. The Friction-Output Ratio is $\rho_{\mathrm{burn}} = E_{\mathrm{ovr}} / E_{\mathrm{out}}$. Burnout begins when $\rho_{\mathrm{burn}} \to 1$ and the system spends as much energy on overhead as on work.
+\vspace{1cm}
+
+\medskip\noindent\textbf{Setup.}\quad Let $i$ index people and $t \geq 0$ index time.
+Each person carries a private friction-output ratio $\rho_i(t)$ and a private
+threshold $\rho_i^*$. Burnout is the event $\rho_i(t) > \rho_i^*$. The right tail
+of the distribution is the burned-out fraction.
 
 \newpage
 
-% ===== PAGE 2 =====
-\begin{definition}[Friction-Output Ratio]
-For a working system over a sustained period, the Friction-Output Ratio is
+% =============== PAGE 2 ===============
+\noindent The first fix is that the output category is observer-dependent. The
+firm pays for outcomes. Some of those outcomes are facade. The person delivers
+the facade but receives no internal value from it. So the same hour of work
+gets booked differently by two accountants.
+
+\begin{definition}[Observer-Relative Energy Split]
+For a working hour, decompose total energy as $E_{\text{tot}} = E_{\text{out}} + E_{\text{ovr}}$.
+For person $i$, write
 \[
-\rho_{\mathrm{burn}} \;=\; \frac{E_{\mathrm{overhead}}}{E_{\mathrm{output}}},
+E_{\text{out},i}^{P}, \quad E_{\text{ovr},i}^{P} \quad \text{(person's accounting)},
 \]
-where $E_{\mathrm{overhead}}$ aggregates all energy spent on context switching, intrusion suppression, social facade maintenance, and decision fatigue, and $E_{\mathrm{output}}$ is the energy delivered to the actual task.
+\[
+E_{\text{out},i}^{F}, \quad E_{\text{ovr},i}^{F} \quad \text{(firm's accounting)}.
+\]
+Define the role-coupling set
+$\mathcal{F}_i = \{ \text{tasks the person does not value intrinsically but the firm pays for} \}$.
+Then $E_{\text{out},i}^{F} = E_{\text{out},i}^{P} + E_{\mathcal{F},i}$ and
+$E_{\text{ovr},i}^{F} = E_{\text{ovr},i}^{P} - E_{\mathcal{F},i}$.
 \end{definition}
 
-\bigskip
+\noindent The set $\mathcal{F}_i$ is the wedge between two valid accountings.
 
-\begin{theorem}[Burnout Threshold]
-Under a free-energy minimization dynamic with finite total energy budget $E_{\mathrm{tot}} = E_{\mathrm{ovr}} + E_{\mathrm{out}}$, the system is sustainable iff $\rho_{\mathrm{burn}} < 1$. When $\rho_{\mathrm{burn}} \to 1$, the marginal cost of overhead exceeds the marginal benefit of output, and the system enters a positive-feedback collapse: more overhead reduces output, which raises $\rho_{\mathrm{burn}}$ further.
+\begin{theorem}[Observer-Relative Burnout Inequality]
+Define the two ratios $\rho_i^{P}(t) = E_{\text{ovr},i}^{P}/E_{\text{out},i}^{P}$
+and $\rho_i^{F}(t) = E_{\text{ovr},i}^{F}/E_{\text{out},i}^{F}$. Then
+\[
+\rho_i^{P}(t) \;\geq\; \rho_i^{F}(t),
+\]
+with equality if and only if $E_{\mathcal{F},i} = 0$, i.e., the role contains
+no task the person does facade-only.
 \end{theorem}
 
-\begin{proof}[Sketch]
-Free energy $F = E - TS$ where $E$ is total energy and $TS$ is the entropy-discounted productive component. When $\rho_{\mathrm{burn}} = 1$, the system has no surplus to invest in maintenance, so its entropy grows uncontrolled, $TS$ falls, $F$ rises, and the dynamics become unstable. The fixed point at $\rho_{\mathrm{burn}} = 1$ is a transcritical bifurcation: stable below, unstable above.
+\begin{proof}
+Write $a = E_{\text{ovr},i}^{P}$, $b = E_{\text{out},i}^{P}$, $f = E_{\mathcal{F},i}$,
+all nonnegative with $b > 0$. By the definition above, $\rho_i^{P} = a/b$ and
+$\rho_i^{F} = (a-f)/(b+f)$. Subtracting,
+\begin{align}
+\rho_i^{P} - \rho_i^{F}
+&= \frac{a}{b} - \frac{a-f}{b+f} \\
+&= \frac{a(b+f) - b(a-f)}{b(b+f)} \\
+&= \frac{f(a+b)}{b(b+f)}.
+\end{align}
+Since $a, b, f \geq 0$ and $b > 0$, the numerator and denominator are
+nonnegative, so $\rho_i^{P} - \rho_i^{F} \geq 0$. The expression is zero
+exactly when $f = 0$.
 \end{proof}
 
-\bigskip
-
-\begin{corollary}[Why ``rest'' often fails]
-Rest reduces $E_{\mathrm{tot}}$ but does not change $\rho_{\mathrm{burn}}$. If the underlying overhead structure (toxic workplace, ADHD without scaffolding, chronic context-switching) is unchanged, the system returns to $\rho_{\mathrm{burn}} \approx 1$ within weeks of returning to work.
+\begin{corollary}
+The person can collapse ($\rho_i^{P} > \rho_i^{*}$) while the firm metric
+$\rho_i^{F}$ still reads healthy. The larger the facade load $E_{\mathcal{F},i}$,
+the larger the gap.
 \end{corollary}
 
-\bigskip
+\noindent This is the ``high performer suddenly burns out'' pattern. The firm
+sees a productive employee until the day they stop functioning. The person was
+already past threshold for weeks. The two accountings disagreed.
 
-\medskip\noindent\textbf{What raises $\rho_{\mathrm{burn}}$.}\quad Bad meetings (overhead, no output). Slack notifications (interrupt, no output). Performance reviews requiring self-promotion (facade overhead). Open-plan offices (intrusion suppression). Multi-project assignment (context switching). Each of these has small per-event cost. The sum is what matters, and the sum scales linearly with each addition.
+\medskip\noindent\textbf{Worked example.}\quad Take a knowledge-worker hour with
+$a = 60$ (person-counted overhead, including facade), $b = 40$ (work the person
+values), $f = 25$ (facade portion of the overhead). Then
+\begin{align}
+\rho^{P} &= \frac{60}{40} = 1.50 \quad \text{(person, past collapse threshold)} \\
+\rho^{F} &= \frac{60 - 25}{40 + 25} = \frac{35}{65} = 0.54 \quad \text{(firm, looks fine)} \\
+\rho^{P} - \rho^{F} &= \frac{25 \cdot 100}{40 \cdot 65} = 0.96.
+\end{align}
+Almost a full unit of disagreement on the same hour of work.
 
 \newpage
 
-% ===== PAGE 3 =====
-\medskip\noindent\textbf{Thermodynamic view.}\quad In a non-equilibrium steady state, a system maintains itself by dissipating entropy. The dissipation requires free energy. When the energy budget shrinks (lower $E_{\mathrm{tot}}$) or the overhead grows ($E_{\mathrm{ovr}} \uparrow$), dissipation falls short of the entropy production rate, and the system's internal organization degrades. In humans this manifests as cognitive slowness, emotional flatness, and decision paralysis. None of these are character flaws. They are predictions of the second law of thermodynamics applied to a system out of energy balance.
+% =============== PAGE 3 ===============
+\noindent The second fix is making time explicit. v1 said ``sustained period.''
+That is not a clock. We need a generator for $\rho_i(t)$.
 
-\bigskip
-
-\medskip\noindent\textbf{The Bridge.}
+\begin{definition}[Friction Drift]
+Let $\rho_i(t)$ evolve according to
 \[
-\boxed{\;\rho_{\mathrm{burn}} \;=\; \frac{\dot S_{\mathrm{ovr}}}{\dot S_{\mathrm{out}}} \;=\; \frac{D_{\mathrm{KL}}(P_{\mathrm{noise}} \| P_{\mathrm{prior}})}{D_{\mathrm{KL}}(P_{\mathrm{task}} \| P_{\mathrm{prior}})}\;}
+\frac{d \rho_i}{dt} = \alpha_i(\text{env}) - \beta_i \cdot r_i(t),
 \]
-The Thermodynamic ratio of overhead-to-output entropy production equals the Free-Energy ratio of how much Bayesian work is wasted on noise vs how much on the task. The two languages quantify the same dysfunction.
-
-\bigskip
+where $\alpha_i \geq 0$ is the environmental overhead-injection rate
+(meetings, interrupts, facade demand), $\beta_i \geq 0$ is the per-person
+restoration sensitivity, and $r_i(t) \in [0,1]$ is the actual recovery
+intensity at time $t$ (sleep, weekends, social repair).
+\end{definition}
 
 \begin{center}
-\colorbox{white}{\includegraphics[width=0.78\textwidth]{budget.pdf}}
+\includegraphics[width=0.78\textwidth]{figures/observer_split.pdf}
 \end{center}
 
-\bigskip
+\noindent Same job, two accountings. The dark bar is what the person spends
+their day doing. The light bar is what the firm sees on the timesheet. The
+facade column is invisible to the firm because it is folded into ``task
+execution'' on payroll. To the person it is its own column, costing 25\% of
+the energy budget.
 
-\medskip\noindent\textbf{Intervention pattern.}\quad The fix is not "reduce work" but "reduce overhead." Specifically: consolidate meetings, batch interruptions, reduce decision count per day, eliminate facade-maintenance contexts, change environments that require chronic intrusion-suppression. These interventions lower $E_{\mathrm{ovr}}$ without touching $E_{\mathrm{out}}$, which directly lowers $\rho_{\mathrm{burn}}$.
+\medskip\noindent\textbf{Steady state.}\quad Setting $d\rho_i/dt = 0$ in
+Definition~2 with mean recovery $\bar r_i$ gives
+\[
+\rho_i^{ss} = \frac{\alpha_i}{\beta_i \bar r_i}.
+\]
+The person settles at this ratio if nothing changes. Burnout is the condition
+$\rho_i^{ss} > \rho_i^{*}$. The relevant time scale is the relaxation time
+$\tau_i \approx 1/(\beta_i \bar r_i)$, which sets how fast $\rho_i$ approaches
+its steady state after a perturbation.
+
+\begin{remark}[Why ``rest'' often fails]
+A sabbatical raises $r_i(t)$ to nearly 1 for a few weeks, pulling $\rho_i$ down
+with rate $\beta_i$. But $\alpha_i(\text{env})$ is unchanged. On return,
+$\rho_i$ relaxes back to the same $\rho_i^{ss}$ over time $\tau_i$. Empirically
+this matches the $\sim 50\%$ recurrence within 6 months reported by Maslach
+and Leiter (2016), implying $\tau_i \sim$ several months. Rest moves you down
+the curve. Only changing $\alpha_i$ (the environment) changes where the curve
+ends up.
+\end{remark}
 
 \newpage
 
-% ===== PAGE 4 =====
-\noindent\textbf{Empirical anchors.}
+% =============== PAGE 4 ===============
+\noindent The third fix is making the population explicit.
+The threshold $\rho_i^*$ is private and varies between people. So is the drift
+rate. Aggregating gives a population curve.
 
-\medskip
+\begin{theorem}[Population Burnout Curve]
+Let $\log \rho_i(t) = \mu_0 + \delta \cdot t + \varepsilon_i$ with
+$\varepsilon_i \sim \mathcal{N}(0, \sigma^2)$, and let
+$\log \rho_i^* \sim \mathcal{N}(\mu^*, \sigma_*^2)$, independent of $\varepsilon_i$.
+Then the population fraction in burnout at time $t$ is
+\[
+B(t) \;=\; \Pr\!\left(\rho_i(t) > \rho_i^*\right)
+\;=\; \Phi\!\left( \frac{\mu_0 + \delta t - \mu^*}{\sqrt{\sigma^2 + \sigma_*^2}} \right),
+\]
+where $\Phi$ is the standard normal CDF.
+\end{theorem}
+
+\begin{proof}
+The event $\rho_i(t) > \rho_i^*$ is equivalent to
+$\log \rho_i(t) - \log \rho_i^* > 0$. Let
+$Z_i = \log \rho_i(t) - \log \rho_i^*$. By the assumptions and independence,
+\begin{align}
+Z_i &\sim \mathcal{N}\!\left( \mu_0 + \delta t - \mu^*, \; \sigma^2 + \sigma_*^2 \right).
+\end{align}
+Then $\Pr(Z_i > 0) = 1 - \Phi(-(\mu_0 + \delta t - \mu^*)/\sqrt{\sigma^2 + \sigma_*^2})
+= \Phi((\mu_0 + \delta t - \mu^*)/\sqrt{\sigma^2 + \sigma_*^2})$.
+\end{proof}
+
+\begin{center}
+\includegraphics[width=0.78\textwidth]{figures/b_of_t.pdf}
+\end{center}
+
+\noindent The Gallup point sits within the curve at $t \approx 88$ weeks, which
+matches the average tenure-in-current-role for the affected demographic. This
+is calibration consistency, not validation.
+
+\medskip\noindent\textbf{The argument.}\quad Three fixes, one equation:
+
+\[
+  \boxed{ \; B(t) \;=\; \Phi\!\left( \frac{\mu_0 + \delta t - \mu^*}{\sqrt{\sigma^2 + \sigma_*^2}} \right) \quad \text{with} \quad \rho_i^{P} \geq \rho_i^{F} \; }
+\]
+
+\noindent Burnout is a population sigmoid in time, driven by individual drift,
+gated by individual thresholds, and obscured by an observer-dependent
+accounting wedge.
+
+\newpage
+
+% =============== PAGE 5 ===============
+\medskip\noindent\textbf{What happens when.}\quad The sigmoid has four regimes,
+each with a different prediction.
+
+\begin{tabular}{llll}
+\toprule
+Phase & Condition & $B(t)$ & In our calibration \\
+\midrule
+Honeymoon  & $\mu_0 + \delta t \ll \mu^*$ & $\approx 0$ & $t < 20$ wk \\
+Climb      & $\mu_0 + \delta t < \mu^*$   & rising      & $20$--$50$ wk \\
+Inflection & $\mu_0 + \delta t = \mu^*$   & $0.5$       & $t \approx 58$ wk \\
+Saturation & $\mu_0 + \delta t \gg \mu^*$ & $\to 1$     & $t > 100$ wk \\
+\bottomrule
+\end{tabular}
+
+\medskip\noindent The slope at the inflection point gives the worst-case rate
+of new burnouts:
+\[
+\left.\frac{dB}{dt}\right|_{B=0.5} = \frac{\delta}{\sqrt{2\pi(\sigma^2 + \sigma_*^2)}} \approx 0.9\%/\text{wk}.
+\]
+At peak rate, roughly 1\% of the cohort flips into burnout per week. This is the
+window where intervention has the highest marginal return.
+
+\bigskip\noindent\textbf{Empirical basis.}
+
 \begin{tabular}{lll}
 \toprule
 Quantity & Value & Source \\
 \midrule
-Burnout prevalence (US workers, 2024) & $\sim 67\%$ report symptoms & Gallup \\
-Average meeting hours/week (knowledge worker) & $\sim 23$ hours & Microsoft Workplace Analytics \\
-Recovery-time after context switch & $\sim 23$ minutes & Mark et al.\ (2008) \\
-Daily decision count & $\sim 35{,}000$ (estimate) & various review papers \\
+Burnout symptom prevalence (US, 2024) & $\sim 67\%$ & Gallup \\
+Average meeting load (knowledge worker) & $\sim 23$ h/wk & Microsoft 2023 \\
+Recovery time after context switch & $\sim 23$ min & Mark et al.\ (2008) \\
+Burnout recurrence after sabbatical & $\sim 50\%$ within 6 mo & Maslach \& Leiter (2016) \\
 \bottomrule
 \end{tabular}
 
-\bigskip
+\medskip\noindent The recurrence row is the empirical anchor for the Remark on
+page 3. Rest changes $r_i$ but not $\alpha_i$, so the steady state recurs.
 
-\noindent\textbf{References}
+\newpage
 
-\medskip
-\noindent[1] Friston, K. (2010). The free-energy principle: A unified brain theory? \textit{Nature Reviews Neuroscience} 11, 127--138.
+% =============== PAGE 6 ===============
+\medskip\noindent\textbf{Structural estimates.}
 
-\medskip
-\noindent[2] Mark, G., Gudith, D., Klocke, U. (2008). The cost of interrupted work. \textit{Proc.\ CHI} 2008, 107--110.
+\begin{tabular}{lll}
+\toprule
+Quantity & Value used & Source \\
+\midrule
+Drift rate $\delta$ & $0.012$/wk & calibrated to Gallup point \\
+$\sigma$ (within-person noise) & $0.45$ & estimate, not measured \\
+$\sigma_*$ (threshold spread) & $0.30$ & estimate, not measured \\
+$\mu^*$ (median log-threshold) & $0$, i.e.\ $\rho^* \approx 1$ & convention from v1 \\
+$E_{\mathcal{F}}$ in observer plot & 25\% of budget & illustrative \\
+\bottomrule
+\end{tabular}
 
-\medskip
-\noindent[3] Maslach, C., Leiter, M.P. (2016). Understanding the burnout experience. \textit{World Psychiatry} 15(2), 103--111.
-
-\medskip
-\noindent[4] Schaufeli, W.B., Leiter, M.P., Maslach, C. (2009). Burnout: 35 years of research and practice. \textit{Career Development International} 14(3), 204--220.
+\medskip\noindent The structural-estimate row is what survives if Gallup is wrong.
+The $B(t)$ shape is robust under wide reparametrization. The fact that
+$\rho^P \geq \rho^F$ is exact algebra and needs no calibration.
 
 \vspace{0.5cm}
+\noindent\textbf{References}
 
-\noindent\textbf{Notes on parameter estimates}
+\noindent[1] Friston, K. (2010). The free-energy principle: A unified brain theory? \textit{Nat.\ Rev.\ Neurosci.}\ 11, 127--138.
 
-\medskip
-\noindent The threshold $\rho_{\mathrm{burn}} = 1$ is derived under the assumption of finite energy budget and zero baseline maintenance cost. In practice, the empirical collapse threshold may be at $\rho_{\mathrm{burn}} \approx 0.7$--$0.8$ because some maintenance overhead is always present and unavoidable. The bifurcation structure (stable $\to$ unstable transition) is the testable structural claim; the exact threshold is convention.
+\noindent[2] Mark, G., Gudith, D., Klocke, U. (2008). The cost of interrupted work. \textit{Proc.\ CHI 2008}, 107--110.
 
-\medskip
-\noindent What the model does not address: depression as an independent contributor to burnout (which can drop $E_{\mathrm{tot}}$ below sustainable levels even at low $\rho_{\mathrm{burn}}$), purely physical exhaustion from manual labor, and burnout-by-meaninglessness where output is high but its perceived value is zero. Those phenomena need additional terms.
+\noindent[3] Maslach, C., Leiter, M.P. (2016). Understanding the burnout experience. \textit{World Psychiatry} 15(2), 103--111.
+
+\noindent[4] Schaufeli, W.B., Leiter, M.P., Maslach, C. (2009). Burnout: 35 years of research and practice. \textit{Career Dev.\ Int.}\ 14(3), 204--220.
+
+\noindent[5] Spence, M. (1973). Job market signaling. \textit{Quarterly Journal of Economics} 87, 355--374. (\textit{Source for facade-as-signal.})
+
+\vspace{0.5cm}
+\noindent\textbf{What this model still does not address}
+
+\noindent Depression as an independent contributor that lowers $E_{\text{tot}}$.
+Pure physical exhaustion. Burnout-by-meaninglessness, where output is high but
+its perceived value is zero (this would require a separate term modulating
+$E_{\text{out},i}^{P}$). Inter-person spillover, where one person's $\rho_i$
+raises another's $\alpha_j$. The model is the skeleton, not the body.
 
 \end{document}

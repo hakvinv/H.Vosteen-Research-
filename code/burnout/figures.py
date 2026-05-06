@@ -1,71 +1,113 @@
 """
-Figures for B1 — Burnout Is Not Too Much Work
-Generates: hook_fig.pdf, budget.pdf
+Figures for Burnout v2 — Three Fixes (after @dz comment)
+1. hook_population.pdf  — distribution of rho_i shifts right over time, crossing threshold
+2. observer_split.pdf   — same job, two ratios (person vs employer)
+3. b_of_t.pdf           — population fraction in burnout B(t), sigmoid
 """
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import lognorm
 
-plt.rcParams['font.family'] = 'serif'
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "cm"
+plt.rcParams["axes.spines.top"] = False
+plt.rcParams["axes.spines.right"] = False
 
-# === Figure 1: rho_burn evolution over time ===
-fig, ax = plt.subplots(figsize=(5.5, 3.2))
+# ---------------------------------------------------------------
+# 1. Hook figure — population distribution shifting right over time
+# ---------------------------------------------------------------
+fig, ax = plt.subplots(figsize=(5.5, 2.8))
+x = np.linspace(0.01, 2.5, 400)
 
-t = np.linspace(0, 100, 500)
-output = 1 - 0.003 * t
-overhead = 0.3 + 0.012 * t
+# Three time snapshots: t=10, t=40, t=80 weeks
+# Lognormal with shifting mean
+for mu, label, alpha in [(-0.6, "t = 10 wk", 0.35),
+                          (-0.1, "t = 40 wk", 0.55),
+                          ( 0.3, "t = 80 wk", 0.85)]:
+    pdf = lognorm.pdf(x, s=0.45, scale=np.exp(mu))
+    ax.plot(x, pdf, color="black", linewidth=1.4, alpha=alpha, label=label)
+    ax.fill_between(x, 0, pdf, where=(x > 1.0), color="black", alpha=alpha*0.25)
 
-rho = overhead / np.maximum(output, 0.01)
+ax.axvline(1.0, color="black", linestyle=":", linewidth=1.0)
+ax.text(1.02, 1.55, r"threshold $\rho^*$", fontsize=8, va="top")
 
-ax.plot(t, rho, color='black', lw=2.0, label=r'$\rho_{\mathrm{burn}}$')
-ax.axhline(1, color='firebrick', ls=':', lw=1.0, alpha=0.7)
-ax.text(2, 1.06, r'collapse threshold $\rho = 1$', color='firebrick', fontsize=9)
-
-collapse_idx = np.argmin(np.abs(rho - 1))
-collapse_t = t[collapse_idx]
-ax.scatter([collapse_t], [1], s=80, color='firebrick', zorder=5)
-ax.annotate('burnout onset', xy=(collapse_t, 1), xytext=(collapse_t+8, 0.55),
-            fontsize=9, color='firebrick',
-            arrowprops=dict(arrowstyle='->', lw=0.7, color='firebrick'))
-
-ax.fill_between(t, 0, rho, where=(rho<1), alpha=0.15, color='steelblue', label='sustainable')
-ax.fill_between(t, 0, rho, where=(rho>=1), alpha=0.15, color='firebrick', label='unsustainable')
-
-ax.set_xlabel('weeks of sustained work', fontsize=10)
-ax.set_ylabel(r'$\rho_{\mathrm{burn}}$ (overhead / output)', fontsize=10)
-ax.set_xlim(0, 100)
-ax.set_ylim(0, 2)
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
-ax.legend(loc='upper left', frameon=False, fontsize=8)
-ax.grid(alpha=0.3)
-
-fig.savefig('hook_fig.pdf', bbox_inches='tight', pad_inches=0.05)
+ax.set_xlabel(r"$\rho_i = E_{\mathrm{ovr}}/E_{\mathrm{out}}$ (per person)", fontsize=9)
+ax.set_ylabel("density", fontsize=9)
+ax.set_xlim(0, 2.5)
+ax.set_ylim(0, 1.7)
+ax.legend(frameon=False, fontsize=8, loc="upper right")
+ax.tick_params(labelsize=8)
+plt.tight_layout()
+fig.savefig("/home/claude/burnout_v2/figures/hook_population.pdf", bbox_inches="tight")
+fig.savefig("/home/claude/burnout_v2/figures/hook_population.png", bbox_inches="tight", dpi=220)
 plt.close()
 
-# === Figure 2: energy budget decomposition ===
-fig2, ax2 = plt.subplots(figsize=(6, 3.4))
-
-categories = ['Task\nexecution', 'Context\nswitching', 'Decision\nfatigue', 'Suppressing\nintrusions', 'Maintaining\nfacade']
-healthy = [60, 12, 8, 12, 8]
-burnout = [25, 22, 18, 17, 18]
+# ---------------------------------------------------------------
+# 2. Observer split — same job, two ratios
+# ---------------------------------------------------------------
+fig, ax = plt.subplots(figsize=(6.2, 3.4))
+categories = ["Task\nexecution", "Context\nswitching", "Decision\nfatigue",
+              "Suppressing\nintrusions", "Maintaining\nfacade"]
+person_view  = [25, 18, 14, 18, 25]   # person counts facade as overhead
+firm_view    = [50, 18, 14, 18,  0]   # firm counts facade as output (folded into task)
+# Note: person view sums to 100 with facade in overhead, firm view sums to 100 with facade as output
 
 x = np.arange(len(categories))
-width = 0.35
+w = 0.36
 
-ax2.bar(x - width/2, healthy, width, color='steelblue', edgecolor='black', linewidth=0.5, label='sustainable')
-ax2.bar(x + width/2, burnout, width, color='firebrick', edgecolor='black', linewidth=0.5, label='approaching burnout')
+ax.bar(x - w/2, person_view, w, color="#3a3a3a", label="Person's accounting")
+ax.bar(x + w/2, firm_view,   w, color="#bdbdbd", edgecolor="black", linewidth=0.6,
+       label="Firm's accounting")
 
-ax2.set_xticks(x)
-ax2.set_xticklabels(categories, fontsize=9)
-ax2.set_ylabel('% of total energy budget', fontsize=10)
-ax2.set_ylim(0, 70)
-ax2.spines['top'].set_visible(False)
-ax2.spines['right'].set_visible(False)
-ax2.legend(loc='upper right', frameon=False, fontsize=9)
-ax2.grid(alpha=0.3, axis='y')
-
-fig2.savefig('budget.pdf', bbox_inches='tight')
+ax.set_xticks(x)
+ax.set_xticklabels(categories, fontsize=8)
+ax.set_ylabel("% of total energy budget", fontsize=9)
+ax.legend(frameon=False, fontsize=8, loc="upper right")
+ax.tick_params(labelsize=8)
+ax.set_ylim(0, 65)
+plt.tight_layout()
+fig.savefig("/home/claude/burnout_v2/figures/observer_split.pdf", bbox_inches="tight")
+fig.savefig("/home/claude/burnout_v2/figures/observer_split.png", bbox_inches="tight", dpi=220)
 plt.close()
-print("done")
+
+# ---------------------------------------------------------------
+# 3. B(t) — sigmoid population fraction in burnout
+# ---------------------------------------------------------------
+fig, ax = plt.subplots(figsize=(6.2, 3.4))
+t = np.linspace(0, 100, 300)
+
+# Compute B(t) = P(rho_i(t) > rho_i^*) under heterogeneous threshold
+# Model: log rho_i(t) = mu0 + drift*t + eps, eps~N(0,sig)
+#        log rho_i^*  = mu_star + eta,    eta~N(0,sig_star)
+# B(t) = Phi( (mu0 + drift*t - mu_star) / sqrt(sig^2 + sig_star^2) )
+from scipy.stats import norm
+mu0, drift, mu_star = -0.7, 0.012, 0.0
+sig, sig_star = 0.45, 0.30
+
+B = norm.cdf((mu0 + drift*t - mu_star) / np.sqrt(sig**2 + sig_star**2))
+
+ax.plot(t, B, color="black", linewidth=1.6)
+ax.fill_between(t, 0, B, color="black", alpha=0.10)
+ax.axhline(0.5, color="black", linestyle=":", linewidth=0.8)
+ax.text(2, 0.52, r"$B = 0.5$", fontsize=8)
+
+# annotate Gallup empirical point
+ax.scatter([88], [0.67], color="black", s=28, zorder=5)
+ax.annotate("Gallup 2024\n67% report\nsymptoms",
+            xy=(88, 0.67), xytext=(55, 0.83),
+            arrowprops=dict(arrowstyle="-", linewidth=0.6, color="black"),
+            fontsize=8)
+
+ax.set_xlabel(r"weeks of sustained role $t$", fontsize=9)
+ax.set_ylabel(r"$B(t)$  population fraction in burnout", fontsize=9)
+ax.set_xlim(0, 100)
+ax.set_ylim(0, 1)
+ax.tick_params(labelsize=8)
+plt.tight_layout()
+fig.savefig("/home/claude/burnout_v2/figures/b_of_t.pdf", bbox_inches="tight")
+fig.savefig("/home/claude/burnout_v2/figures/b_of_t.png", bbox_inches="tight", dpi=220)
+plt.close()
+
+print("All figures written to /home/claude/burnout_v2/figures/")

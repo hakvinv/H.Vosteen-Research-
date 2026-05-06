@@ -87,12 +87,12 @@
     "slug": "burnout",
     "title": "Burnout Is Not Too Much Work",
     "authors": ["Hakvin Vosteen"],
-    "date": "2026-04-24",
-    "version": "1.0",
+    "date": "2026-05-06",
+    "version": "2.0",
     "type": "essay",
-    "abstract": "The standard explanation of burnout is that you have done too much work. This paper recasts burnout as an overhead-to-output energy ratio ρ_burn = E_overhead / E_output, with a collapse at ρ_burn → 1. Under finite-budget free-energy dynamics the fixed point at ρ_burn = 1 is a transcritical bifurcation, stable below and unstable above. The model explains why rest often fails (it lowers E_total but not the ratio) and why the effective intervention is to reduce overhead (meetings, interruptions, facade maintenance, decision count) rather than workload. Thermodynamic and Bayesian formulations are shown to be equivalent via D_KL of task vs. noise against prior.",
-    "tags": ["thermodynamics", "free-energy-principle", "psychology", "burnout"],
-    "file": "papers/2026-04-24-burnout.pdf",
+    "abstract": "v2 fixes three holes in v1: (i) the collapse threshold ρ* is individual, not universal — we replace ρ_burn = 1 with a population threshold distribution; (ii) 'sustained period' becomes a hazard rate B(t) with explicit timescales; (iii) the overhead/output split is observer-dependent because facade maintenance counts as productive output for the firm and as overhead for the person doing it. Under realistic parameters, a person at ρ^P = 1.50 (collapse-imminent in personal accounting) registers as ρ^F = 0.54 on the firm's dashboard — same hour of work, two valid bookkeepings, almost a full unit apart. The observer-relative split explains why firm-level metrics systematically underestimate burnout and why individual interventions outperform organizational ones in expectation.",
+    "tags": ["thermodynamics", "free-energy-principle", "observer-effects", "psychology", "burnout"],
+    "file": "papers/2026-05-06-burnout-v2.pdf",
     "bibkey": "vosteen2026burnout",
     "links": [
       {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
