@@ -1,5 +1,29 @@
 [
   {
+    "slug": "unsolved-mathematics-tier-list",
+    "title": "Unsolved Mathematics Tier List",
+    "description": "Open problems ranked by theoretical depth, cross-domain power & breakthrough potential. S-tier the goated four (Riemann, P vs NP, Navier–Stokes, Yang–Mills + Mass Gap), down to D-tier (Large Cardinals, Ult(L), higher topos, other exotic problems).",
+    "date": "2026-05-06",
+    "tags": ["mathematics", "open-problems", "tier-list"],
+    "image": "goodies/unsolved-mathematics-tier-list.png"
+  },
+  {
+    "slug": "mathematics-tier-list",
+    "title": "Mathematics Tier List",
+    "description": "Branches of math ranked by usefulness, power & real-world impact. S-tier the workhorses (Optimization, Linear Algebra, Probability & Statistics, Stochastic Processes, Game Theory) down to D-tier (Advanced Set Theory, Model Theory, Higher Category Theory, Large Cardinals).",
+    "date": "2026-05-06",
+    "tags": ["mathematics", "tier-list"],
+    "image": "goodies/mathematics-tier-list.png"
+  },
+  {
+    "slug": "chemistry-tier-list",
+    "title": "Chemistry Tier List",
+    "description": "Subfields of chemistry ranked by usefulness, leverage & industrial impact. S-tier (Thermodynamics, Kinetics & Reaction Engineering, Organic Applied, Electrochemistry, Process & Chemical Engineering Basics) down to D-tier (Pure Theoretical, Exotic Orbital Models, Over-Specified Synthesis, Paper Chemistry).",
+    "date": "2026-05-06",
+    "tags": ["chemistry", "tier-list"],
+    "image": "goodies/chemistry-tier-list.png"
+  },
+  {
     "slug": "neurotransmitter-tier-list",
     "title": "Neurotransmitter Tier List",
     "description": "Ranked by importance, versatility, effect & how good they make you feel. From S (the goated: Dopamine, Serotonin, Acetylcholine, Glutamate, GABA) down to D (the overhyped). Simplified for educational and entertainment purposes — not medical advice.",
