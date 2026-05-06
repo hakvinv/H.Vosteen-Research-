@@ -94,6 +94,10 @@
     "tags": ["thermodynamics", "free-energy-principle", "observer-effects", "psychology", "burnout"],
     "file": "papers/2026-05-06-burnout-v2.pdf",
     "bibkey": "vosteen2026burnout",
+    "versions": [
+      {"version": "2.0", "date": "2026-05-06", "file": "papers/2026-05-06-burnout-v2.pdf", "note": "Individual threshold, hazard rate, observer-relative split"},
+      {"version": "1.0", "date": "2026-04-24", "file": "papers/2026-04-24-burnout.pdf", "note": "First model: ρ_burn = E_overhead / E_output, transcritical bifurcation at ρ = 1"}
+    ],
     "links": [
       {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
     ]

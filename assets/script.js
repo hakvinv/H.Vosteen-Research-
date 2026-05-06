@@ -89,6 +89,36 @@
         tagsEl.appendChild(li);
       });
 
+      const versions = Array.isArray(paper.versions) ? paper.versions : [];
+      const older = versions.filter((v, i) => i > 0);
+      const versionsEl = node.querySelector(".paper-versions");
+      if (versionsEl && older.length) {
+        versionsEl.hidden = false;
+        node.querySelector(".paper-versions-summary").textContent =
+          older.length === 1
+            ? "Earlier version"
+            : `${older.length} earlier versions`;
+        const ul = node.querySelector(".paper-versions-list");
+        for (const v of older) {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = v.file || "";
+          a.textContent = `v${v.version} · ${formatDate(v.date)}`;
+          a.target = "_blank";
+          a.rel = "noopener";
+          li.appendChild(a);
+          if (v.note) {
+            const span = document.createElement("span");
+            span.className = "paper-version-note";
+            span.textContent = ` — ${v.note}`;
+            li.appendChild(span);
+          }
+          ul.appendChild(li);
+        }
+      } else if (versionsEl) {
+        versionsEl.remove();
+      }
+
       const dl = node.querySelector(".paper-download");
       const view = node.querySelector(".paper-view");
       if (paper.file) {

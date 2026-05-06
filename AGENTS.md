@@ -87,9 +87,17 @@ already exists).
    the filename minus any leading date prefix.
 2. **Derive a filename**: `papers/<YYYY-MM-DD>-<slug>.pdf`. The date is the
    YAML `date` field, falling back to today's date in UTC.
-3. **Move** the PDF to that path. Don't copy — move. If a file with the
-   same name already exists, bump the version field (see below) and suffix
-   the filename `-v2`, `-v3`, etc.
+3. **Move** the PDF to that path. Don't copy — move. If a paper with
+   the same slug already exists in `data/papers.json` (revision, not a
+   new piece), this is a **version bump**, not a new card:
+   - New filename: `papers/<YYYY-MM-DD>-<slug>-v2.pdf` (`-v3`, …).
+   - Update the existing JSON entry in place: bump `version`, replace
+     `date` and `file`, refresh the abstract.
+   - Append the **previous** version to a `versions` array on the same
+     entry (newest first), with `version`, `date`, `file`, and a
+     short one-line `note` describing the change. The site renders
+     this as an "Earlier version" disclosure under the abstract.
+   - Keep the old PDF on disk — don't delete it.
 4. **Archive** an accompanying `.tex` (if present) as `sources/<slug>.tex`.
 5. **Append** a JSON object to `data/papers.json` (at the **top** of the
    array, so newest comes first). Use this shape:

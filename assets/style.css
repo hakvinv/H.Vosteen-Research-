@@ -264,6 +264,36 @@ section { margin-bottom: 3rem; }
   text-decoration: none;
 }
 
+.paper-versions {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+}
+.paper-versions-summary {
+  cursor: pointer;
+  color: var(--text-dim);
+  list-style: none;
+}
+.paper-versions-summary::-webkit-details-marker { display: none; }
+.paper-versions-summary::before {
+  content: "▸ ";
+  display: inline-block;
+  transition: transform 0.15s;
+}
+.paper-versions[open] .paper-versions-summary::before {
+  transform: rotate(90deg);
+}
+.paper-versions-summary:hover { color: var(--text); }
+.paper-versions-list {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.paper-versions-list a { color: var(--accent); }
+.paper-version-note { color: var(--text-dim); }
+
 .paper-bibtex {
   background: var(--bg-elev-2);
   border: 1px solid var(--border);

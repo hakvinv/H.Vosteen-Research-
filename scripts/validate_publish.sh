@@ -40,6 +40,9 @@ for i, p in enumerate(papers):
     slugs.add(p["slug"])
     if not os.path.isfile(p["file"]):
         sys.exit(f"paper[{p['slug']}] file not found: {p['file']}")
+    for j, v in enumerate(p.get("versions", []) or []):
+        if "file" in v and not os.path.isfile(v["file"]):
+            sys.exit(f"paper[{p['slug']}] versions[{j}] file not found: {v['file']}")
     if "type" in p and p["type"] not in ("paper", "essay"):
         sys.exit(f"paper[{p['slug']}] invalid type: {p['type']!r} (expected 'paper' or 'essay')")
     for link in p.get("links", []):
