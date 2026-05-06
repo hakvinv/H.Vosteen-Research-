@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive playground for the Burnout v2 paper by H. Vosteen — three sliders, three plots, one model." />
+  <title>Burnout — Interactive | H. Vosteen Research</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <nav class="hero-nav">
+        <a href="./">&larr; H. Vosteen Research</a>
+      </nav>
+      <h1>Burnout &mdash; <span class="accent">Interactive</span></h1>
+      <p class="tagline">Move the sliders. Watch the equations breathe.</p>
+      <p class="hero-about">
+        Three panels, one paper. The first is the observer-relative
+        accounting wedge. The second is the friction-drift dynamic and
+        its steady state. The third is the population sigmoid B(t). Each
+        is the live form of a figure from <em>Burnout Is Not Too Much
+        Work</em>. Math is in the panel headings, controls are the
+        parameters, the plot is the answer.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="play-panel">
+      <h2>1. Observer-relative split</h2>
+      <p class="panel-eq">ρᴾ = a / b &nbsp;&nbsp; ρᶠ = (a − f) / (b + f) &nbsp;&nbsp; gap = f(a+b) / (b(b+f))</p>
+      <p class="panel-desc">
+        Same hour of work, two valid bookkeepings. <em>a</em> is overhead
+        the person counts, <em>b</em> is real output the person values,
+        <em>f</em> is the facade portion of <em>a</em> the firm folds
+        into output. The wedge is the gap between the two ratios.
+      </p>
+      <div class="play-grid">
+        <div class="play-controls">
+          <label>a — person-counted overhead
+            <input type="range" id="obs-a" min="10" max="100" step="1" value="60" />
+            <output id="obs-a-val">60</output>
+          </label>
+          <label>b — real output, person-valued
+            <input type="range" id="obs-b" min="10" max="100" step="1" value="40" />
+            <output id="obs-b-val">40</output>
+          </label>
+          <label>f — facade portion (capped at a)
+            <input type="range" id="obs-f" min="0" max="100" step="1" value="25" />
+            <output id="obs-f-val">25</output>
+          </label>
+          <div class="readouts">
+            <div><span class="rk">ρᴾ</span><span id="obs-rhoP" class="rv">1.50</span></div>
+            <div><span class="rk">ρᶠ</span><span id="obs-rhoF" class="rv">0.54</span></div>
+            <div><span class="rk">gap</span><span id="obs-gap" class="rv">0.96</span></div>
+          </div>
+          <p id="obs-status" class="panel-status">…</p>
+        </div>
+        <canvas id="obs-canvas" width="540" height="320"></canvas>
+      </div>
+    </section>
+
+    <section class="play-panel">
+      <h2>2. Drift dynamic</h2>
+      <p class="panel-eq">dρ/dt = α − β·r·ρ &nbsp;⇒&nbsp; ρ_ss = α / (β·r), &nbsp; τ = 1 / (β·r)</p>
+      <p class="panel-desc">
+        Friction drifts under environmental injection α, drained by
+        recovery intensity r scaled by per-person sensitivity β. The
+        trajectory relaxes to ρ_ss with timescale τ. Burnout is
+        ρ_ss &gt; ρ*. Try lowering r without changing α to see why
+        a sabbatical alone does not fix burnout.
+      </p>
+      <div class="play-grid">
+        <div class="play-controls">
+          <label>α — overhead injection rate
+            <input type="range" id="tr-alpha" min="0" max="0.30" step="0.005" value="0.12" />
+            <output id="tr-alpha-val">0.12</output>
+          </label>
+          <label>β — restoration sensitivity
+            <input type="range" id="tr-beta" min="0" max="0.50" step="0.005" value="0.10" />
+            <output id="tr-beta-val">0.10</output>
+          </label>
+          <label>r — recovery intensity (0–1)
+            <input type="range" id="tr-r" min="0" max="1" step="0.01" value="0.80" />
+            <output id="tr-r-val">0.80</output>
+          </label>
+          <label>ρ₀ — initial ratio
+            <input type="range" id="tr-r0" min="0" max="3" step="0.05" value="0.40" />
+            <output id="tr-r0-val">0.40</output>
+          </label>
+          <label>ρ* — collapse threshold
+            <input type="range" id="tr-rstar" min="0.5" max="2" step="0.05" value="1.00" />
+            <output id="tr-rstar-val">1.00</output>
+          </label>
+          <div class="readouts">
+            <div><span class="rk">ρ_ss</span><span id="tr-ss" class="rv">1.50</span></div>
+            <div><span class="rk">τ</span><span id="tr-tau" class="rv">12 wk</span></div>
+            <div><span class="rk">collapse</span><span id="tr-collapse" class="rv">— wk</span></div>
+          </div>
+        </div>
+        <canvas id="tr-canvas" width="540" height="320"></canvas>
+      </div>
+    </section>
+
+    <section class="play-panel">
+      <h2>3. Population sigmoid B(t)</h2>
+      <p class="panel-eq">B(t) = Φ( (μ₀ + δ·t − μ*) / √(σ² + σ*²) )</p>
+      <p class="panel-desc">
+        Population fraction in burnout under heterogeneous drift
+        (within-person spread σ) and heterogeneous threshold (between-person
+        spread σ*). δ is cohort-mean log-ρ drift per week, μ* is the
+        median log-threshold. The dot is the chosen observation time t.
+      </p>
+      <div class="play-grid">
+        <div class="play-controls">
+          <label>μ₀ — initial mean log-ρ
+            <input type="range" id="pop-mu0" min="-1.5" max="0.5" step="0.05" value="-0.70" />
+            <output id="pop-mu0-val">-0.70</output>
+          </label>
+          <label>δ — drift rate (per week)
+            <input type="range" id="pop-delta" min="0" max="0.05" step="0.001" value="0.012" />
+            <output id="pop-delta-val">0.012</output>
+          </label>
+          <label>μ* — median log-threshold
+            <input type="range" id="pop-mustar" min="-0.5" max="1" step="0.05" value="0.00" />
+            <output id="pop-mustar-val">0.00</output>
+          </label>
+          <label>σ — within-person spread
+            <input type="range" id="pop-sigma" min="0.05" max="1" step="0.05" value="0.45" />
+            <output id="pop-sigma-val">0.45</output>
+          </label>
+          <label>σ* — threshold spread
+            <input type="range" id="pop-sigmastar" min="0.05" max="1" step="0.05" value="0.30" />
+            <output id="pop-sigmastar-val">0.30</output>
+          </label>
+          <label>t — weeks observed
+            <input type="range" id="pop-t" min="0" max="200" step="1" value="88" />
+            <output id="pop-t-val">88</output>
+          </label>
+          <div class="readouts">
+            <div><span class="rk">B(t)</span><span id="pop-b" class="rv">66.7%</span></div>
+            <div><span class="rk">t @ B=0.5</span><span id="pop-tinf" class="rv">58 wk</span></div>
+            <div><span class="rk">peak dB/dt</span><span id="pop-slope" class="rv">0.89 %/wk</span></div>
+          </div>
+        </div>
+        <canvas id="pop-canvas" width="540" height="320"></canvas>
+      </div>
+    </section>
+
+    <p class="play-source">
+      Source figures: <a href="https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout">code/burnout</a>
+      &nbsp;·&nbsp; Paper PDF: <a href="papers/2026-05-06-burnout-v2.pdf">2026-05-06-burnout-v2.pdf</a>
+      &nbsp;·&nbsp; Source: <a href="https://github.com/hakvinv/h.vosteen-research-/blob/main/sources/burnout.tex">sources/burnout.tex</a>
+    </p>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        &copy; <span id="year"></span> H. Vosteen.
+        Source &amp; papers on
+        <a href="https://github.com/hakvinv/h.vosteen-research-" rel="noopener">GitHub</a>.
+      </p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/burnout.js" defer></script>
+</body>
+</html>
