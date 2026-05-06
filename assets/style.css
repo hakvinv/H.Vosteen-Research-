@@ -158,6 +158,121 @@ h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
   font-size: 0.9rem;
   font-style: italic;
 }
+
+/* ---------- interactive playground (burnout.html etc.) ---------- */
+.play-panel {
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem 1.25rem 1rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.play-panel h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+}
+.panel-eq {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: var(--bg-elev-2);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  color: var(--text);
+  margin: 0.4rem 0 0.6rem;
+  overflow-x: auto;
+}
+.panel-desc {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0 0 1rem;
+  max-width: 70ch;
+}
+.play-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(0, 1.4fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (max-width: 720px) {
+  .play-grid { grid-template-columns: 1fr; }
+}
+.play-controls label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 0.55rem;
+  row-gap: 0.2rem;
+}
+.play-controls label input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  accent-color: var(--accent);
+}
+.play-controls output {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-align: right;
+  min-width: 4ch;
+}
+.readouts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg-elev-2);
+  border-radius: var(--radius);
+}
+.readouts > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.78rem;
+}
+.readouts .rk {
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.readouts .rv {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 1rem;
+  color: var(--text);
+}
+.readouts > div.warn .rv { color: #e0a85b; }
+.readouts > div.danger .rv { color: var(--danger); }
+
+.panel-status {
+  font-size: 0.88rem;
+  margin: 0.6rem 0 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius);
+  background: var(--bg-elev-2);
+  color: var(--text-dim);
+  border-left: 3px solid var(--border);
+}
+.panel-status.ok     { border-left-color: var(--accent); color: var(--text); }
+.panel-status.warn   { border-left-color: #e0a85b; color: #e0a85b; }
+.panel-status.danger { border-left-color: var(--danger); color: var(--danger); }
+
+.play-panel canvas {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: block;
+}
+
+.play-source {
+  margin: 1.25rem 0 2rem;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
 .hero-nav {
   display: flex;
   gap: 1.25rem;
