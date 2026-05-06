@@ -60,8 +60,11 @@ Figures are pre-rendered in `figures/`. To regenerate:
 cd code/
 python make_figures.py            # → figures/fig1, fig2
 
-cd ../empirics/
-python analysis.py                # → figures/fig3, fig4, fig5
+cd ..                             # back to reels-echo/
+python empirics/analysis.py       # → figures/fig3, fig4, fig5
+                                  # (must run from reels-echo/, not from
+                                  #  empirics/, because the script writes
+                                  #  to empirics/* paths)
 ```
 
 Python deps: `numpy`, `pandas`, `matplotlib`. Nothing exotic.
