@@ -97,7 +97,7 @@
   },
   {
     "slug": "burnout",
-    "title": "Burnout Is Not Too Much Work",
+    "title": "Burnout Is Not Too Much Work, v2",
     "authors": ["Hakvin Vosteen"],
     "date": "2026-05-06",
     "version": "2.0",
@@ -106,13 +106,22 @@
     "tags": ["thermodynamics", "free-energy-principle", "observer-effects", "psychology", "burnout"],
     "file": "papers/2026-05-06-burnout-v2.pdf",
     "bibkey": "vosteen2026burnout",
-    "versions": [
-      {"version": "2.0", "date": "2026-05-06", "file": "papers/2026-05-06-burnout-v2.pdf", "note": "Individual threshold, hazard rate, observer-relative split"},
-      {"version": "1.0", "date": "2026-04-24", "file": "papers/2026-04-24-burnout.pdf", "note": "First model: ρ_burn = E_overhead / E_output, transcritical bifurcation at ρ = 1"}
-    ],
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"},
+      {"label": "Playground", "url": "burnout.html"}
     ]
+  },
+  {
+    "slug": "burnout-v1",
+    "title": "Burnout Is Not Too Much Work",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-24",
+    "version": "1.0",
+    "type": "essay",
+    "abstract": "The standard explanation of burnout is that you have done too much work. This paper recasts burnout as an overhead-to-output energy ratio ρ_burn = E_overhead / E_output, with a collapse at ρ_burn → 1. Under finite-budget free-energy dynamics the fixed point at ρ_burn = 1 is a transcritical bifurcation, stable below and unstable above. The model explains why rest often fails (it lowers E_total but not the ratio) and why the effective intervention is to reduce overhead (meetings, interruptions, facade maintenance, decision count) rather than workload. Thermodynamic and Bayesian formulations are shown to be equivalent via D_KL of task vs. noise against prior.",
+    "tags": ["thermodynamics", "free-energy-principle", "psychology", "burnout"],
+    "file": "papers/2026-04-24-burnout.pdf",
+    "bibkey": "vosteen2026burnoutv1"
   },
   {
     "slug": "adhd-attractor",
