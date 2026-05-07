@@ -16,185 +16,189 @@
 \begin{document}
 
 % =============== PAGE 1 ===============
-\noindent{\LARGE\textbf{Burnout Is Not Too Much Work, v3}}\\[0.3em]
-\noindent{\small Hakvin Vosteen, the new-job decay edition \hfill 2026}
+\noindent{\LARGE\textbf{Burnout Is Not Too Much Work, v4}}\\[0.3em]
+\noindent{\small How to mathematical ragequit your job \hfill 2026}
 \vspace{0.3cm}
 
-\noindent{\small\textit{Theoretical model. Decay constants illustrative.}}
+\noindent{\small\textit{Theoretical model. Calibration illustrative. Action item, not advice.}}
 \vspace{0.7cm}
 
-\noindent v2 explained why rest fails. It did not explain why a brand-new job
-feels different at month six. Same hours, same desk, same colleagues, less will
-to start the day. The numerator did not change. The denominator did. v3 adds
-the missing term: hedonic decay of perceived output value. The ratio rises from
-below, even when nothing about the job objectively got worse.
+\noindent v1 said burnout is a ratio. v2 said the ratio drifts and the
+accounting is observer-dependent. v3 said the denominator decays even at
+constant work. All three were diagnosis. v4 is the action item: given
+everything we now know, when exactly should you quit?
 
-\medskip\noindent The punchline up front. A new job at $\rho_0 = 0.6$ (well in
-the safe zone) drifts to $\rho^P = 1.5$ over twelve months purely because the
-pride-and-novelty multiplier collapses from 1 to 0.4. No extra meetings. No
-extra interrupts. The same hour of work just stops counting for as much.
+\medskip\noindent The answer has a name. Charnov 1976 wrote it down for birds
+foraging in a patch. The Marginal Value Theorem says a forager should leave
+the current patch when its current intake rate equals the long-run average
+rate over the cycle of search-plus-forage. The same equation governs jobs.
+A bird with no mortgage solves this in seconds. Humans take years.
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{figures/hook_decay.pdf}
+\includegraphics[width=0.9\textwidth]{figures/mvt_crossing.pdf}
 \end{center}
 
-\medskip\noindent\textbf{Setup.}\quad Define $E_{\text{out},i}^{P}(t)$ as
-\textit{perceived} productive output for person $i$ at time $t$. The same
-physical hour can be experienced as more or less productive depending on
-novelty, status, learning rate, and visible wins. We capture this with a
-multiplier on baseline output capacity.
+\medskip\noindent\textbf{Setup.}\quad At time $t$ in a role, person $i$ earns
+wage $w$ and pays burnout cost $c(\rho_i(t))$ where $\rho_i(t)$ is the v2+v3
+combined ratio. Quitting costs $c_s$ once and forgoes wage for search time
+$s$. After quitting, $m_i$ resets to 1 and $\rho_i$ returns to baseline. A
+single cycle is one role plus one search. The question is the optimal cycle
+length.
 
 \newpage
 
 % =============== PAGE 2 ===============
-\begin{definition}[Hedonic Multiplier]
-For person $i$ in role-state at time $t \geq 0$, write
+\begin{definition}[Net Flow Utility]
+For person $i$ in role at time $t \geq 0$,
 \[
-E_{\text{out},i}^{P}(t) \;=\; m_i(t) \cdot E_{\text{out},i}^{\text{baseline}},
+u_i(t) \;=\; w \;-\; c(\rho_i(t)),
 \]
-where $E_{\text{out},i}^{\text{baseline}} > 0$ is the physical output capacity
-and $m_i(t) \in (0, 1]$ is the hedonic multiplier. We assume an exponential
-decay form
-\[
-m_i(t) \;=\; m_{\infty,i} + (1 - m_{\infty,i}) \cdot e^{-t/\tau_{m,i}},
-\]
-with floor $m_{\infty,i} \in (0, 1]$ and decay constant $\tau_{m,i} > 0$.
-The floor encodes person-job match: high $m_\infty$ means the role keeps
-generating felt value indefinitely; low $m_\infty$ means novelty was carrying
-most of the weight.
+where $w > 0$ is wage flow and $c: \mathbb{R}_+ \to \mathbb{R}_+$ is a
+continuous, weakly increasing burnout cost. Under the v2+v3 dynamics with
+strictly increasing $\rho_i(t)$, $u_i$ is strictly decreasing in $t$.
 \end{definition}
 
-\noindent The functional form is the simplest one consistent with two
-constraints: (i) $m(0) = 1$ at the start of the role, and (ii) $m(t) \to
-m_\infty$ as $t \to \infty$. This is the standard form for hedonic adaptation
-in well-being research.
-
-\begin{theorem}[Honeymoon-Decay Climb]
-Let $\rho_i^{P}(t) = E_{\text{ovr},i}^{P}/E_{\text{out},i}^{P}(t)$, and assume
-$E_{\text{ovr},i}^{P}$ and $E_{\text{out},i}^{\text{baseline}}$ are constant
-in $t$. Then
+\begin{definition}[Long-Run Average Reward]
+For a quit time $t^* > 0$ and search time $s > 0$, the long-run average
+reward over one role-plus-search cycle is
 \[
-\rho_i^{P}(t) \;=\; \frac{\rho_{0,i}}{m_i(t)}, \qquad \rho_{0,i} \;:=\; \frac{E_{\text{ovr},i}^{P}}{E_{\text{out},i}^{\text{baseline}}}.
+A_i(t^*) \;=\; \frac{1}{t^* + s} \left[ \int_0^{t^*} u_i(\tau)\, d\tau \;-\; c_s \right],
 \]
-The function $\rho_i^{P}(t)$ is strictly increasing in $t$ whenever $m_{\infty,i} < 1$,
-with limits $\rho_i^{P}(0) = \rho_{0,i}$ and $\rho_i^{P}(t) \to \rho_{0,i}/m_{\infty,i}$
-as $t \to \infty$.
+where $c_s > 0$ is the switch cost and we assume zero income during search.
+\end{definition}
+
+\begin{theorem}[Marginal Value Theorem for Job Stopping]
+Assume $u_i$ is strictly decreasing and continuous on $[0, \infty)$ with
+$u_i(0) > 0$ and $\lim_{t \to \infty} u_i(t) < 0$. Assume $c_s > 0$ and $s > 0$.
+Then $A_i$ has a unique interior maximum at $t^* > 0$ characterized by
+\[
+\boxed{\; u_i(t^*) \;=\; A_i(t^*). \;}
+\]
 \end{theorem}
 
 \begin{proof}
-The first equality is immediate from the definitions. For monotonicity,
-differentiate:
-\begin{align}
-\frac{d \rho_i^{P}}{dt}
-&= \rho_{0,i} \cdot \left( -\frac{m_i'(t)}{m_i(t)^2} \right) \\
-&= \rho_{0,i} \cdot \frac{(1 - m_{\infty,i})\, e^{-t/\tau_{m,i}}}{\tau_{m,i} \cdot m_i(t)^2}.
-\end{align}
-The factor $\rho_{0,i} > 0$ by construction (positive overhead, positive output
-capacity). The numerator $(1 - m_{\infty,i}) e^{-t/\tau_{m,i}}$ is positive
-exactly when $m_{\infty,i} < 1$. The denominator $\tau_{m,i} m_i(t)^2 > 0$ always.
-So $d\rho_i^{P}/dt > 0$ on $[0, \infty)$ whenever $m_{\infty,i} < 1$, i.e., the
-match is imperfect. The limits follow from $m_i(0) = 1$ and $m_i(t) \to m_{\infty,i}$.
+$A_i$ is differentiable on $(0, \infty)$ with
+\[
+A_i'(t^*) = \frac{u_i(t^*)(t^* + s) - \left[\int_0^{t^*} u_i\,d\tau - c_s\right]}{(t^*+s)^2}
+         = \frac{u_i(t^*) - A_i(t^*)}{t^* + s}.
+\]
+The sign of $A_i'(t^*)$ matches the sign of $u_i(t^*) - A_i(t^*)$. As
+$t^* \to 0^+$, $A_i \to -c_s/s < 0 < u_i(0)$, so $A_i'(0^+) > 0$. As
+$t^* \to \infty$, $\int_0^{t^*} u_i\,d\tau \to -\infty$ (because $u_i$ is
+eventually negative and decreasing without bound or to a negative
+asymptote), so $A_i \to u_i(\infty) < 0$ from above, and $u_i$ continues
+decreasing past $A_i$, so eventually $u_i < A_i$ and $A_i' < 0$. By
+continuity, $A_i' = 0$ at some $t^*$, where $u_i(t^*) = A_i(t^*)$.
+Uniqueness follows because $u_i$ is strictly decreasing while $A_i$ is
+single-peaked: once $A_i$ has crossed below $u_i$ from above, it cannot
+cross back, since further $t^*$ only adds increasingly negative $u_i$
+values to the running average.
 \end{proof}
 
-\begin{corollary}[Burnout Without Drift or Wedge]
-If $\rho_{0,i} > m_{\infty,i} \cdot \rho_i^{*}$, then person $i$ enters
-sustained burnout at some finite $t^{*}$, even when $E_{\text{ovr},i}^{P}$ is
-constant (no v2 environmental drift) and $E_{\mathcal{F},i} = 0$ (no v2 facade
-wedge). The honeymoon-decay mechanism alone is sufficient.
-\end{corollary}
-
-\noindent The corollary is the key claim. v1 needed a high baseline $\rho_0$.
-v2 needed environmental drift or a facade wedge. v3 needs neither. A perfectly
-healthy starting ratio with a perfectly stable environment can still produce
-burnout, purely from the denominator collapsing.
+\noindent The proof gives the geometry: $A_i$ rises while it sits below
+$u_i$, peaks where they cross, then falls. The peak is the only crossing.
 
 \newpage
 
 % =============== PAGE 3 ===============
-\noindent The lifecycle has three phases, with cleanly separated time scales.
+\noindent The structurally important fact is that the rational quit time
+$t^*$ is \textbf{later} than the threshold crossing $\rho_i(t) = \rho_i^*$,
+and \textbf{later} than the moment net utility hits zero. There are three
+distinct milestones, and they sit in this order.
 
 \begin{center}
-\includegraphics[width=0.78\textwidth]{figures/phase_progression.pdf}
+\includegraphics[width=0.85\textwidth]{figures/the_gap.pdf}
 \end{center}
 
 \medskip
 \begin{tabular}{lll}
 \toprule
-Phase & Range & What is happening \\
+Milestone & Condition & In our calibration \\
 \midrule
-Honeymoon       & $0 \leq t < \tau_m$       & $m \approx 1$, ratio near baseline \\
-Disillusionment & $\tau_m \leq t < 3\tau_m$ & $m$ collapsing fastest, ratio climbing \\
-Steady state    & $t \geq 3\tau_m$          & $m \approx m_\infty$, ratio at $\rho_0/m_\infty$ \\
+Threshold crossing & $\rho_i(t) = \rho_i^*$ & $t = 4.3$ months \\
+Subjective hate    & $u_i(t) = 0$ (no net benefit) & $t = 8.5$ months \\
+Rational quit      & $u_i(t) = A_i(t)$ (MVT)       & $t^* = 9.1$ months \\
 \bottomrule
 \end{tabular}
 
-\medskip\noindent\textbf{Why ``the new job wears off'' is not weakness.}\quad
-The Disillusionment phase is not a moral failing. It is a prediction of any
-model in which subjective output is a function of novelty and the novelty
-decays. The mistake is interpreting the felt change as a signal that something
-is wrong with you. The signal is correct, but it is reporting on $m_i(t)$, not
-on your character.
+\medskip\noindent The gap between threshold crossing and rational quit (about
+$5$ months in our calibration) is not a bug. It is the period during which
+amortizing the switch cost still pays off. The subjective sensation is
+``something is wrong but I cannot afford to leave yet,'' and that sensation
+is exactly correct.
 
-\begin{remark}[Why job-hopping helps temporarily]
-Switching roles resets $m_i$ to 1 by construction (the new role is novel by
-definition). It does not change $\alpha_i(\text{env})$ from v2 or
-$\rho_{0,i}$ from v3. This predicts the empirical pattern: each new job
-delivers a fresh Honeymoon, but if the underlying $\rho_{0,i}/m_{\infty,i}$ is
-above threshold across all available jobs, the climb repeats every cycle.
-Job-hopping is rational hedonic management, not avoidance.
+\medskip\noindent\textbf{Worked example.}\quad With $w = 1$, $\rho_0 = 0.6$,
+$m_\infty = 0.5$, $\tau_m = 5$ months, environmental drift $\alpha = 0.04$
+per month, stress sensitivity $\lambda = 0.7$, switch cost $c_s = 3$ months
+of wage, and search time $s = 2$ months, the model gives
+\[
+t^* \approx 9.1 \text{ months}, \quad \rho_i(t^*) \approx 1.49, \quad u_i(t^*) = A_i(t^*) \approx -0.04.
+\]
+Note that $A_i(t^*)$ is itself negative. The optimal cycle delivers slightly
+negative net welfare. Quitting earlier delivers more negative welfare. Quitting
+later delivers more negative welfare. The system is stuck in a regime where
+\textit{all} options lose money, and the best move is to lose the least.
+
+\begin{remark}[Why animals do this and humans don't]
+The MVT applies whenever a forager has access to an outside option of known
+average value. Birds use it because patches are short-lived, search is cheap,
+and the brain has dedicated circuitry for tracking running averages. Humans
+have long tenure, expensive search, mortgages, employer-tied health insurance,
+and no introspective access to $A_i(t^*)$. The math is the same. The
+implementation is harder.
 \end{remark}
-
-\medskip\noindent\textbf{Estimating the constants.}\quad The decay constant
-$\tau_{m,i}$ is the time over which roughly $63\%$ of the novelty premium
-decays ($1 - 1/e$). For knowledge work the empirical anchor is the Gallup
-engagement curve, which reports a peak in the first six months and a stable
-floor reached around eighteen months. This implies $\tau_m \approx 4$ to $6$
-months, consistent with the figures used here.
 
 \newpage
 
 % =============== PAGE 4 ===============
-\noindent The combined model. v1, v2, v3 are not competing explanations. They
-are three independent terms.
+\noindent How $t^*$ depends on the parameters. Three things move it.
 
 \begin{center}
-\includegraphics[width=0.85\textwidth]{figures/mechanism_stack.pdf}
+\includegraphics[width=0.95\textwidth]{figures/comparative_statics.pdf}
 \end{center}
 
-\medskip\noindent The static v1 line is flat because v1 had no time term at
-all, only a static threshold. v2 adds environmental drift (the dashed line):
-overhead grows over time, mostly linear in log space. v3 adds hedonic decay
-(the dash-dot line): denominator collapses on its own time scale. The combined
-trajectory crosses threshold earliest. In our calibration v2 alone takes
-$22$ months to cross, v3 alone takes $7$ months, both together take $5$ months.
+\medskip\noindent Switch cost (left panel) raises $t^*$ monotonically:
+expensive transitions force longer cycles. Environmental drift rate $\alpha$
+(right panel) lowers $t^*$ monotonically: a deteriorating environment makes
+each additional month worse, pulling the optimum forward. Match quality
+$m_\infty$ shifts both curves up: better match means longer optimal cycles
+because the denominator collapses less.
 
-\medskip\noindent\textbf{The full equation.}\quad Allowing both mechanisms,
-\[
-\boxed{ \; \rho_i^{P}(t) \;=\; \frac{E_{\text{ovr},i}^{P}(t)}{m_i(t) \cdot E_{\text{out},i}^{\text{baseline}}}, \qquad
-\frac{d \log \rho_i^{P}}{dt} \;=\; \underbrace{\alpha_i(\text{env})}_{\text{v2 drift}} \;+\; \underbrace{\left|\frac{d \log m_i}{dt}\right|}_{\text{v3 decay}}. \; }
-\]
+\medskip\noindent\textbf{The four-lever diagnostic.}\quad If you find yourself
+past threshold and contemplating quit, the model says exactly which lever
+applies.
 
-\noindent The two contributions add in log space. They are individually positive
-and cannot cancel. This is the structural reason that ``either reduce overhead
-or take a sabbatical'' is incomplete advice: it misses the third lever, which
-is increasing $m_\infty$ via better person-job match.
-
-\medskip\noindent\textbf{Three levers, three populations.}
-
-\begin{tabular}{lll}
+\begin{tabular}{ll}
 \toprule
-Lever & Mechanism & Right intervention \\
+What you can change & What it does to $t^*$ \\
 \midrule
-Lower $E_{\text{ovr}}$    & v2 (drift) & Consolidate meetings, batch interrupts \\
-Reduce facade $E_{\mathcal{F}}$ & v2 (wedge) & Change role or environment \\
-Raise $m_\infty$          & v3 (decay) & Better person-job match, intrinsic alignment \\
+Reduce switch cost (network, savings, planning) & shifts $t^*$ earlier \\
+Reduce search time (better positioned for next role) & shifts $t^*$ earlier \\
+Reduce environmental drift (negotiate workload) & shifts $t^*$ later \\
+Raise match quality (find a role with higher $m_\infty$) & shifts $t^*$ later or to $\infty$ \\
 \bottomrule
 \end{tabular}
 
-\medskip\noindent The third row is the one that gets called ``life advice.''
-It is the only one that addresses the denominator. The first two address the
-numerator. Burnout interventions that focus only on the numerator and ignore
-$m_\infty$ are addressing two-thirds of the problem.
+\medskip\noindent The asymmetry is informative. The first two levers make
+quitting easier. The second two make staying viable. There are no levers
+that ``do nothing'' to $t^*$. Every action you can take changes when you
+should leave.
+
+\medskip\noindent\textbf{Falsification routes.}\quad
+
+\noindent\textit{Route 1.}\quad Predict actual quit timing from individual
+$(c_s, s, \alpha, m_\infty)$ estimates. The model says realized quits should
+cluster around $t^*$ with deviations explained by liquidity constraints. If
+quits are uniform in $t$ or correlate with calendar effects (year-end bonuses),
+the model is missing terms.
+
+\noindent\textit{Route 2.}\quad Predict that high-$c_s$ industries (Big Law,
+Medicine, Tenure Track, defense contracting) have systematically longer mean
+tenures. They do.
+
+\noindent\textit{Route 3.}\quad Predict that workers with shorter expected
+search times (high-demand specialties, geographically mobile) quit earlier
+controlling for income. Test on labor mobility data.
 
 \newpage
 
@@ -205,57 +209,55 @@ $m_\infty$ are addressing two-thirds of the problem.
 \toprule
 Quantity & Value & Source \\
 \midrule
-Engagement peak after start of role     & $\sim 6$ months    & Gallup engagement series \\
-Engagement floor reached                & $\sim 18$ months   & Gallup engagement series \\
-Average tenure (US, all sectors, 2024)  & $\sim 4.1$ years   & BLS \\
-Average tenure for workers under 35     & $\sim 2.7$ years   & BLS \\
-Hedonic adaptation half-life (life events) & $\sim 3$--$12$ months & Lyubomirsky (2011) \\
+Median tenure, US private sector (2024)     & $\sim 3.9$ years     & BLS \\
+Mean tenure, Big Law associate              & $\sim 3.0$ years     & NALP \\
+Mean tenure, US tech (FAANG)                & $\sim 2.0$ years     & Industry surveys \\
+Mean job-search duration (2024)             & $\sim 6$ months      & BLS \\
+Switch cost (median total compensation gap) & $\sim 2$--$4$ months & Glassdoor \\
 \bottomrule
 \end{tabular}
 
-\medskip\noindent The under-35 tenure number is the diagnostic. If the
-v3 mechanism dominates, expected tenure approaches $3\tau_m$ (the Steady-state
-onset), which is around $1$ to $1.5$ years. The observed $2.7$ years is
-consistent with a mix of v3 (people leaving when $\rho$ becomes uncomfortable) and
-non-burnout factors (compensation, location, relationships). v3 cannot explain
-all job-hopping, but it predicts a robust floor below which tenures should not
-fall easily; that floor matches the data.
+\medskip\noindent The tech tenure number is the diagnostic. Two years is short
+even compared to the v3 honeymoon-decay prediction of roughly $1.5$ years to
+steady state ($3\tau_m$). Adding the v4 amortization layer pushes optimal
+$t^*$ from $1.5$ to roughly $2$ years for typical tech parameters, which
+matches the observed mean. Big Law's longer tenure is consistent with high
+$c_s$ (specialized human capital, partner-track lock-in). The model matches
+the rank ordering of industries.
 
-\medskip\noindent\textbf{Falsification routes.}
+\medskip\noindent\textbf{The series in one table.}
 
-\noindent\textit{Route 1.}\quad Measure self-reported $m_i(t)$ in a longitudinal
-panel of new hires. The model predicts an exponential decay shape with
-person-job-match correlated with $m_\infty$. If decay is linear or sigmoidal,
-the multiplier form is wrong.
+\begin{tabular}{lll}
+\toprule
+Post & What it added & What it took out \\
+\midrule
+v1 & Static threshold $\rho^*$            & n/a \\
+v2 & Drift, private threshold, observer wedge & ``rest fixes everything'' \\
+v3 & Hedonic decay, denominator dynamics  & ``new job feels different is naivety'' \\
+v4 & Optimal stopping, $u(t^*) = A(t^*)$  & ``quit when you cross threshold'' \\
+\bottomrule
+\end{tabular}
 
-\noindent\textit{Route 2.}\quad The model predicts that two people with
-identical $\rho_{0,i}$ but different $m_{\infty,i}$ will hit threshold at
-different times in the same role. Match-quality should predict tenure
-controlling for compensation. If it does not, the floor is irrelevant.
-
-\noindent\textit{Route 3.}\quad For job-switchers, $\rho^{P}$ should reset
-toward $\rho_{0}$ on each transition. Wearables and engagement-survey data
-should show this discontinuity. If the trajectory is smooth across transitions,
-the multiplier is not actually resetting.
-
-\medskip\noindent\textbf{What this still does not address.}\quad Hedonic
-adaptation is not the only thing that scales perceived output. Status changes,
-relational quality, and personal life events all modulate $E_{\text{out}}^{P}$
-through routes that are not novelty-driven. The model collapses everything
-that is not environmental drift or facade into a single decay constant. That is
-useful for tractability and incomplete for full description.
+\medskip\noindent\textbf{What this still does not address.}\quad Risk
+aversion (the model is risk-neutral; in practice, fear of unemployment biases
+$t^*$ later). Job-market state ($A_i(t^*)$ depends on the average value of
+\textit{available} next jobs, which fluctuates). Family or care obligations
+that lock $c_s$ to a higher value than the worker can change. Anti-pattern
+quitting where someone leaves before $t^*$ for emotional reasons and ends up
+in a worse role. The model gives the optimum; it does not guarantee
+implementation.
 
 \vspace{0.5cm}
 \noindent\textbf{References}
 
-\noindent[1] Brickman, P., Campbell, D.T. (1971). Hedonic relativism and planning the good society. \textit{Adaptation-Level Theory}, 287--305.
+\noindent[1] Charnov, E.L. (1976). Optimal foraging, the marginal value theorem. \textit{Theoretical Population Biology} 9(2), 129--136.
 
-\noindent[2] Lyubomirsky, S. (2011). Hedonic adaptation to positive and negative experiences. \textit{Oxford Handbook of Stress, Health, and Coping}, 200--224.
+\noindent[2] McCall, J.J. (1970). Economics of information and job search. \textit{Quarterly Journal of Economics} 84(1), 113--126.
 
-\noindent[3] Frederick, S., Loewenstein, G. (1999). Hedonic adaptation. \textit{Well-Being: The Foundations of Hedonic Psychology}, 302--329.
+\noindent[3] Mortensen, D.T. (1986). Job search and labor market analysis. \textit{Handbook of Labor Economics} 2, 849--919.
 
-\noindent[4] Bureau of Labor Statistics (2024). Employee Tenure in 2024. \textit{USDL-24-1881}.
+\noindent[4] Stephens, D.W., Krebs, J.R. (1986). \textit{Foraging Theory}. Princeton University Press.
 
-\noindent[5] Gallup (2024). State of the Global Workplace.
+\noindent[5] Bureau of Labor Statistics (2024). Employee Tenure in 2024. \textit{USDL-24-1881}.
 
 \end{document}

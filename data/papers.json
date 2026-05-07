@@ -97,6 +97,21 @@
   },
   {
     "slug": "burnout",
+    "title": "Burnout Is Not Too Much Work, v4",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-07",
+    "version": "4.0",
+    "type": "essay",
+    "abstract": "v4 — how to mathematical ragequit your job. v1–v3 were diagnosis (ratio, drift, hedonic decay). v4 is the action item: given everything we now know, when exactly should you quit? The answer has a name — Charnov's Marginal Value Theorem (1976), originally for birds foraging in a patch. A forager should leave the current patch when its current intake rate equals the long-run average rate over the cycle of search-plus-forage. The same equation governs jobs: quit when u(t*) = A(t*), where u(t) is current flow utility from the job and A(t*) is the long-run average over the cycle including the cost τ_s and disutility u_s of searching for a new job. Under realistic parameters, t* ≈ 9.1 months. A bird with no mortgage solves this in seconds; humans take years because τ_s and u_s are large and partly inferred from priors. The framework gives comparative statics — when should mortgages, dependents, or industry-cycle priors push t* later or earlier — and clean conditions under which the optimal stopping time exists.",
+    "tags": ["optimal-stopping", "marginal-value-theorem", "decision-theory", "labor-economics", "burnout"],
+    "file": "papers/2026-05-07-burnout-v4.pdf",
+    "bibkey": "vosteen2026burnout",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
+    ]
+  },
+  {
+    "slug": "burnout-v3",
     "title": "Burnout Is Not Too Much Work, v3",
     "authors": ["Hakvin Vosteen"],
     "date": "2026-05-07",
@@ -105,10 +120,7 @@
     "abstract": "v3 — the new-job decay edition. v2 explained why rest fails; it did not explain why a brand-new job feels different at month six. Same hours, same desk, same colleagues, less will to start the day. The numerator did not change — the denominator did. v3 adds the missing term: hedonic decay of perceived output value. We introduce a multiplier m(t) ∈ (0, 1] that decays from 1 toward a job-match floor m_∞, and write ρ^P(t) = ρ_0 / m(t). Under realistic parameters, a new job at ρ_0 = 0.6 (well in the safe zone) drifts to ρ^P = 1.5 over twelve months purely because the pride-and-novelty multiplier collapses from 1 to 0.4 — no extra meetings, no extra interrupts, the same hour of work just stops counting for as much. The decay rate τ_m and floor m_∞ are individually measurable and predict the burnout-onset distribution.",
     "tags": ["thermodynamics", "hedonic-decay", "free-energy-principle", "observer-effects", "psychology", "burnout"],
     "file": "papers/2026-05-07-burnout-v3.pdf",
-    "bibkey": "vosteen2026burnout",
-    "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
-    ]
+    "bibkey": "vosteen2026burnoutv3"
   },
   {
     "slug": "burnout-v2",
