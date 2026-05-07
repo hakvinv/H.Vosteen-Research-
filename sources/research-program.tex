@@ -1,0 +1,231 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{claim}{Claim}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+% =============== PAGE 1 ===============
+\noindent{\LARGE\textbf{Architecture {\large $>$} Population:}}\\[0.15em]
+\noindent{\Large\textbf{A Research Program for the Inter-Agent Mesoscale}}\\[0.4em]
+\noindent{\small Hakvin Vosteen \hfill 2026 \qquad \textit{Draft, v0.1.}}
+\vspace{0.6cm}
+
+\noindent\textbf{Abstract.}\quad The thirteen working pieces in this corpus
+repeat a single methodological move: a phenomenon ordinarily read as moral,
+cultural, or characterological is rewritten as the equilibrium of a mechanism
+with a threshold. We state the move as a research program organised around
+three claims. First, what looks like a property of \textit{people} is usually
+a property of a \textit{mechanism}; the recurrent objects are operators,
+sufficient statistics, and threshold games. Second, architecture beats
+population: replace the users while holding the mechanism fixed and the
+equilibrium is preserved; replace the mechanism and the equilibrium changes.
+Third, the scale at which most of contemporary subjective experience is
+decided --- the inter-agent mesoscale --- is methodologically nearly empty
+compared to the scales below the human (atoms, cells, neurons) and above
+(climate, markets-as-aggregate). The marginal return on formalising one
+previously unmodelled inter-agent mechanism is therefore large. We address
+the standard reflexive objection (modelling perturbs the modelled system) by
+distinguishing three modes of impossibility --- information-theoretic,
+reflexive, and conceptual --- and showing, with anchors in the corpus, that
+each admits a different attack.
+
+\bigskip\noindent\textbf{1.\quad The move.}\quad Each piece in this corpus
+takes a folk-psychological reading of a phenomenon and replaces it with a
+mechanism. \textit{Burnout Is Not Too Much Work} replaces a moral reading
+(weakness, lack of grit) with the bifurcation of a friction-output ratio at
+$\rho^* = 1$. \textit{Ghosting Isn't Cowardice} replaces a generational or
+character reading with the subgame-perfect equilibrium of a sequential exit
+game indexed by a silence-cost ratio $\sigma_R$. \textit{ADHD Is Not a
+Deficit} replaces a deficit reading with a different attractor in a phase
+space whose stationary distribution is bimodal under a free-energy
+generative model. \textit{Personality Is Not Who You Are} replaces a vector
+of traits with a four-dimensional cost tensor under a context operator.
+\textit{Cartel or Creative Destruction?} replaces concentration-index
+conflation with eigenvector asymmetry. The move is the same in each case:
+take what reads as a property of the agent, and locate it in the structure
+the agent inhabits.
+
+\medskip\noindent Two claims sit underneath the move.
+
+\begin{claim}[Mechanism, not person]
+Phenomena that read as moral, cultural, or characterological are typically
+equilibria of mechanisms with thresholds. The dominant variable is not the
+agent's interior; it is the cost structure, signal architecture, or
+selection rule under which the agent acts.
+\end{claim}
+
+\begin{claim}[Architecture, not population]
+Hold the mechanism fixed and replace the population: the equilibrium is
+preserved. Hold the population fixed and replace the mechanism: the
+equilibrium changes. Behaviour traceable to the population alone is a small
+residual on top of architecture-driven dynamics.
+\end{claim}
+
+\noindent Claim~1 is identification of the dominant explanatory variable.
+Claim~2 is the operational counterfactual that licenses Claim~1: the
+population is held fixed and the architecture is varied. \textit{Ghosting
+Isn't Cowardice} states the counterfactual explicitly --- replacing the user
+pool with people from 1995 under the same dating-app architecture produces
+the same equilibrium --- and the move recurs across the corpus.
+
+\newpage
+
+% =============== PAGE 2 ===============
+\noindent\textbf{2.\quad Why this scale.}\quad Classical natural science has
+measured the scales below the human (atoms, cells, neurons) and above the
+human (climate, markets-as-aggregate, populations) to high resolution. The
+scale \textit{between} two or $N$ agents interacting through an architecture
+is, by comparison, methodologically nearly empty. There is no canonical
+formal language for it. The most-cited models live in microeconomics (game
+theory) and computer science (mechanism design) but are rarely applied
+outside their disciplines, and the phenomena most affected by inter-agent
+dynamics --- platform behaviour, dating, peer review, attention extraction,
+identity signalling --- are typically left to qualitative discourse.
+
+\medskip\noindent The marginal return on understanding one more electron is,
+for the purposes of subjective experience, near zero. The marginal return on
+formalising one previously unmodelled inter-agent mechanism is large,
+because the prior is not ``well-established theory needs an additional
+decimal place'' but ``no formal theory exists.'' This is the slot the corpus
+operates in. It is also the structural reason that pieces of mathematics
+typically considered elementary --- a multiplicative cascade, a free-energy
+bound, an eigenvector asymmetry --- yield real explanatory traction in this
+regime: the comparison is not against tighter models but against no model at
+all.
+
+\medskip\noindent\textit{A note on what is and is not new.} The argument that
+inter-agent structure carries explanatory weight is not new in any single
+discipline; it is the operating assumption of mechanism design, of much of
+sociology, of evolutionary game theory. What is being claimed is narrower.
+First, that across these disciplines the move is consistently localised to
+its native vocabulary, so the same structural lemma --- a threshold game,
+say --- gets re-derived in three places without recognition. Second, that
+many of the phenomena that fill ordinary life (ghosting, burnout, identity
+broadcast on platforms, the felt arbitrariness of recommendation) sit
+between disciplines and are therefore picked up by none. The corpus reads
+across these boundaries.
+
+\bigskip\noindent\textbf{3.\quad Modelling under observer effects.}\quad The
+standard objection to formalising inter-agent mechanisms is reflexive:
+publishing a model of $\sigma_R$ changes how people ghost; publishing the
+platform food chain changes how creators read their own role; the act of
+measurement is itself the perturbation. The objection is real. It is not
+grounds to refuse the work, because \textit{impossibility} is not a single
+condition --- it has facets, and each admits a different attack.
+
+\begin{remark}[Three modes of impossibility]
+\hfill\\[0.3em]
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{0.18\linewidth}p{0.36\linewidth}p{0.40\linewidth}@{}}
+\toprule
+\textbf{Mode} & \textbf{Difficulty} & \textbf{Attack} \\
+\midrule
+Information-theoretic
+  & Capturing the full state would require infinite or impossibly clean data
+  & Reduce to a sufficient statistic; the relevant scalar can be finite even
+    when the underlying process is high-dimensional \\
+Reflexive
+  & The model perturbs the system being modelled
+  & Publish the model jointly with the architectural change that defines
+    the new equilibrium, so the perturbation is directed rather than
+    incidental \\
+Conceptual
+  & No agreed-upon target object exists
+  & Show that the missing scalar ground truth was never the right object;
+    supply the structured object that does the work \\
+\bottomrule
+\end{tabular}
+\end{remark}
+
+\medskip\noindent\textit{Information-theoretic.}\quad \textit{Cartel or
+Creative Destruction?} faces precisely this difficulty: standard
+concentration indices are degenerate across two welfare-opposite regimes
+(collusive cartel and Schumpeterian innovation-driven monopoly). The attack
+is to identify a sufficient statistic --- the eigenvector asymmetry of the
+residual price covariance --- that separates the regimes with
+Cohen's $d > 70$. The scalar is finite even though the underlying market
+state is not.
+
+\medskip\noindent\textit{Reflexive.}\quad \textit{Ghosting Isn't Cowardice}
+models $\sigma_R$ and immediately proposes the architectural lever (e.g.\
+Hinge's ``Your Turn'' feature) that raises $c_{\text{silence}}$ and flips
+the equilibrium. The model is not a passive observation but a directed
+perturbation: it ships with the change that justifies it. \textit{The
+TikTok Peer Review} does the analogous move at second order, modelling the
+mechanism that produces models. In both cases reflexivity is acknowledged
+and converted into design.
+
+\newpage
+
+% =============== PAGE 3 ===============
+\noindent\textit{Conceptual.}\quad \textit{Personality Is Not Who You Are.
+It Is Your Cost Tensor} is the cleanest case. The Big Five framework
+presupposes a five-dimensional scalar object whose component values
+describe a person stably across context. The cost-tensor model shows this
+object cannot exist as specified, because the relevant quantity is
+context-dependent in a way no projection $\Pi_5$ can preserve. The apparent
+unmeasurability of personality is a misspecification of the target object,
+not a fundamental limit of measurement. Once the object is replaced by a
+cost tensor under a context operator $L_W$, it is identifiable; the
+intervention mechanism (operator sequences with eigenvalues less than one)
+is also identified.
+
+\bigskip\noindent\textbf{4.\quad What this program is and is not.}\quad The
+program is not a claim that subjective experience reduces to mechanism. The
+cost-tensor paper itself acknowledges $\Lambda_{\text{trauma}}$ as a
+strictly individual operator with at least one eigenvalue $\gg 1$; some
+variance is genuinely person-shaped. The claim is narrower: that the
+variance commonly attributed to character is largely architectural, and
+that the architectural component is the under-modelled component.
+``Architecture $>$ population'' is a statement about marginal explanatory
+power, not about ontology.
+
+\medskip\noindent The program is also not a claim that all formalisation is
+equally tractable. Cartel detection admits a clean sufficient statistic;
+subjective wellbeing under social comparison probably does not. The three
+modes of impossibility are not a guarantee that every reflexive system can
+be modelled, only that the standard rejection (``you will perturb it,
+therefore do not'') over-generalises a real local difficulty into a
+fictitious global one.
+
+\medskip\noindent What unites the corpus, then, is not a domain (which
+ranges from drug discovery to dating apps) and not a single mathematical
+object (operators, multiplicative cascades, free-energy bounds, threshold
+games all appear), but a methodological commitment: locate the dominant
+variable in the architecture, not the population; treat reflexive
+perturbation as something to be designed rather than avoided; and, where
+the standard target object is conceptually misspecified, supply the right
+one rather than concede unmeasurability.
+
+\bigskip\noindent\textbf{5.\quad Status.}\quad This is a draft (v0.1)
+written in conversation with the corpus, not in front of it. It will be
+revised as the corpus grows and as the connections between pieces become
+load-bearing. The next obvious extensions are (i) a structural lemma
+explicitly unifying the threshold-bifurcation skeleton across
+\textit{Burnout}, \textit{Ghosting}, \textit{ADHD Attractor}, and the
+\textit{Cost Tensor}; (ii) a precise statement of the
+``architecture-not-population'' identification result, with its scope and
+failure modes; (iii) a fourth mode of impossibility, computational, for
+systems where a tractable model exists in principle but not in practice.
+
+\bigskip\noindent\textbf{Cited works in this corpus.}\quad
+\textit{Burnout Is Not Too Much Work, v2} (2026-05-06).\quad
+\textit{Ghosting Isn't Cowardice. It's Math.} (2026-04-24).\quad
+\textit{ADHD Is Not a Deficit. It's a Different Attractor.} (2026-04-24).\quad
+\textit{Personality Is Not Who You Are. It Is Your Cost Tensor.}
+(2026-05-06).\quad
+\textit{Cartel or Creative Destruction? Eigenvector Asymmetry as a Spectral
+Diagnostic for Schumpeterian Market Structure} (2026-04-22).\quad
+\textit{The TikTok Peer Review} (2026-04-26).\quad
+\textit{The Platform Has a Food Chain. You Are In It.} (2026-05-06).\quad
+All available at \texttt{hakvinv.github.io/h.vosteen-research-/}.
+
+\end{document}

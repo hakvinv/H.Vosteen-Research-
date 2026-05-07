@@ -1,5 +1,17 @@
 [
   {
+    "slug": "research-program",
+    "title": "Architecture > Population: A Research Program for the Inter-Agent Mesoscale",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-07",
+    "version": "0.1",
+    "type": "paper",
+    "abstract": "The thirteen working pieces in this corpus repeat a single methodological move: a phenomenon ordinarily read as moral, cultural, or characterological is rewritten as the equilibrium of a mechanism with a threshold. We state the move as a research program organised around three claims. First, what looks like a property of people is usually a property of a mechanism; the recurrent objects are operators, sufficient statistics, and threshold games. Second, architecture beats population: replace the users while holding the mechanism fixed and the equilibrium is preserved; replace the mechanism and the equilibrium changes. Third, the scale at which most of contemporary subjective experience is decided — the inter-agent mesoscale — is methodologically nearly empty compared to the scales below the human (atoms, cells, neurons) and above (climate, markets-as-aggregate). The marginal return on formalising one previously unmodelled inter-agent mechanism is therefore large. We address the standard reflexive objection (modelling perturbs the modelled system) by distinguishing three modes of impossibility — information-theoretic, reflexive, and conceptual — and showing, with anchors in the corpus, that each admits a different attack.",
+    "tags": ["research-program", "methodology", "mesoscale", "reflexivity", "philosophy-of-science"],
+    "file": "papers/2026-05-07-research-program.pdf",
+    "bibkey": "vosteen2026program"
+  },
+  {
     "slug": "cost-tensor",
     "title": "Personality Is Not Who You Are. It Is Your Cost Tensor.",
     "authors": ["Hakvin Vosteen"],
