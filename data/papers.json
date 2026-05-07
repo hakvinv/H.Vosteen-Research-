@@ -97,6 +97,21 @@
   },
   {
     "slug": "burnout",
+    "title": "Burnout Is Not Too Much Work, v3",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-07",
+    "version": "3.0",
+    "type": "essay",
+    "abstract": "v3 — the new-job decay edition. v2 explained why rest fails; it did not explain why a brand-new job feels different at month six. Same hours, same desk, same colleagues, less will to start the day. The numerator did not change — the denominator did. v3 adds the missing term: hedonic decay of perceived output value. We introduce a multiplier m(t) ∈ (0, 1] that decays from 1 toward a job-match floor m_∞, and write ρ^P(t) = ρ_0 / m(t). Under realistic parameters, a new job at ρ_0 = 0.6 (well in the safe zone) drifts to ρ^P = 1.5 over twelve months purely because the pride-and-novelty multiplier collapses from 1 to 0.4 — no extra meetings, no extra interrupts, the same hour of work just stops counting for as much. The decay rate τ_m and floor m_∞ are individually measurable and predict the burnout-onset distribution.",
+    "tags": ["thermodynamics", "hedonic-decay", "free-energy-principle", "observer-effects", "psychology", "burnout"],
+    "file": "papers/2026-05-07-burnout-v3.pdf",
+    "bibkey": "vosteen2026burnout",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
+    ]
+  },
+  {
+    "slug": "burnout-v2",
     "title": "Burnout Is Not Too Much Work, v2",
     "authors": ["Hakvin Vosteen"],
     "date": "2026-05-06",
@@ -105,9 +120,8 @@
     "abstract": "v2 fixes three holes in v1: (i) the collapse threshold ρ* is individual, not universal — we replace ρ_burn = 1 with a population threshold distribution; (ii) 'sustained period' becomes a hazard rate B(t) with explicit timescales; (iii) the overhead/output split is observer-dependent because facade maintenance counts as productive output for the firm and as overhead for the person doing it. Under realistic parameters, a person at ρ^P = 1.50 (collapse-imminent in personal accounting) registers as ρ^F = 0.54 on the firm's dashboard — same hour of work, two valid bookkeepings, almost a full unit apart. The observer-relative split explains why firm-level metrics systematically underestimate burnout and why individual interventions outperform organizational ones in expectation.",
     "tags": ["thermodynamics", "free-energy-principle", "observer-effects", "psychology", "burnout"],
     "file": "papers/2026-05-06-burnout-v2.pdf",
-    "bibkey": "vosteen2026burnout",
+    "bibkey": "vosteen2026burnoutv2",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"},
       {"label": "Playground", "url": "burnout.html"}
     ]
   },

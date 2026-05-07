@@ -16,282 +16,246 @@
 \begin{document}
 
 % =============== PAGE 1 ===============
-\noindent{\LARGE\textbf{Burnout Is Not Too Much Work, v2}}\\[0.3em]
-\noindent{\small Hakvin Vosteen \hfill 2026}
+\noindent{\LARGE\textbf{Burnout Is Not Too Much Work, v3}}\\[0.3em]
+\noindent{\small Hakvin Vosteen, the new-job decay edition \hfill 2026}
 \vspace{0.3cm}
 
-\noindent{\small\textit{Theoretical model. Population calibration illustrative.}}
+\noindent{\small\textit{Theoretical model. Decay constants illustrative.}}
 \vspace{0.7cm}
 
-\noindent The v1 post had three holes. A reader pointed them out. The threshold is
-not universal, it is individual. ``Sustained period'' is not a definition of time.
-And the overhead/output split is observer-dependent, because maintaining a facade
-counts as productive output for the firm and as overhead for the person doing it.
-This is the v2 that fixes all three.
+\noindent v2 explained why rest fails. It did not explain why a brand-new job
+feels different at month six. Same hours, same desk, same colleagues, less will
+to start the day. The numerator did not change. The denominator did. v3 adds
+the missing term: hedonic decay of perceived output value. The ratio rises from
+below, even when nothing about the job objectively got worse.
 
-\medskip\noindent The punchline up front. With realistic numbers, a person at
-$\rho^{P} = 1.50$ (collapse-imminent) shows up on the firm's dashboard as
-$\rho^{F} = 0.54$ (green). Same hour of work, two valid bookkeepings, almost
-a full unit apart. Algebra below.
+\medskip\noindent The punchline up front. A new job at $\rho_0 = 0.6$ (well in
+the safe zone) drifts to $\rho^P = 1.5$ over twelve months purely because the
+pride-and-novelty multiplier collapses from 1 to 0.4. No extra meetings. No
+extra interrupts. The same hour of work just stops counting for as much.
 
 \begin{center}
-\includegraphics[width=0.78\textwidth]{figures/hook_population.pdf}
+\includegraphics[width=0.95\textwidth]{figures/hook_decay.pdf}
 \end{center}
 
-\vspace{1cm}
-
-\medskip\noindent\textbf{Setup.}\quad Let $i$ index people and $t \geq 0$ index time.
-Each person carries a private friction-output ratio $\rho_i(t)$ and a private
-threshold $\rho_i^*$. Burnout is the event $\rho_i(t) > \rho_i^*$. The right tail
-of the distribution is the burned-out fraction.
+\medskip\noindent\textbf{Setup.}\quad Define $E_{\text{out},i}^{P}(t)$ as
+\textit{perceived} productive output for person $i$ at time $t$. The same
+physical hour can be experienced as more or less productive depending on
+novelty, status, learning rate, and visible wins. We capture this with a
+multiplier on baseline output capacity.
 
 \newpage
 
 % =============== PAGE 2 ===============
-\noindent The first fix is that the output category is observer-dependent. The
-firm pays for outcomes. Some of those outcomes are facade. The person delivers
-the facade but receives no internal value from it. So the same hour of work
-gets booked differently by two accountants.
-
-\begin{definition}[Observer-Relative Energy Split]
-For a working hour, decompose total energy as $E_{\text{tot}} = E_{\text{out}} + E_{\text{ovr}}$.
-For person $i$, write
+\begin{definition}[Hedonic Multiplier]
+For person $i$ in role-state at time $t \geq 0$, write
 \[
-E_{\text{out},i}^{P}, \quad E_{\text{ovr},i}^{P} \quad \text{(person's accounting)},
+E_{\text{out},i}^{P}(t) \;=\; m_i(t) \cdot E_{\text{out},i}^{\text{baseline}},
 \]
+where $E_{\text{out},i}^{\text{baseline}} > 0$ is the physical output capacity
+and $m_i(t) \in (0, 1]$ is the hedonic multiplier. We assume an exponential
+decay form
 \[
-E_{\text{out},i}^{F}, \quad E_{\text{ovr},i}^{F} \quad \text{(firm's accounting)}.
+m_i(t) \;=\; m_{\infty,i} + (1 - m_{\infty,i}) \cdot e^{-t/\tau_{m,i}},
 \]
-Define the role-coupling set
-$\mathcal{F}_i = \{ \text{tasks the person does not value intrinsically but the firm pays for} \}$.
-Then $E_{\text{out},i}^{F} = E_{\text{out},i}^{P} + E_{\mathcal{F},i}$ and
-$E_{\text{ovr},i}^{F} = E_{\text{ovr},i}^{P} - E_{\mathcal{F},i}$.
+with floor $m_{\infty,i} \in (0, 1]$ and decay constant $\tau_{m,i} > 0$.
+The floor encodes person-job match: high $m_\infty$ means the role keeps
+generating felt value indefinitely; low $m_\infty$ means novelty was carrying
+most of the weight.
 \end{definition}
 
-\noindent The set $\mathcal{F}_i$ is the wedge between two valid accountings.
+\noindent The functional form is the simplest one consistent with two
+constraints: (i) $m(0) = 1$ at the start of the role, and (ii) $m(t) \to
+m_\infty$ as $t \to \infty$. This is the standard form for hedonic adaptation
+in well-being research.
 
-\begin{theorem}[Observer-Relative Burnout Inequality]
-Define the two ratios $\rho_i^{P}(t) = E_{\text{ovr},i}^{P}/E_{\text{out},i}^{P}$
-and $\rho_i^{F}(t) = E_{\text{ovr},i}^{F}/E_{\text{out},i}^{F}$. Then
+\begin{theorem}[Honeymoon-Decay Climb]
+Let $\rho_i^{P}(t) = E_{\text{ovr},i}^{P}/E_{\text{out},i}^{P}(t)$, and assume
+$E_{\text{ovr},i}^{P}$ and $E_{\text{out},i}^{\text{baseline}}$ are constant
+in $t$. Then
 \[
-\rho_i^{P}(t) \;\geq\; \rho_i^{F}(t),
+\rho_i^{P}(t) \;=\; \frac{\rho_{0,i}}{m_i(t)}, \qquad \rho_{0,i} \;:=\; \frac{E_{\text{ovr},i}^{P}}{E_{\text{out},i}^{\text{baseline}}}.
 \]
-with equality if and only if $E_{\mathcal{F},i} = 0$, i.e., the role contains
-no task the person does facade-only.
+The function $\rho_i^{P}(t)$ is strictly increasing in $t$ whenever $m_{\infty,i} < 1$,
+with limits $\rho_i^{P}(0) = \rho_{0,i}$ and $\rho_i^{P}(t) \to \rho_{0,i}/m_{\infty,i}$
+as $t \to \infty$.
 \end{theorem}
 
 \begin{proof}
-Write $a = E_{\text{ovr},i}^{P}$, $b = E_{\text{out},i}^{P}$, $f = E_{\mathcal{F},i}$,
-all nonnegative with $b > 0$. By the definition above, $\rho_i^{P} = a/b$ and
-$\rho_i^{F} = (a-f)/(b+f)$. Subtracting,
+The first equality is immediate from the definitions. For monotonicity,
+differentiate:
 \begin{align}
-\rho_i^{P} - \rho_i^{F}
-&= \frac{a}{b} - \frac{a-f}{b+f} \\
-&= \frac{a(b+f) - b(a-f)}{b(b+f)} \\
-&= \frac{f(a+b)}{b(b+f)}.
+\frac{d \rho_i^{P}}{dt}
+&= \rho_{0,i} \cdot \left( -\frac{m_i'(t)}{m_i(t)^2} \right) \\
+&= \rho_{0,i} \cdot \frac{(1 - m_{\infty,i})\, e^{-t/\tau_{m,i}}}{\tau_{m,i} \cdot m_i(t)^2}.
 \end{align}
-Since $a, b, f \geq 0$ and $b > 0$, the numerator and denominator are
-nonnegative, so $\rho_i^{P} - \rho_i^{F} \geq 0$. The expression is zero
-exactly when $f = 0$.
+The factor $\rho_{0,i} > 0$ by construction (positive overhead, positive output
+capacity). The numerator $(1 - m_{\infty,i}) e^{-t/\tau_{m,i}}$ is positive
+exactly when $m_{\infty,i} < 1$. The denominator $\tau_{m,i} m_i(t)^2 > 0$ always.
+So $d\rho_i^{P}/dt > 0$ on $[0, \infty)$ whenever $m_{\infty,i} < 1$, i.e., the
+match is imperfect. The limits follow from $m_i(0) = 1$ and $m_i(t) \to m_{\infty,i}$.
 \end{proof}
 
-\begin{corollary}
-The person can collapse ($\rho_i^{P} > \rho_i^{*}$) while the firm metric
-$\rho_i^{F}$ still reads healthy. The larger the facade load $E_{\mathcal{F},i}$,
-the larger the gap.
+\begin{corollary}[Burnout Without Drift or Wedge]
+If $\rho_{0,i} > m_{\infty,i} \cdot \rho_i^{*}$, then person $i$ enters
+sustained burnout at some finite $t^{*}$, even when $E_{\text{ovr},i}^{P}$ is
+constant (no v2 environmental drift) and $E_{\mathcal{F},i} = 0$ (no v2 facade
+wedge). The honeymoon-decay mechanism alone is sufficient.
 \end{corollary}
 
-\noindent This is the ``high performer suddenly burns out'' pattern. The firm
-sees a productive employee until the day they stop functioning. The person was
-already past threshold for weeks. The two accountings disagreed.
-
-\medskip\noindent\textbf{Worked example.}\quad Take a knowledge-worker hour with
-$a = 60$ (person-counted overhead, including facade), $b = 40$ (work the person
-values), $f = 25$ (facade portion of the overhead). Then
-\begin{align}
-\rho^{P} &= \frac{60}{40} = 1.50 \quad \text{(person, past collapse threshold)} \\
-\rho^{F} &= \frac{60 - 25}{40 + 25} = \frac{35}{65} = 0.54 \quad \text{(firm, looks fine)} \\
-\rho^{P} - \rho^{F} &= \frac{25 \cdot 100}{40 \cdot 65} = 0.96.
-\end{align}
-Almost a full unit of disagreement on the same hour of work.
+\noindent The corollary is the key claim. v1 needed a high baseline $\rho_0$.
+v2 needed environmental drift or a facade wedge. v3 needs neither. A perfectly
+healthy starting ratio with a perfectly stable environment can still produce
+burnout, purely from the denominator collapsing.
 
 \newpage
 
 % =============== PAGE 3 ===============
-\noindent The second fix is making time explicit. v1 said ``sustained period.''
-That is not a clock. We need a generator for $\rho_i(t)$.
-
-\begin{definition}[Friction Drift]
-Let $\rho_i(t)$ evolve according to
-\[
-\frac{d \rho_i}{dt} = \alpha_i(\text{env}) - \beta_i \cdot r_i(t),
-\]
-where $\alpha_i \geq 0$ is the environmental overhead-injection rate
-(meetings, interrupts, facade demand), $\beta_i \geq 0$ is the per-person
-restoration sensitivity, and $r_i(t) \in [0,1]$ is the actual recovery
-intensity at time $t$ (sleep, weekends, social repair).
-\end{definition}
+\noindent The lifecycle has three phases, with cleanly separated time scales.
 
 \begin{center}
-\includegraphics[width=0.78\textwidth]{figures/observer_split.pdf}
+\includegraphics[width=0.78\textwidth]{figures/phase_progression.pdf}
 \end{center}
 
-\noindent Same job, two accountings. The dark bar is what the person spends
-their day doing. The light bar is what the firm sees on the timesheet. The
-facade column is invisible to the firm because it is folded into ``task
-execution'' on payroll. To the person it is its own column, costing 25\% of
-the energy budget.
+\medskip
+\begin{tabular}{lll}
+\toprule
+Phase & Range & What is happening \\
+\midrule
+Honeymoon       & $0 \leq t < \tau_m$       & $m \approx 1$, ratio near baseline \\
+Disillusionment & $\tau_m \leq t < 3\tau_m$ & $m$ collapsing fastest, ratio climbing \\
+Steady state    & $t \geq 3\tau_m$          & $m \approx m_\infty$, ratio at $\rho_0/m_\infty$ \\
+\bottomrule
+\end{tabular}
 
-\medskip\noindent\textbf{Steady state.}\quad Setting $d\rho_i/dt = 0$ in
-Definition~2 with mean recovery $\bar r_i$ gives
-\[
-\rho_i^{ss} = \frac{\alpha_i}{\beta_i \bar r_i}.
-\]
-The person settles at this ratio if nothing changes. Burnout is the condition
-$\rho_i^{ss} > \rho_i^{*}$. The relevant time scale is the relaxation time
-$\tau_i \approx 1/(\beta_i \bar r_i)$, which sets how fast $\rho_i$ approaches
-its steady state after a perturbation.
+\medskip\noindent\textbf{Why ``the new job wears off'' is not weakness.}\quad
+The Disillusionment phase is not a moral failing. It is a prediction of any
+model in which subjective output is a function of novelty and the novelty
+decays. The mistake is interpreting the felt change as a signal that something
+is wrong with you. The signal is correct, but it is reporting on $m_i(t)$, not
+on your character.
 
-\begin{remark}[Why ``rest'' often fails]
-A sabbatical raises $r_i(t)$ to nearly 1 for a few weeks, pulling $\rho_i$ down
-with rate $\beta_i$. But $\alpha_i(\text{env})$ is unchanged. On return,
-$\rho_i$ relaxes back to the same $\rho_i^{ss}$ over time $\tau_i$. Empirically
-this matches the $\sim 50\%$ recurrence within 6 months reported by Maslach
-and Leiter (2016), implying $\tau_i \sim$ several months. Rest moves you down
-the curve. Only changing $\alpha_i$ (the environment) changes where the curve
-ends up.
+\begin{remark}[Why job-hopping helps temporarily]
+Switching roles resets $m_i$ to 1 by construction (the new role is novel by
+definition). It does not change $\alpha_i(\text{env})$ from v2 or
+$\rho_{0,i}$ from v3. This predicts the empirical pattern: each new job
+delivers a fresh Honeymoon, but if the underlying $\rho_{0,i}/m_{\infty,i}$ is
+above threshold across all available jobs, the climb repeats every cycle.
+Job-hopping is rational hedonic management, not avoidance.
 \end{remark}
+
+\medskip\noindent\textbf{Estimating the constants.}\quad The decay constant
+$\tau_{m,i}$ is the time over which roughly $63\%$ of the novelty premium
+decays ($1 - 1/e$). For knowledge work the empirical anchor is the Gallup
+engagement curve, which reports a peak in the first six months and a stable
+floor reached around eighteen months. This implies $\tau_m \approx 4$ to $6$
+months, consistent with the figures used here.
 
 \newpage
 
 % =============== PAGE 4 ===============
-\noindent The third fix is making the population explicit.
-The threshold $\rho_i^*$ is private and varies between people. So is the drift
-rate. Aggregating gives a population curve.
-
-\begin{theorem}[Population Burnout Curve]
-Let $\log \rho_i(t) = \mu_0 + \delta \cdot t + \varepsilon_i$ with
-$\varepsilon_i \sim \mathcal{N}(0, \sigma^2)$, and let
-$\log \rho_i^* \sim \mathcal{N}(\mu^*, \sigma_*^2)$, independent of $\varepsilon_i$.
-Then the population fraction in burnout at time $t$ is
-\[
-B(t) \;=\; \Pr\!\left(\rho_i(t) > \rho_i^*\right)
-\;=\; \Phi\!\left( \frac{\mu_0 + \delta t - \mu^*}{\sqrt{\sigma^2 + \sigma_*^2}} \right),
-\]
-where $\Phi$ is the standard normal CDF.
-\end{theorem}
-
-\begin{proof}
-The event $\rho_i(t) > \rho_i^*$ is equivalent to
-$\log \rho_i(t) - \log \rho_i^* > 0$. Let
-$Z_i = \log \rho_i(t) - \log \rho_i^*$. By the assumptions and independence,
-\begin{align}
-Z_i &\sim \mathcal{N}\!\left( \mu_0 + \delta t - \mu^*, \; \sigma^2 + \sigma_*^2 \right).
-\end{align}
-Then $\Pr(Z_i > 0) = 1 - \Phi(-(\mu_0 + \delta t - \mu^*)/\sqrt{\sigma^2 + \sigma_*^2})
-= \Phi((\mu_0 + \delta t - \mu^*)/\sqrt{\sigma^2 + \sigma_*^2})$.
-\end{proof}
+\noindent The combined model. v1, v2, v3 are not competing explanations. They
+are three independent terms.
 
 \begin{center}
-\includegraphics[width=0.78\textwidth]{figures/b_of_t.pdf}
+\includegraphics[width=0.85\textwidth]{figures/mechanism_stack.pdf}
 \end{center}
 
-\noindent The Gallup point sits within the curve at $t \approx 88$ weeks, which
-matches the average tenure-in-current-role for the affected demographic. This
-is calibration consistency, not validation.
+\medskip\noindent The static v1 line is flat because v1 had no time term at
+all, only a static threshold. v2 adds environmental drift (the dashed line):
+overhead grows over time, mostly linear in log space. v3 adds hedonic decay
+(the dash-dot line): denominator collapses on its own time scale. The combined
+trajectory crosses threshold earliest. In our calibration v2 alone takes
+$22$ months to cross, v3 alone takes $7$ months, both together take $5$ months.
 
-\medskip\noindent\textbf{The argument.}\quad Three fixes, one equation:
-
+\medskip\noindent\textbf{The full equation.}\quad Allowing both mechanisms,
 \[
-  \boxed{ \; B(t) \;=\; \Phi\!\left( \frac{\mu_0 + \delta t - \mu^*}{\sqrt{\sigma^2 + \sigma_*^2}} \right) \quad \text{with} \quad \rho_i^{P} \geq \rho_i^{F} \; }
+\boxed{ \; \rho_i^{P}(t) \;=\; \frac{E_{\text{ovr},i}^{P}(t)}{m_i(t) \cdot E_{\text{out},i}^{\text{baseline}}}, \qquad
+\frac{d \log \rho_i^{P}}{dt} \;=\; \underbrace{\alpha_i(\text{env})}_{\text{v2 drift}} \;+\; \underbrace{\left|\frac{d \log m_i}{dt}\right|}_{\text{v3 decay}}. \; }
 \]
 
-\noindent Burnout is a population sigmoid in time, driven by individual drift,
-gated by individual thresholds, and obscured by an observer-dependent
-accounting wedge.
+\noindent The two contributions add in log space. They are individually positive
+and cannot cancel. This is the structural reason that ``either reduce overhead
+or take a sabbatical'' is incomplete advice: it misses the third lever, which
+is increasing $m_\infty$ via better person-job match.
+
+\medskip\noindent\textbf{Three levers, three populations.}
+
+\begin{tabular}{lll}
+\toprule
+Lever & Mechanism & Right intervention \\
+\midrule
+Lower $E_{\text{ovr}}$    & v2 (drift) & Consolidate meetings, batch interrupts \\
+Reduce facade $E_{\mathcal{F}}$ & v2 (wedge) & Change role or environment \\
+Raise $m_\infty$          & v3 (decay) & Better person-job match, intrinsic alignment \\
+\bottomrule
+\end{tabular}
+
+\medskip\noindent The third row is the one that gets called ``life advice.''
+It is the only one that addresses the denominator. The first two address the
+numerator. Burnout interventions that focus only on the numerator and ignore
+$m_\infty$ are addressing two-thirds of the problem.
 
 \newpage
 
 % =============== PAGE 5 ===============
-\medskip\noindent\textbf{What happens when.}\quad The sigmoid has four regimes,
-each with a different prediction.
-
-\begin{tabular}{llll}
-\toprule
-Phase & Condition & $B(t)$ & In our calibration \\
-\midrule
-Honeymoon  & $\mu_0 + \delta t \ll \mu^*$ & $\approx 0$ & $t < 20$ wk \\
-Climb      & $\mu_0 + \delta t < \mu^*$   & rising      & $20$--$50$ wk \\
-Inflection & $\mu_0 + \delta t = \mu^*$   & $0.5$       & $t \approx 58$ wk \\
-Saturation & $\mu_0 + \delta t \gg \mu^*$ & $\to 1$     & $t > 100$ wk \\
-\bottomrule
-\end{tabular}
-
-\medskip\noindent The slope at the inflection point gives the worst-case rate
-of new burnouts:
-\[
-\left.\frac{dB}{dt}\right|_{B=0.5} = \frac{\delta}{\sqrt{2\pi(\sigma^2 + \sigma_*^2)}} \approx 0.9\%/\text{wk}.
-\]
-At peak rate, roughly 1\% of the cohort flips into burnout per week. This is the
-window where intervention has the highest marginal return.
-
-\bigskip\noindent\textbf{Empirical basis.}
+\medskip\noindent\textbf{Empirical anchors.}
 
 \begin{tabular}{lll}
 \toprule
 Quantity & Value & Source \\
 \midrule
-Burnout symptom prevalence (US, 2024) & $\sim 67\%$ & Gallup \\
-Average meeting load (knowledge worker) & $\sim 23$ h/wk & Microsoft 2023 \\
-Recovery time after context switch & $\sim 23$ min & Mark et al.\ (2008) \\
-Burnout recurrence after sabbatical & $\sim 50\%$ within 6 mo & Maslach \& Leiter (2016) \\
+Engagement peak after start of role     & $\sim 6$ months    & Gallup engagement series \\
+Engagement floor reached                & $\sim 18$ months   & Gallup engagement series \\
+Average tenure (US, all sectors, 2024)  & $\sim 4.1$ years   & BLS \\
+Average tenure for workers under 35     & $\sim 2.7$ years   & BLS \\
+Hedonic adaptation half-life (life events) & $\sim 3$--$12$ months & Lyubomirsky (2011) \\
 \bottomrule
 \end{tabular}
 
-\medskip\noindent The recurrence row is the empirical anchor for the Remark on
-page 3. Rest changes $r_i$ but not $\alpha_i$, so the steady state recurs.
+\medskip\noindent The under-35 tenure number is the diagnostic. If the
+v3 mechanism dominates, expected tenure approaches $3\tau_m$ (the Steady-state
+onset), which is around $1$ to $1.5$ years. The observed $2.7$ years is
+consistent with a mix of v3 (people leaving when $\rho$ becomes uncomfortable) and
+non-burnout factors (compensation, location, relationships). v3 cannot explain
+all job-hopping, but it predicts a robust floor below which tenures should not
+fall easily; that floor matches the data.
 
-\newpage
+\medskip\noindent\textbf{Falsification routes.}
 
-% =============== PAGE 6 ===============
-\medskip\noindent\textbf{Structural estimates.}
+\noindent\textit{Route 1.}\quad Measure self-reported $m_i(t)$ in a longitudinal
+panel of new hires. The model predicts an exponential decay shape with
+person-job-match correlated with $m_\infty$. If decay is linear or sigmoidal,
+the multiplier form is wrong.
 
-\begin{tabular}{lll}
-\toprule
-Quantity & Value used & Source \\
-\midrule
-Drift rate $\delta$ & $0.012$/wk & calibrated to Gallup point \\
-$\sigma$ (within-person noise) & $0.45$ & estimate, not measured \\
-$\sigma_*$ (threshold spread) & $0.30$ & estimate, not measured \\
-$\mu^*$ (median log-threshold) & $0$, i.e.\ $\rho^* \approx 1$ & convention from v1 \\
-$E_{\mathcal{F}}$ in observer plot & 25\% of budget & illustrative \\
-\bottomrule
-\end{tabular}
+\noindent\textit{Route 2.}\quad The model predicts that two people with
+identical $\rho_{0,i}$ but different $m_{\infty,i}$ will hit threshold at
+different times in the same role. Match-quality should predict tenure
+controlling for compensation. If it does not, the floor is irrelevant.
 
-\medskip\noindent The structural-estimate row is what survives if Gallup is wrong.
-The $B(t)$ shape is robust under wide reparametrization. The fact that
-$\rho^P \geq \rho^F$ is exact algebra and needs no calibration.
+\noindent\textit{Route 3.}\quad For job-switchers, $\rho^{P}$ should reset
+toward $\rho_{0}$ on each transition. Wearables and engagement-survey data
+should show this discontinuity. If the trajectory is smooth across transitions,
+the multiplier is not actually resetting.
+
+\medskip\noindent\textbf{What this still does not address.}\quad Hedonic
+adaptation is not the only thing that scales perceived output. Status changes,
+relational quality, and personal life events all modulate $E_{\text{out}}^{P}$
+through routes that are not novelty-driven. The model collapses everything
+that is not environmental drift or facade into a single decay constant. That is
+useful for tractability and incomplete for full description.
 
 \vspace{0.5cm}
 \noindent\textbf{References}
 
-\noindent[1] Friston, K. (2010). The free-energy principle: A unified brain theory? \textit{Nat.\ Rev.\ Neurosci.}\ 11, 127--138.
+\noindent[1] Brickman, P., Campbell, D.T. (1971). Hedonic relativism and planning the good society. \textit{Adaptation-Level Theory}, 287--305.
 
-\noindent[2] Mark, G., Gudith, D., Klocke, U. (2008). The cost of interrupted work. \textit{Proc.\ CHI 2008}, 107--110.
+\noindent[2] Lyubomirsky, S. (2011). Hedonic adaptation to positive and negative experiences. \textit{Oxford Handbook of Stress, Health, and Coping}, 200--224.
 
-\noindent[3] Maslach, C., Leiter, M.P. (2016). Understanding the burnout experience. \textit{World Psychiatry} 15(2), 103--111.
+\noindent[3] Frederick, S., Loewenstein, G. (1999). Hedonic adaptation. \textit{Well-Being: The Foundations of Hedonic Psychology}, 302--329.
 
-\noindent[4] Schaufeli, W.B., Leiter, M.P., Maslach, C. (2009). Burnout: 35 years of research and practice. \textit{Career Dev.\ Int.}\ 14(3), 204--220.
+\noindent[4] Bureau of Labor Statistics (2024). Employee Tenure in 2024. \textit{USDL-24-1881}.
 
-\noindent[5] Spence, M. (1973). Job market signaling. \textit{Quarterly Journal of Economics} 87, 355--374. (\textit{Source for facade-as-signal.})
-
-\vspace{0.5cm}
-\noindent\textbf{What this model still does not address}
-
-\noindent Depression as an independent contributor that lowers $E_{\text{tot}}$.
-Pure physical exhaustion. Burnout-by-meaninglessness, where output is high but
-its perceived value is zero (this would require a separate term modulating
-$E_{\text{out},i}^{P}$). Inter-person spillover, where one person's $\rho_i$
-raises another's $\alpha_j$. The model is the skeleton, not the body.
+\noindent[5] Gallup (2024). State of the Global Workplace.
 
 \end{document}
