@@ -96,6 +96,18 @@
     "bibkey": "vosteen2026tiktokpeerreview"
   },
   {
+    "slug": "burnout-paper",
+    "title": "Burnout Is Not Too Much Work: A Four-Mechanism Model of Friction, Drift, Decay, and Optimal Stopping",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-07",
+    "version": "1.0",
+    "type": "paper",
+    "abstract": "The dominant explanation of burnout treats it as a function of total workload, with rest as the natural treatment. We argue this is wrong as a diagnosis and therefore wrong as a treatment. We model burnout instead as a strictly increasing friction-output ratio driven by four distinct mechanisms, each operating on a different time scale and each requiring a different intervention. (1) A private collapse threshold heterogeneous across the population produces a sigmoid burnout curve in time. (2) The overhead-to-output accounting is observer-relative, so the worker's experienced ratio can substantially exceed the firm's reported metric whenever the role contains facade maintenance. (3) Hedonic decay: perceived output declines multiplicatively with role tenure, producing burnout even at constant physical workload. (4) Optimal stopping (Charnov's Marginal Value Theorem) gives the rational quit time as the moment when current flow utility equals the long-run average reward over the role-plus-search cycle. The four mechanisms decompose into independent terms that add in log space and cannot cancel. We calibrate against public engagement surveys, labor-tenure data, and hedonic-adaptation half-lives, and recover the rank ordering of industries by mean tenure without industry-specific tuning. The diagnostic gives five intervention levers, of which the standard burnout literature addresses at most two.",
+    "tags": ["burnout", "thermodynamics", "hedonic-decay", "optimal-stopping", "free-energy-principle", "labor-economics"],
+    "file": "papers/2026-05-07-burnout-paper.pdf",
+    "bibkey": "vosteen2026burnoutmodel"
+  },
+  {
     "slug": "burnout",
     "title": "Burnout Is Not Too Much Work, v4",
     "authors": ["Hakvin Vosteen"],

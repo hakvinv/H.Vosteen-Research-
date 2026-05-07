@@ -1,0 +1,633 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{authblk}
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+
+\title{\Large\textbf{Burnout Is Not Too Much Work:}\\
+A Four-Mechanism Model of Friction, Drift, Decay, and Optimal Stopping}
+\author{Hakvin Vosteen}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent The dominant explanation of burnout treats it as a function of total
+workload, with rest as the natural treatment. We argue this is wrong as a
+diagnosis and therefore wrong as a treatment. We model burnout instead as a
+strictly increasing friction-output ratio driven by four distinct mechanisms,
+each operating on a different time scale and each requiring a different
+intervention. The first mechanism establishes a private collapse threshold
+that is heterogeneous across the population, producing a sigmoid burnout
+curve in time. The second mechanism makes the overhead-to-output accounting
+observer-relative, so that the worker's experienced ratio can substantially
+exceed the firm's reported metric whenever the role contains facade
+maintenance. The third mechanism is hedonic decay: perceived output declines
+multiplicatively with role tenure, producing burnout even at constant
+physical workload. The fourth mechanism is optimal stopping, which gives the
+rational quit time as the moment when current flow utility equals the long-run
+average reward over the role-plus-search cycle, a result familiar from
+optimal foraging theory. The four mechanisms decompose into independent terms
+that add in log space and cannot cancel. We calibrate the model against
+public engagement surveys, labor-tenure data, and hedonic-adaptation
+half-lives, and we recover the rank ordering of industries by mean tenure
+without industry-specific tuning. The resulting diagnostic gives five
+intervention levers, of which the standard burnout literature addresses at
+most two.
+\end{abstract}
+
+\section{Introduction}
+
+The standard model of burnout treats it as a function of total workload. Rest,
+sabbaticals, and reduced hours are the standard interventions. Empirically,
+roughly half of those who take a sabbatical return to burnout within six
+months \cite{maslach2016}. The standard model cannot explain this recurrence
+without invoking auxiliary hypotheses about workplace culture or individual
+character.
+
+We propose that burnout is governed by four distinct mechanisms, each of
+which can independently push the friction-output ratio $\rho_i(t)$ toward
+collapse. The four mechanisms decompose into:
+\begin{itemize}
+\item[\textbf{M1.}] Static threshold (Section \ref{sec:m1}). The basic ratio
+$\rho_i = E_{\text{ovr}} / E_{\text{out}}$ has a private threshold above which
+the system enters positive-feedback collapse.
+\item[\textbf{M2.}] Drift, observer wedge, and population aggregation
+(Section \ref{sec:m2}). The ratio drifts upward over time due to environmental
+overhead injection, the accounting splits differently for the person and the
+firm, and aggregating over heterogeneous individuals produces a sigmoid
+population curve.
+\item[\textbf{M3.}] Hedonic decay (Section \ref{sec:m3}). Perceived output
+declines multiplicatively with tenure even at constant physical work,
+producing burnout from denominator collapse alone.
+\item[\textbf{M4.}] Optimal stopping (Section \ref{sec:m4}). Given the
+combined dynamics, the rational quit time is later than threshold crossing
+and earlier than terminal collapse, characterized by the Marginal Value
+Theorem.
+\end{itemize}
+
+The four mechanisms add in log space and cannot cancel. Standard burnout
+interventions (rest, reduced hours) operate only on the numerator and address
+at most a fraction of the structure. We discuss the diagnostic implications
+in Section \ref{sec:diagnostic}.
+
+\subsection*{Notation}
+
+\begin{center}
+\textbf{Table 1.} Symbols used throughout the paper.
+
+\medskip
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$i$                            & person index \\
+$t$                            & time in role (months or weeks, context-dependent) \\
+$E_{\text{ovr},i}$             & overhead energy per unit time \\
+$E_{\text{out},i}$             & productive output energy per unit time \\
+$E_{\text{tot},i}$             & total energy budget, $E_{\text{ovr}} + E_{\text{out}}$ \\
+$E_{\mathcal{F},i}$            & facade-load: tasks the firm books as output, person as overhead \\
+$\rho_i$                       & friction-output ratio, $E_{\text{ovr}}/E_{\text{out}}$ \\
+$\rho_i^P, \rho_i^F$           & person's vs firm's accounting of $\rho_i$ \\
+$\rho_i^*$                     & private collapse threshold \\
+$\rho_{0,i}$                   & day-one ratio at start of role \\
+$\rho_i^{ss}$                  & steady-state ratio under M2 dynamics \\
+$\alpha_i$                     & environmental overhead-injection rate \\
+$\beta_i$                      & per-person restoration sensitivity \\
+$r_i(t)$                       & recovery intensity, $r_i \in [0,1]$ \\
+$\bar r_i$                     & mean recovery rate over time \\
+$\delta$                       & population mean drift rate of $\log \rho$ \\
+$\sigma, \sigma_*$             & within-person and threshold-spread standard deviations \\
+$\mu_0, \mu^*$                 & population means of $\log \rho_i(0)$ and $\log \rho_i^*$ \\
+$B(t)$                         & fraction of population in burnout at time $t$ \\
+$m_i(t)$                       & hedonic multiplier, $m_i: [0,\infty) \to (0, 1]$ \\
+$m_{\infty,i}$                 & hedonic floor, person-job match parameter \\
+$\tau_{m,i}$                   & hedonic decay constant \\
+$w$                            & wage flow per unit time \\
+$c(\cdot)$                     & burnout cost function \\
+$u_i(t)$                       & net flow utility, $w - c(\rho_i(t))$ \\
+$c_s$                          & switch cost (one-time, in wage units) \\
+$s$                            & job-search duration \\
+$A_i(t^*)$                     & long-run average reward over role-plus-search cycle \\
+$t^*$                          & rational quit time, solution to MVT \\
+$t_\rho, t_h$                  & threshold-crossing time and subjective-hate time \\
+$\Phi$                         & standard normal CDF \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Mechanism 1: Static Threshold and the Friction-Output Ratio}
+\label{sec:m1}
+
+\begin{definition}[Friction-Output Ratio]
+\label{def:fr}
+For a working system over a sustained period, the friction-output ratio is
+\[
+\rho_{\text{burn}} = \frac{E_{\text{overhead}}}{E_{\text{output}}},
+\]
+where $E_{\text{overhead}}$ aggregates context switching, intrusion suppression,
+social facade maintenance, and decision fatigue, and $E_{\text{output}}$ is
+the energy delivered to the actual task.
+\end{definition}
+
+\begin{theorem}[Burnout Threshold]
+\label{thm:thresh}
+Under a free-energy minimization dynamic with finite total energy budget
+$E_{\text{tot}} = E_{\text{ovr}} + E_{\text{out}}$, the system is sustainable
+iff $\rho_{\text{burn}} < \rho^*$ for some private threshold $\rho^*$. As
+$\rho_{\text{burn}} \to \rho^*$, the marginal cost of overhead exceeds the
+marginal benefit of output, and the system enters a transcritical bifurcation:
+stable below $\rho^*$, unstable above. \hfill$\blacksquare$
+\end{theorem}
+
+\noindent The qualitative claim of M1 is the bifurcation structure. The exact
+location of $\rho^*$ is a free parameter set to unity by convention. M2
+through M4 will all assume the M1 ratio is the underlying state variable.
+
+\section{Mechanism 2: Drift, Observer Wedge, and Population Sigmoid}
+\label{sec:m2}
+
+M1 leaves three structural questions open. The threshold is treated as
+universal when it is private. The phrase ``sustained period'' is undefined.
+And the overhead-output split is ambiguous because some tasks are
+facade-only for the person but counted as productive output by the firm.
+
+\subsection{Observer-Relative Energy Accounting}
+
+\begin{definition}[Observer-Relative Energy Split]
+For a working hour, decompose $E_{\text{tot}} = E_{\text{out}} + E_{\text{ovr}}$.
+For person $i$, write
+\[
+E_{\text{out},i}^{P}, \;\; E_{\text{ovr},i}^{P} \quad \text{(person's accounting)};
+\qquad
+E_{\text{out},i}^{F}, \;\; E_{\text{ovr},i}^{F} \quad \text{(firm's accounting)}.
+\]
+Define the role-coupling set $\mathcal{F}_i = \{$tasks the person does not
+value intrinsically but the firm pays for$\}$. Then $E_{\text{out},i}^{F} =
+E_{\text{out},i}^{P} + E_{\mathcal{F},i}$ and $E_{\text{ovr},i}^{F} =
+E_{\text{ovr},i}^{P} - E_{\mathcal{F},i}$.
+\end{definition}
+
+\begin{theorem}[Observer-Relative Burnout Inequality]
+\label{thm:wedge}
+Define $\rho_i^{P} = E_{\text{ovr},i}^{P}/E_{\text{out},i}^{P}$ and
+$\rho_i^{F} = E_{\text{ovr},i}^{F}/E_{\text{out},i}^{F}$. Then
+\[
+\rho_i^{P} \;\geq\; \rho_i^{F},
+\]
+with equality iff $E_{\mathcal{F},i} = 0$. \hfill$\blacksquare$
+\end{theorem}
+
+\begin{proof}
+Write $a = E_{\text{ovr},i}^{P}$, $b = E_{\text{out},i}^{P}$,
+$f = E_{\mathcal{F},i}$, all nonnegative with $b > 0$. Then $\rho_i^{P} = a/b$
+and $\rho_i^{F} = (a-f)/(b+f)$, so
+\[
+\rho_i^{P} - \rho_i^{F} \;=\; \frac{a(b+f) - b(a-f)}{b(b+f)} \;=\; \frac{f(a+b)}{b(b+f)} \;\geq\; 0,
+\]
+with equality iff $f = 0$.
+\end{proof}
+
+\begin{corollary}
+The person can collapse ($\rho_i^{P} > \rho_i^{*}$) while the firm metric
+$\rho_i^{F}$ still reads healthy. The larger the facade load $E_{\mathcal{F},i}$,
+the larger the gap.
+\end{corollary}
+
+\noindent\textit{Worked example.} For a knowledge-worker hour with $a = 60$,
+$b = 40$, $f = 25$ (in normalized energy units), we obtain $\rho^P = 1.50$
+(past collapse) and $\rho^F = 0.54$ (firm sees healthy), a gap of $0.96$
+on the same hour of work.
+
+\subsection{Friction Drift and Steady State}
+
+\begin{definition}[Friction Drift]
+Let $\rho_i(t)$ evolve according to
+\[
+\frac{d\rho_i}{dt} \;=\; \alpha_i(\text{env}) - \beta_i \cdot r_i(t),
+\]
+where $\alpha_i \geq 0$ is the environmental overhead-injection rate,
+$\beta_i \geq 0$ is per-person restoration sensitivity, and
+$r_i(t) \in [0,1]$ is recovery intensity at time $t$.
+\end{definition}
+
+The steady state with mean recovery $\bar r_i$ is $\rho_i^{ss} = \alpha_i / (\beta_i \bar r_i)$.
+Burnout obtains iff $\rho_i^{ss} > \rho_i^*$. The relaxation time scale is
+$\tau_i \approx 1/(\beta_i \bar r_i)$.
+
+\begin{remark}[Why rest often fails]
+\label{rem:rest}
+A sabbatical raises $r_i(t)$ for a few weeks, transiently lowering $\rho_i$.
+On return, $\alpha_i$ is unchanged, so $\rho_i$ relaxes back to the same
+$\rho_i^{ss}$ over time $\tau_i$. The Maslach-Leiter \cite{maslach2016}
+finding of $\sim 50\%$ recurrence within 6 months implies $\tau_i$ on the
+order of months. Rest moves you down the curve. Only changing $\alpha_i$
+changes where the curve ends up.
+\end{remark}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/observer_split.pdf}
+\caption{\textbf{Observer wedge in our calibration.} Same job, two accountings. The dark bar is the person's experience, the light bar is the firm's bookkeeping. The facade column is invisible to the firm because it is folded into ``task execution'' on the timesheet.}
+\label{fig:observer}
+\end{figure}
+
+\subsection{Population Burnout Curve}
+
+\begin{theorem}[Population Sigmoid]
+\label{thm:pop}
+Let $\log \rho_i(t) = \mu_0 + \delta t + \varepsilon_i$ with
+$\varepsilon_i \sim \mathcal{N}(0, \sigma^2)$, and let
+$\log \rho_i^* \sim \mathcal{N}(\mu^*, \sigma_*^2)$, independent of
+$\varepsilon_i$. Then the population fraction in burnout at time $t$ is
+\[
+B(t) \;=\; \Phi\!\left( \frac{\mu_0 + \delta t - \mu^*}{\sqrt{\sigma^2 + \sigma_*^2}} \right),
+\]
+where $\Phi$ is the standard normal CDF. \hfill$\blacksquare$
+\end{theorem}
+
+\begin{proof}
+$\rho_i(t) > \rho_i^* \Leftrightarrow Z_i := \log\rho_i(t) - \log\rho_i^* > 0$.
+By independence and normality, $Z_i \sim \mathcal{N}(\mu_0 + \delta t - \mu^*,\;
+\sigma^2 + \sigma_*^2)$. Then $\Pr(Z_i > 0) = \Phi((\mu_0 + \delta t - \mu^*)/\sqrt{\sigma^2 + \sigma_*^2})$.
+\end{proof}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/b_of_t.pdf}
+\caption{\textbf{Population burnout sigmoid $B(t)$.} Empirical Gallup datapoint of $\sim 67\%$ at $t \approx 88$ weeks falls within the model curve under our calibration ($\delta = 0.012$/wk, $\sigma^2 + \sigma_*^2 \approx 0.29$).}
+\label{fig:btoft}
+\end{figure}
+
+\noindent The slope at the inflection point gives the worst-case rate of new
+burnouts:
+\[
+\left.\frac{dB}{dt}\right|_{B=0.5} = \frac{\delta}{\sqrt{2\pi(\sigma^2 + \sigma_*^2)}}.
+\]
+With $\delta \approx 0.012$/wk and $\sigma^2 + \sigma_*^2 \approx 0.29$ this
+gives $\sim 0.9\%$ per week at peak, which is the window of highest marginal
+return on intervention.
+
+\section{Mechanism 3: Hedonic Decay}
+\label{sec:m3}
+
+M2 makes the numerator dynamic. M3 makes the denominator dynamic. Two people
+with identical $E_{\text{ovr},i}$ and identical baseline output capacity will
+nonetheless experience different $\rho^P$ trajectories depending on how
+strongly the felt value of the work decays with time-in-role.
+
+\begin{definition}[Hedonic Multiplier]
+\label{def:m}
+For person $i$ in role at time $t \geq 0$, write
+\[
+E_{\text{out},i}^{P}(t) \;=\; m_i(t) \cdot E_{\text{out},i}^{\text{baseline}}, \qquad
+m_i(t) \;=\; m_{\infty,i} + (1 - m_{\infty,i}) e^{-t/\tau_{m,i}},
+\]
+with floor $m_{\infty,i} \in (0, 1]$ and decay constant $\tau_{m,i} > 0$.
+\end{definition}
+
+\begin{theorem}[Honeymoon-Decay Climb]
+\label{thm:climb}
+Under Definition \ref{def:m} with constant $E_{\text{ovr},i}^P$ and constant
+baseline output, $\rho_i^{P}(t) = \rho_{0,i} / m_i(t)$ where
+$\rho_{0,i} = E_{\text{ovr},i}^P / E_{\text{out},i}^{\text{baseline}}$. The
+function $\rho_i^{P}(t)$ is strictly increasing on $[0, \infty)$ whenever
+$m_{\infty,i} < 1$, with $\rho_i^{P}(0) = \rho_{0,i}$ and
+$\rho_i^{P}(t) \to \rho_{0,i}/m_{\infty,i}$ as $t \to \infty$. \hfill$\blacksquare$
+\end{theorem}
+
+\begin{proof}
+Differentiate:
+\[
+\frac{d\rho_i^P}{dt} = -\rho_{0,i} \cdot \frac{m_i'(t)}{m_i(t)^2} = \rho_{0,i} \cdot \frac{(1 - m_{\infty,i}) e^{-t/\tau_{m,i}}}{\tau_{m,i} \, m_i(t)^2}.
+\]
+The numerator is positive iff $m_{\infty,i} < 1$; the denominator is positive
+always. Limits follow from $m_i(0) = 1$ and $m_i(t) \to m_{\infty,i}$.
+\end{proof}
+
+\begin{corollary}[Burnout Without Drift or Wedge]
+\label{cor:m3}
+If $\rho_{0,i} > m_{\infty,i} \cdot \rho_i^{*}$, person $i$ enters sustained
+burnout at some finite time, even with $E_{\text{ovr},i}^P$ constant and
+$E_{\mathcal{F},i} = 0$. Hedonic decay alone is sufficient.
+\end{corollary}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/hook_decay.pdf}
+\caption{\textbf{Hedonic decay drives $\rho^P$ at constant work.} Left: $m(t)$ for three person-job match levels. Right: corresponding $\rho^P(t) = \rho_0/m(t)$ trajectories. With $\rho_0 = 0.6$ (well below threshold), the poor-match case ($m_\infty = 0.4$) crosses $\rho^* = 1$ near month 5 without any change in physical workload.}
+\label{fig:decay}
+\end{figure}
+
+\noindent The lifecycle has three phases: Honeymoon ($t < \tau_m$, $m \approx 1$),
+Disillusionment ($\tau_m \leq t < 3\tau_m$, $m$ collapsing), Steady state
+($t \geq 3\tau_m$, $m \approx m_\infty$). Switching roles resets $m$ to 1
+without changing $\alpha_i$ or $\rho_{0,i}$, predicting the empirical pattern
+of repeated honeymoon cycles in serial job-switchers.
+
+\subsection{The Combined Dynamics}
+
+Allowing both M2 drift and M3 decay,
+\[
+\rho_i^P(t) = \frac{E_{\text{ovr},i}^P(t)}{m_i(t) \cdot E_{\text{out},i}^{\text{baseline}}}, \qquad
+\frac{d \log \rho_i^P}{dt} = \underbrace{\alpha_i(\text{env})}_{\text{M2 drift}} + \underbrace{\left|\frac{d \log m_i}{dt}\right|}_{\text{M3 decay}}.
+\]
+The two contributions add in log space. Both are individually positive and
+cannot cancel.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/mechanism_stack.pdf}
+\caption{\textbf{Combined trajectory of $\rho^P(t)$ under each mechanism.} M2 alone (drift, dashed) takes $\sim 22$ months to cross threshold. M3 alone (decay, dash-dot) takes $\sim 7$ months. Both together (solid) take $\sim 5$ months. The contributions add in log space and cannot cancel.}
+\label{fig:stack}
+\end{figure}
+
+\noindent The combined trajectory crosses any threshold earliest. M2 alone
+takes $\sim 22$ months in our calibration; M3 alone takes $\sim 7$ months;
+both together take $\sim 5$ months.
+
+\section{Mechanism 4: Optimal Stopping via the Marginal Value Theorem}
+\label{sec:m4}
+
+The previous three mechanisms describe how $\rho_i(t)$ rises. M4 asks the
+question they leave open: given the trajectory, when should the worker quit?
+The answer has a name from optimal foraging theory \cite{charnov1976}.
+
+\begin{definition}[Net Flow Utility]
+For person $i$ in role at time $t \geq 0$, $u_i(t) = w - c(\rho_i(t))$, where
+$w > 0$ is wage flow and $c: \mathbb{R}_+ \to \mathbb{R}_+$ is a continuous,
+weakly increasing burnout cost function. Under M2+M3 with strictly increasing
+$\rho_i(t)$, $u_i$ is strictly decreasing in $t$.
+\end{definition}
+
+\begin{definition}[Long-Run Average Reward]
+For quit time $t^* > 0$ and search time $s > 0$,
+\[
+A_i(t^*) \;=\; \frac{1}{t^* + s}\left[\int_0^{t^*} u_i(\tau)\, d\tau \;-\; c_s\right],
+\]
+where $c_s > 0$ is the switch cost.
+\end{definition}
+
+\begin{theorem}[Marginal Value Theorem for Job Stopping]
+\label{thm:mvt}
+Assume $u_i$ is strictly decreasing and continuous on $[0, \infty)$ with
+$u_i(0) > 0$ and $\lim_{t \to \infty} u_i(t) < 0$. Assume $c_s > 0$ and
+$s > 0$. Then $A_i$ has a unique interior maximum at $t^* > 0$ characterized by
+\[
+u_i(t^*) \;=\; A_i(t^*). \hfill\text{\(\blacksquare\)}
+\]
+\end{theorem}
+
+\begin{proof}
+$A_i$ is differentiable on $(0, \infty)$ with
+\[
+A_i'(t^*) = \frac{u_i(t^*)(t^*+s) - [\int_0^{t^*} u_i\, d\tau - c_s]}{(t^*+s)^2} = \frac{u_i(t^*) - A_i(t^*)}{t^*+s}.
+\]
+The sign of $A_i'$ matches the sign of $u_i - A_i$. As $t^* \to 0^+$,
+$A_i \to -c_s/s < 0 < u_i(0)$, so $A_i'(0^+) > 0$. As $t^* \to \infty$,
+$\int_0^{t^*} u_i \to -\infty$, so $A_i \to u_i(\infty) < 0$ from above
+while $u_i$ continues decreasing past $A_i$, giving $u_i < A_i$ and
+$A_i' < 0$. By continuity, $A_i' = 0$ at some $t^*$, where $u_i(t^*) = A_i(t^*)$.
+Uniqueness: $u_i$ is strictly decreasing while $A_i$ is single-peaked (once
+$A_i$ crosses below $u_i$, it cannot return).
+\end{proof}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/mvt_crossing.pdf}
+\caption{\textbf{Marginal Value Theorem applied to job stopping.} The current flow utility $u(t)$ falls monotonically. The long-run average reward $A(t^*)$ rises from $-c_s/s$ at $t = 0$, peaks where $u$ crosses it from above, then falls. The peak is the unique optimal quit time $t^*$.}
+\label{fig:mvt}
+\end{figure}
+
+\subsection{The Three-Milestone Geometry}
+
+\begin{proposition}[Milestone Ordering]
+\label{prop:order}
+Under the assumptions of Theorem \ref{thm:mvt}, define:
+\begin{itemize}
+\item[(i)] threshold-crossing time $t_\rho$: smallest $t$ with $\rho_i(t) = \rho_i^*$;
+\item[(ii)] subjective-hate time $t_h$: smallest $t$ with $u_i(t) = 0$;
+\item[(iii)] rational-quit time $t^*$: solution to $u_i(t^*) = A_i(t^*)$.
+\end{itemize}
+For typical parameter values where $u_i(t_h) = 0 > A_i(t^*)$, the milestones
+satisfy $t_\rho < t_h < t^*$.
+\end{proposition}
+
+\noindent The middle gap $[t_h, t^*]$ corresponds to the regime ``I hate
+this but cannot afford to leave.'' This regime is not a failure of rationality;
+it is the period during which switch-cost amortization still pays.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/the_gap.pdf}
+\caption{\textbf{Three milestones, in order.} Threshold crossing $t_\rho \approx 4.3$ months precedes subjective-hate $t_h \approx 8.5$ months precedes rational-quit $t^* \approx 9.1$ months. The shaded region between $t_h$ and $t^*$ is the regime ``I hate this but cannot afford to leave,'' which is mathematically correct switch-cost amortization.}
+\label{fig:gap}
+\end{figure}
+
+\subsection{Comparative Statics}
+
+By implicit differentiation of $u_i(t^*) = A_i(t^*)$:
+
+\begin{proposition}[Sign Pattern of Quit Time]
+\[
+\frac{\partial t^*}{\partial c_s} > 0, \qquad
+\frac{\partial t^*}{\partial s} > 0, \qquad
+\frac{\partial t^*}{\partial \alpha} < 0, \qquad
+\frac{\partial t^*}{\partial m_\infty} > 0.
+\]
+\end{proposition}
+
+\noindent Higher switch cost or longer search time pushes the optimum later;
+faster environmental drift pushes it earlier; better person-job match pushes
+it later or to infinity.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/comparative_statics.pdf}
+\caption{\textbf{Comparative statics of the optimal quit time $t^*$.} Left: $t^*$ as a function of switch cost $c_s$, for three match-quality levels. Right: $t^*$ as a function of environmental drift rate $\alpha$. Higher $c_s$ pushes $t^*$ later; higher $\alpha$ pushes it earlier; higher $m_\infty$ shifts both curves upward.}
+\label{fig:statics}
+\end{figure}
+
+\section{Diagnostic and Intervention Implications}
+\label{sec:diagnostic}
+
+The four mechanisms decompose into independent levers, each addressed by a
+different intervention.
+
+\begin{center}
+\textbf{Table 2.} Five intervention levers, by mechanism.
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Lever & Mechanism & Intervention \\
+\midrule
+Lower $E_{\text{ovr}}$         & M2 (drift)          & Consolidate meetings, batch interrupts \\
+Reduce facade $E_{\mathcal{F}}$ & M2 (wedge)          & Change role or environment \\
+Raise $m_{\infty,i}$           & M3 (decay)          & Better person-job match \\
+Lower $c_s$                    & M4 (stopping)       & Build savings, expand network \\
+Lower $s$                      & M4 (stopping)       & Position for next role \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent The first two levers operate on the numerator of $\rho^P$.
+The third operates on the denominator. The last two operate on the timing of
+exit. Standard burnout interventions (rest, reduced hours) operate only on
+the numerator and are at most $40\%$ of the available action space. The most
+under-discussed lever in the literature is $m_{\infty,i}$, which is the only
+intervention that addresses M3 directly.
+
+\section{Empirical Anchors and Calibration}
+
+\begin{center}
+\textbf{Table 3.} Empirical anchors used to calibrate the model.
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Quantity & Value & Source \\
+\midrule
+Burnout symptom prevalence (US, 2024)         & $\sim 67\%$            & Gallup \cite{gallup2024} \\
+Avg meeting load (knowledge worker)           & $\sim 23$ h/wk         & Microsoft 2023 \\
+Recovery time after context switch            & $\sim 23$ min          & Mark et al.\ \cite{mark2008} \\
+Burnout recurrence after sabbatical           & $\sim 50\%$ in 6 mo    & Maslach \& Leiter \cite{maslach2016} \\
+Engagement peak after start of role           & $\sim 6$ months        & Gallup engagement series \\
+Engagement floor reached                      & $\sim 18$ months       & Gallup engagement series \\
+Median tenure, US private sector (2024)       & $\sim 3.9$ years       & BLS \cite{bls2024} \\
+Mean tenure, Big Law associate                & $\sim 3.0$ years       & NALP \\
+Mean tenure, US tech (FAANG)                  & $\sim 2.0$ years       & Industry surveys \\
+Mean job-search duration (2024)               & $\sim 6$ months        & BLS \cite{bls2024} \\
+Hedonic adaptation half-life                  & $\sim 3$--$12$ months  & Lyubomirsky \cite{lyubomirsky2011} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent\textbf{Key calibration consistencies.} (i) The Gallup
+prevalence of $67\%$ matches Theorem \ref{thm:pop} at $t \approx 88$ weeks
+with $\delta = 0.012$/wk. (ii) Engagement peak/floor times imply
+$\tau_m \approx 4$--$6$ months. (iii) High switch-cost industries (Big Law)
+have systematically longer mean tenures than low switch-cost industries
+(tech), as predicted by the M4 comparative statics, with no industry-specific
+tuning. (iv) The under-35 mean tenure of $2.7$ years sits just past the M3
+steady-state onset of $3\tau_m \approx 1.5$ years, consistent with workers
+exiting on a timescale near $t^*$.
+
+\section{Falsification Routes}
+
+The model implies multiple falsifiable predictions. We list five.
+
+\noindent\textbf{F1.} Longitudinal measurement of self-reported $m_i(t)$ in
+new hires. The model predicts an exponential decay with $m_\infty$ correlated
+to person-job match. Linear or sigmoidal decay falsifies M3.
+
+\noindent\textbf{F2.} Two workers with identical $\rho_{0,i}$ but different
+$m_{\infty,i}$ should hit threshold at different times in the same role.
+Match-quality should predict tenure controlling for compensation. Failure of
+this prediction falsifies the multiplier mechanism.
+
+\noindent\textbf{F3.} For job-switchers, $\rho^P$ should reset toward $\rho_0$
+on each transition. Wearable and engagement data should show discontinuities.
+A smooth trajectory across transitions falsifies the multiplier reset.
+
+\noindent\textbf{F4.} Predicted quit timing from individual $(c_s, s, \alpha,
+m_\infty)$ should cluster around $t^*$ with deviations explained by liquidity
+constraints. Quits uniform in $t$ or strongly correlated with calendar effects
+(year-end bonuses) falsify M4.
+
+\noindent\textbf{F5.} The observer-wedge inequality $\rho^P \geq \rho^F$ is
+exact algebra under Theorem \ref{thm:wedge}, but the empirical magnitude of
+$E_{\mathcal{F}}$ in real workplaces is unmeasured. Studies measuring facade
+load should find a positive correlation with self-reported burnout
+controlling for total hours.
+
+\section{Limitations}
+
+The model is the skeleton, not the body. We do not address: (i) depression
+as an independent contributor that lowers $E_{\text{tot}}$ below sustainable
+levels even at low $\rho$; (ii) pure physical exhaustion from manual labor;
+(iii) burnout-by-meaninglessness, where output is high but its perceived
+value is zero (this would require a separate term modulating $E_{\text{out}}^P$);
+(iv) inter-person spillover, where one worker's $\rho_i$ raises another's
+$\alpha_j$ via direct interaction; (v) risk aversion in the M4 stopping
+problem (the model is risk-neutral); (vi) job-market state, which makes
+$A_i(t^*)$ depend on the average value of \textit{available} next roles,
+which fluctuates; (vii) liquidity constraints that lock $c_s$ to a higher
+value than the worker can change.
+
+The model gives the structural skeleton. Each item above corresponds to an
+additional term to be added in future work.
+
+\section{Conclusion}
+
+Burnout is not too much work. It is a strictly increasing friction-output
+ratio driven by four independent mechanisms with four independent
+interventions. The threshold is private. The accounting is observer-relative.
+The denominator decays even at constant work. The optimal exit time is
+governed by the Marginal Value Theorem. None of the four mechanisms
+individually is sufficient as a complete account, and none is dispensable.
+
+The diagnostic implication is that ``rest'' addresses only one of the four
+mechanisms and should be expected to fail for workers whose dominant
+mechanism is M2-drift, M3-decay, or M4-mistiming. The most under-discussed
+lever is $m_{\infty,i}$, the hedonic floor of person-job match. The most
+under-discussed phenomenon is the gap $[t_h, t^*]$, during which the worker
+correctly hates the role but correctly cannot yet afford to leave. Neither
+of these is a moral or characterological failing.
+
+A bird with no mortgage solves Theorem \ref{thm:mvt} in seconds. A human
+with a family takes years. The mathematics is identical. The implementation
+is harder.
+
+\bigskip\noindent\textbf{Acknowledgments.} This paper grew out of a four-part
+public exposition. The v2 mechanism (observer wedge, drift, population) was
+substantively shaped by a TikTok commenter writing under the handle dz, who
+identified three precise gaps in the v1 formulation and proposed the
+direction of repair.
+
+\begin{thebibliography}{99}
+
+\bibitem{bls2024} Bureau of Labor Statistics (2024). Employee Tenure in 2024. \textit{USDL-24-1881}.
+
+\bibitem{brickman1971} Brickman, P., Campbell, D.T. (1971). Hedonic relativism and planning the good society. \textit{Adaptation-Level Theory}, 287--305.
+
+\bibitem{charnov1976} Charnov, E.L. (1976). Optimal foraging, the marginal value theorem. \textit{Theoretical Population Biology} 9(2), 129--136.
+
+\bibitem{frederick1999} Frederick, S., Loewenstein, G. (1999). Hedonic adaptation. \textit{Well-Being: The Foundations of Hedonic Psychology}, 302--329.
+
+\bibitem{friston2010} Friston, K. (2010). The free-energy principle: A unified brain theory? \textit{Nature Reviews Neuroscience} 11, 127--138.
+
+\bibitem{gallup2024} Gallup (2024). State of the Global Workplace.
+
+\bibitem{lyubomirsky2011} Lyubomirsky, S. (2011). Hedonic adaptation to positive and negative experiences. \textit{Oxford Handbook of Stress, Health, and Coping}, 200--224.
+
+\bibitem{mark2008} Mark, G., Gudith, D., Klocke, U. (2008). The cost of interrupted work. \textit{Proc.\ CHI 2008}, 107--110.
+
+\bibitem{maslach2016} Maslach, C., Leiter, M.P. (2016). Understanding the burnout experience. \textit{World Psychiatry} 15(2), 103--111.
+
+\bibitem{mccall1970} McCall, J.J. (1970). Economics of information and job search. \textit{Quarterly Journal of Economics} 84(1), 113--126.
+
+\bibitem{mortensen1986} Mortensen, D.T. (1986). Job search and labor market analysis. \textit{Handbook of Labor Economics} 2, 849--919.
+
+\bibitem{schaufeli2009} Schaufeli, W.B., Leiter, M.P., Maslach, C. (2009). Burnout: 35 years of research and practice. \textit{Career Development International} 14(3), 204--220.
+
+\bibitem{spence1973} Spence, M. (1973). Job market signaling. \textit{Quarterly Journal of Economics} 87, 355--374.
+
+\bibitem{stephens1986} Stephens, D.W., Krebs, J.R. (1986). \textit{Foraging Theory}. Princeton University Press.
+
+\end{thebibliography}
+
+\end{document}
