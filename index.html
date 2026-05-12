@@ -15,6 +15,7 @@
       <p class="tagline">Working papers &amp; preprints, free to download</p>
       <nav class="hero-nav" aria-label="Site sections">
         <a href="#papers">Research</a>
+        <a href="#tools">Tools</a>
         <a href="#goodies">Goodies</a>
         <a href="burnout.html">Burnout playground &rarr;</a>
       </nav>
@@ -114,6 +115,43 @@
       <p id="empty-state" class="empty-state" hidden>
         No papers match. Try adjusting the filters or clearing the search.
       </p>
+    </section>
+
+    <section id="tools">
+      <div class="section-head">
+        <h2>Tools <span class="draft-badge">Alpha</span></h2>
+      </div>
+      <p class="program-lede">
+        Small interactive tools that grew out of the research workflow.
+        Alpha-quality: expect rough edges. Bug reports welcome on each
+        project's GitHub page.
+      </p>
+
+      <article class="tool-card">
+        <div class="tool-body">
+          <h3 class="tool-title">statiq</h3>
+          <p class="tool-tagline">interactive statistical distribution explorer</p>
+          <p class="tool-description">
+            Live PDF / PMF and CDF plots for the most-used probability
+            distributions, with sliders for every parameter. Four
+            operations: probability, quantile, random sample, and an
+            inverse solver for any unknown parameter.
+            The web version covers 17 distributions; the desktop app
+            for macOS has all 32 (including non-central χ²/t/F,
+            Wilcoxon, Mann-Whitney, and more).
+          </p>
+          <p class="tool-warning">
+            <strong>Alpha.</strong> Some edge cases in the parameter
+            solver, occasional axis-scaling quirks, no Windows or
+            Linux launcher yet.
+          </p>
+          <div class="tool-actions">
+            <a class="btn btn-primary" href="https://hakvinv.github.io/statiq/" target="_blank" rel="noopener">Try online &rarr;</a>
+            <a class="btn btn-ghost" href="https://github.com/hakvinv/statiq/releases/latest/download/statiq-mac.zip">Download for Mac</a>
+            <a class="btn btn-ghost" href="https://github.com/hakvinv/statiq" target="_blank" rel="noopener">Source on GitHub</a>
+          </div>
+        </div>
+      </article>
     </section>
 
     <section id="goodies">
