@@ -1,13 +1,13 @@
-// Interactive playground for the Burnout v2 paper.
-// Three panels mirror the three figures in code/burnout/figures.py:
-//   1. Observer-relative split  (rho^P vs rho^F)
-//   2. Drift dynamic            (rho(t) trajectory + steady state)
-//   3. Population sigmoid B(t)  (heterogeneous drift + threshold)
+// Interactive playground for the four-mechanism burnout model.
+// Panels mirror the figures in code/burnout/figures.py:
+//   1. Observer-relative accounting   (ρᴾ vs ρᶠ)
+//   2. Hedonic decay                  (m(t) → ρᴾ(t))
+//   3. Population sigmoid B(t)        (heterogeneous drift + threshold)
+//   4. Optimal stopping (Charnov MVT) (u(t) vs A(T), intersection t*)
 
 // ---- math helpers --------------------------------------------------
 
 function erf(x) {
-  // Abramowitz & Stegun 7.1.26
   const sign = x < 0 ? -1 : 1;
   x = Math.abs(x);
   const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741,
@@ -18,6 +18,15 @@ function erf(x) {
   return sign * y;
 }
 function phi(x) { return 0.5 * (1 + erf(x / Math.SQRT2)); }
+
+// Hedonic-decay multiplier and its definite integral
+function mFunc(t, mInf, tau) {
+  return mInf + (1 - mInf) * Math.exp(-t / tau);
+}
+function mIntegral(T, mInf, tau) {
+  // ∫_0^T m(τ) dτ
+  return mInf * T + (1 - mInf) * tau * (1 - Math.exp(-T / tau));
+}
 
 // ---- canvas helpers ------------------------------------------------
 
@@ -47,7 +56,6 @@ function drawAxes(ctx, w, h, pad, xR, yR, xLabel, yLabel) {
   ctx.fillStyle = c.dim;
   ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
   ctx.lineWidth = 1;
-
   ctx.beginPath();
   ctx.moveTo(pad.l, pad.t);
   ctx.lineTo(pad.l, h - pad.b);
@@ -111,6 +119,15 @@ function hLine(ctx, w, h, pad, xR, yR, yVal, color, label) {
   }
 }
 
+function dot(ctx, w, h, pad, xR, yR, xv, yv, color, radius) {
+  const xPx = pad.l + ((xv - xR[0]) / (xR[1] - xR[0])) * (w - pad.l - pad.r);
+  const yPx = h - pad.b - ((yv - yR[0]) / (yR[1] - yR[0])) * (h - pad.t - pad.b);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(xPx, yPx, radius || 5, 0, Math.PI * 2);
+  ctx.fill();
+}
+
 // ---- panel 1: observer-relative split -----------------------------
 
 function setupObserver() {
@@ -145,7 +162,6 @@ function setupObserver() {
       status.classList.add('ok');
     }
 
-    // Bar chart
     const c = colors();
     const pad = { l: 50, r: 20, t: 20, b: 50 };
     const yMax = 2.5;
@@ -180,84 +196,87 @@ function setupObserver() {
   update();
 }
 
-// ---- panel 2: trajectory ------------------------------------------
+// ---- panel 2: hedonic decay ---------------------------------------
 
-function setupTrajectory() {
+function setupHedonic() {
   const $ = id => document.getElementById(id);
-  const aEl = $('tr-alpha'), bEl = $('tr-beta'), rEl = $('tr-r');
-  const r0El = $('tr-r0'), rsEl = $('tr-rstar');
-  const ctx = $('tr-canvas').getContext('2d');
-  const W = $('tr-canvas').width, H = $('tr-canvas').height;
+  const r0El = $('hd-rho0'), mInfEl = $('hd-minf'), tauEl = $('hd-tau');
+  const rsEl = $('hd-rstar'), tEl = $('hd-t');
+  const ctx = $('hd-canvas').getContext('2d');
+  const W = $('hd-canvas').width, H = $('hd-canvas').height;
 
   function update() {
-    const alpha = +aEl.value, beta = +bEl.value, r = +rEl.value;
-    const rho0 = +r0El.value, rhoStar = +rsEl.value;
-    $('tr-alpha-val').textContent = alpha.toFixed(2);
-    $('tr-beta-val').textContent  = beta.toFixed(2);
-    $('tr-r-val').textContent     = r.toFixed(2);
-    $('tr-r0-val').textContent    = rho0.toFixed(2);
-    $('tr-rstar-val').textContent = rhoStar.toFixed(2);
+    const rho0 = +r0El.value, mInf = +mInfEl.value, tau = +tauEl.value;
+    const rStar = +rsEl.value, tObs = +tEl.value;
+    $('hd-rho0-val').textContent  = rho0.toFixed(2);
+    $('hd-minf-val').textContent  = mInf.toFixed(2);
+    $('hd-tau-val').textContent   = tau.toFixed(0);
+    $('hd-rstar-val').textContent = rStar.toFixed(2);
+    $('hd-t-val').textContent     = tObs.toFixed(0);
 
-    const k = beta * r;
-    const rhoSS = k > 1e-9 ? alpha / k : Infinity;
-    const tau   = k > 1e-9 ? 1 / k     : Infinity;
-    $('tr-ss').textContent  = isFinite(rhoSS) ? rhoSS.toFixed(2) : '∞';
-    $('tr-tau').textContent = isFinite(tau)   ? tau.toFixed(1) + ' wk' : '∞';
+    const mt = mFunc(tObs, mInf, tau);
+    const rhoT = rho0 / mt;
+    const rhoInf = rho0 / mInf;
+    $('hd-mt').textContent   = mt.toFixed(2);
+    $('hd-rho').textContent  = rhoT.toFixed(2);
+    $('hd-rinf').textContent = rhoInf.toFixed(2);
 
-    const collapseEl = $('tr-collapse');
-    const collapseDiv = collapseEl.parentElement;
-    collapseDiv.classList.remove('warn', 'danger');
+    // Collapse time: rho0 / m(t) = rStar  ⇒  m(t) = rho0 / rStar
+    const mTarget = rho0 / rStar;
     let tCol = NaN;
-    if (rho0 >= rhoStar) {
-      collapseEl.textContent = 'already past';
-      collapseDiv.classList.add('danger');
-    } else if (isFinite(rhoSS) && rhoSS > rhoStar) {
-      tCol = -tau * Math.log((rhoStar - rhoSS) / (rho0 - rhoSS));
-      collapseEl.textContent = isFinite(tCol) ? tCol.toFixed(1) + ' wk' : '—';
-      collapseDiv.classList.add('warn');
-    } else if (!isFinite(rhoSS) && alpha > 0) {
-      // no recovery, linear growth
-      tCol = (rhoStar - rho0) / alpha;
-      collapseEl.textContent = isFinite(tCol) && tCol > 0 ? tCol.toFixed(1) + ' wk' : '—';
-      collapseDiv.classList.add('warn');
+    if (rho0 >= rStar) {
+      tCol = 0;
+    } else if (mInf < mTarget && mTarget <= 1) {
+      // m(t) = mInf + (1-mInf) e^{-t/tau} = mTarget
+      tCol = -tau * Math.log((mTarget - mInf) / (1 - mInf));
+    }
+    const colEl = $('hd-collapse');
+    const colDiv = colEl.parentElement;
+    colDiv.classList.remove('warn', 'danger');
+    if (rho0 >= rStar) {
+      colEl.textContent = 'already past';
+      colDiv.classList.add('danger');
+    } else if (isFinite(tCol) && tCol > 0) {
+      colEl.textContent = tCol.toFixed(0) + ' wk';
+      colDiv.classList.add('warn');
     } else {
-      collapseEl.textContent = 'never (ρ_ss ≤ ρ*)';
+      colEl.textContent = 'never (ρ∞ ≤ ρ*)';
     }
 
-    // Trajectory: rho(t) = rho_ss + (rho0 - rho_ss) * exp(-t/tau)
-    // Fallback (k=0): rho(t) = rho0 + alpha * t (linear)
-    const tMax = 100;
+    // Plot ρᴾ(t) over t ∈ [0, tMax]
+    const tMax = 200;
     const N = 240;
     const xs = [], ys = [];
-    let yMax = 2.5;
+    let yMax = Math.max(rStar * 1.4, rhoInf * 1.1, 1.5);
+    yMax = Math.min(yMax, 4);
     for (let i = 0; i <= N; i++) {
-      const t = (i / N) * tMax;
-      let rho;
-      if (isFinite(rhoSS)) rho = rhoSS + (rho0 - rhoSS) * Math.exp(-t / tau);
-      else rho = rho0 + alpha * t;
-      xs.push(t); ys.push(rho);
-      if (rho > yMax) yMax = rho;
+      const ti = (i / N) * tMax;
+      const m = mFunc(ti, mInf, tau);
+      xs.push(ti);
+      ys.push(rho0 / m);
     }
-    yMax = Math.min(yMax * 1.05, 6);
 
     const c = colors();
     const pad = { l: 50, r: 20, t: 20, b: 40 };
-    drawAxes(ctx, W, H, pad, [0, tMax], [0, yMax], 't (weeks)', 'ρ(t)');
-    hLine(ctx, W, H, pad, [0, tMax], [0, yMax], rhoStar, c.danger, 'ρ* = ' + rhoStar.toFixed(2));
-    if (isFinite(rhoSS) && rhoSS > 0 && rhoSS < yMax) {
-      hLine(ctx, W, H, pad, [0, tMax], [0, yMax], rhoSS, c.dim, 'ρ_ss = ' + rhoSS.toFixed(2));
+    drawAxes(ctx, W, H, pad, [0, tMax], [0, yMax], 't (weeks)', 'ρᴾ(t)');
+    hLine(ctx, W, H, pad, [0, tMax], [0, yMax], rStar, c.danger, 'ρ* = ' + rStar.toFixed(2));
+    if (rhoInf > 0 && rhoInf < yMax) {
+      hLine(ctx, W, H, pad, [0, tMax], [0, yMax], rhoInf, c.dim, 'ρ∞ = ' + rhoInf.toFixed(2));
+    }
+    if (rho0 > 0 && rho0 < yMax) {
+      hLine(ctx, W, H, pad, [0, tMax], [0, yMax], rho0, c.accent2, 'ρ₀ = ' + rho0.toFixed(2));
     }
     plotLine(ctx, W, H, pad, [0, tMax], [0, yMax], xs, ys, c.accent, 2);
 
     if (isFinite(tCol) && tCol > 0 && tCol < tMax) {
-      const xPx = pad.l + (tCol / tMax) * (W - pad.l - pad.r);
-      const yPx = H - pad.b - (rhoStar / yMax) * (H - pad.t - pad.b);
-      ctx.fillStyle = c.danger;
-      ctx.beginPath(); ctx.arc(xPx, yPx, 5, 0, Math.PI * 2); ctx.fill();
+      dot(ctx, W, H, pad, [0, tMax], [0, yMax], tCol, rStar, c.danger, 5);
+    }
+    if (tObs >= 0 && tObs <= tMax && rhoT < yMax) {
+      dot(ctx, W, H, pad, [0, tMax], [0, yMax], tObs, rhoT, c.accent2, 5);
     }
   }
 
-  for (const el of [aEl, bEl, rEl, r0El, rsEl]) el.addEventListener('input', update);
+  for (const el of [r0El, mInfEl, tauEl, rsEl, tEl]) el.addEventListener('input', update);
   update();
 }
 
@@ -306,10 +325,7 @@ function setupPopulation() {
     hLine(ctx, W, H, pad, [0, tMax], [0, 1], 0.5, c.dim, 'B = 0.5');
     plotLine(ctx, W, H, pad, [0, tMax], [0, 1], xs, ys, c.accent, 2);
 
-    const xPx = pad.l + (t / tMax) * (W - pad.l - pad.r);
-    const yPx = H - pad.b - B * (H - pad.t - pad.b);
-    ctx.fillStyle = c.accent2;
-    ctx.beginPath(); ctx.arc(xPx, yPx, 5, 0, Math.PI * 2); ctx.fill();
+    dot(ctx, W, H, pad, [0, tMax], [0, 1], t, B, c.accent2, 5);
   }
 
   for (const el of [m0El, dEl, msEl, sEl, ssEl, tEl]) {
@@ -318,16 +334,129 @@ function setupPopulation() {
   update();
 }
 
+// ---- panel 4: optimal stopping (Charnov MVT) ----------------------
+
+function setupOptimalStopping() {
+  const $ = id => document.getElementById(id);
+  const u0El = $('os-u0'), mInfEl = $('os-minf'), tauEl = $('os-tau'), sEl = $('os-s');
+  const ctx = $('os-canvas').getContext('2d');
+  const W = $('os-canvas').width, H = $('os-canvas').height;
+
+  function update() {
+    const u0 = +u0El.value, mInf = +mInfEl.value, tau = +tauEl.value, s = +sEl.value;
+    $('os-u0-val').textContent   = u0.toFixed(2);
+    $('os-minf-val').textContent = mInf.toFixed(2);
+    $('os-tau-val').textContent  = tau.toFixed(0);
+    $('os-s-val').textContent    = s.toFixed(0);
+
+    const u = (t) => u0 * mFunc(t, mInf, tau);
+    const A = (T) => T > 0 ? u0 * mIntegral(T, mInf, tau) / (s + T) : 0;
+    const f = (T) => u(T) - A(T);
+
+    // Find t* via bisection. f(eps) > 0, f(large) < 0 typically.
+    let lo = 0.01, hi = Math.max(tau * 8, 200);
+    let fLo = f(lo), fHi = f(hi);
+    let tStar = NaN, uStar = NaN, aStar = NaN;
+    if (fLo > 0 && fHi < 0) {
+      for (let i = 0; i < 80; i++) {
+        const mid = 0.5 * (lo + hi);
+        const fm = f(mid);
+        if (fm > 0) { lo = mid; fLo = fm; } else { hi = mid; fHi = fm; }
+        if (hi - lo < 1e-4) break;
+      }
+      tStar = 0.5 * (lo + hi);
+      uStar = u(tStar);
+      aStar = A(tStar);
+    }
+
+    const status = $('os-status');
+    status.classList.remove('ok', 'warn', 'danger');
+    if (isFinite(tStar)) {
+      $('os-tstar').textContent = tStar.toFixed(0) + ' wk';
+      $('os-ustar').textContent = uStar.toFixed(3);
+      $('os-astar').textContent = aStar.toFixed(3);
+      if (tStar < 26) {
+        status.textContent = 'Quit window opens fast — short patches, high search cost would dominate.';
+        status.classList.add('warn');
+      } else if (tStar > 156) {
+        status.textContent = 'Patch is rich — staying long is rational.';
+        status.classList.add('ok');
+      } else {
+        status.textContent = 'Optimal quit around year ' + (tStar / 52).toFixed(1) + '.';
+        status.classList.add('ok');
+      }
+    } else {
+      $('os-tstar').textContent = '—';
+      $('os-ustar').textContent = '—';
+      $('os-astar').textContent = '—';
+      status.textContent = 'No interior optimum: u(t) and A(t) do not cross in plotted range.';
+      status.classList.add('warn');
+    }
+
+    // Plot u(t) and A(T) on shared axes
+    const tMax = Math.max(tau * 6, isFinite(tStar) ? tStar * 2.2 : 200);
+    const N = 240;
+    const xs = [], ysU = [], ysA = [];
+    for (let i = 0; i <= N; i++) {
+      const ti = (i / N) * tMax;
+      xs.push(ti);
+      ysU.push(u(ti));
+      ysA.push(A(ti));
+    }
+    const yMax = Math.max(u0, ...ysU, ...ysA) * 1.1;
+
+    const c = colors();
+    const pad = { l: 50, r: 80, t: 20, b: 40 };
+    drawAxes(ctx, W, H, pad, [0, tMax], [0, yMax], 't (weeks)', 'rate');
+    plotLine(ctx, W, H, pad, [0, tMax], [0, yMax], xs, ysU, c.accent, 2);
+    plotLine(ctx, W, H, pad, [0, tMax], [0, yMax], xs, ysA, c.accent2, 2);
+
+    // Legend
+    ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+    ctx.fillStyle = c.accent;
+    ctx.fillRect(W - pad.r + 8, pad.t + 6, 16, 2);
+    ctx.fillStyle = c.text;
+    ctx.fillText('u(t)', W - pad.r + 28, pad.t + 7);
+    ctx.fillStyle = c.accent2;
+    ctx.fillRect(W - pad.r + 8, pad.t + 22, 16, 2);
+    ctx.fillStyle = c.text;
+    ctx.fillText('A(T)', W - pad.r + 28, pad.t + 23);
+
+    if (isFinite(tStar) && tStar < tMax) {
+      // Vertical line at t*
+      const xPx = pad.l + (tStar / tMax) * (W - pad.l - pad.r);
+      ctx.strokeStyle = c.danger;
+      ctx.setLineDash([4, 4]);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(xPx, pad.t);
+      ctx.lineTo(xPx, H - pad.b);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      // Dot at intersection
+      dot(ctx, W, H, pad, [0, tMax], [0, yMax], tStar, uStar, c.danger, 5);
+      // Label
+      ctx.fillStyle = c.danger;
+      ctx.font = '11px ui-monospace, Menlo, monospace';
+      ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+      ctx.fillText('t* = ' + tStar.toFixed(0) + ' wk', xPx + 6, pad.t + 12);
+    }
+  }
+
+  for (const el of [u0El, mInfEl, tauEl, sEl]) el.addEventListener('input', update);
+  update();
+}
+
 // ---- bootstrap -----------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
   setupObserver();
-  setupTrajectory();
+  setupHedonic();
   setupPopulation();
-  // Re-render on color-scheme switch so axes/text pick up new --vars.
+  setupOptimalStopping();
   if (window.matchMedia) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => {
-      // Easiest: just dispatch input on every range to force a redraw.
       document.querySelectorAll('input[type="range"]').forEach(el => {
         el.dispatchEvent(new Event('input'));
       });

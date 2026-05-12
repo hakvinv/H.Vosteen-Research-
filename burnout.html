@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Interactive playground for the Burnout v2 paper by H. Vosteen — three sliders, three plots, one model." />
+  <meta name="description" content="Interactive playground for the four-mechanism burnout model by H. Vosteen — observer-relative accounting, hedonic decay, population sigmoid, and optimal stopping." />
   <title>Burnout — Interactive | H. Vosteen Research</title>
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E" />
@@ -15,14 +15,16 @@
         <a href="./">&larr; H. Vosteen Research</a>
       </nav>
       <h1>Burnout &mdash; <span class="accent">Interactive</span></h1>
-      <p class="tagline">Move the sliders. Watch the equations breathe.</p>
+      <p class="tagline">Four mechanisms. Four panels. Move the sliders.</p>
       <p class="hero-about">
-        Three panels, one paper. The first is the observer-relative
-        accounting wedge. The second is the friction-drift dynamic and
-        its steady state. The third is the population sigmoid B(t). Each
-        is the live form of a figure from <em>Burnout Is Not Too Much
-        Work</em>. Math is in the panel headings, controls are the
-        parameters, the plot is the answer.
+        The corpus models burnout as a strictly increasing
+        friction-output ratio ρ = E_overhead / E_output, driven by four
+        distinct mechanisms operating on different time scales. Each
+        panel is the live form of one mechanism from the unified paper
+        <em>Burnout Is Not Too Much Work: A Four-Mechanism Model of
+        Friction, Drift, Decay, and Optimal Stopping</em> (v1 → v4 →
+        unified). Math is in the panel heading; controls are the
+        parameters; the plot is the answer.
       </p>
     </div>
   </header>
@@ -30,13 +32,15 @@
   <main class="container">
 
     <section class="play-panel">
-      <h2>1. Observer-relative split</h2>
+      <h2>1. Observer-relative accounting</h2>
       <p class="panel-eq">ρᴾ = a / b &nbsp;&nbsp; ρᶠ = (a − f) / (b + f) &nbsp;&nbsp; gap = f(a+b) / (b(b+f))</p>
       <p class="panel-desc">
-        Same hour of work, two valid bookkeepings. <em>a</em> is overhead
-        the person counts, <em>b</em> is real output the person values,
-        <em>f</em> is the facade portion of <em>a</em> the firm folds
-        into output. The wedge is the gap between the two ratios.
+        Same hour of work, two valid bookkeepings. <em>a</em> is
+        overhead the person counts, <em>b</em> is real output the
+        person values, <em>f</em> is the facade portion of <em>a</em>
+        the firm folds into output. The wedge is the gap between the
+        two ratios — large enough to make the person's dashboard red
+        while the firm's stays green.
       </p>
       <div class="play-grid">
         <div class="play-controls">
@@ -64,44 +68,47 @@
     </section>
 
     <section class="play-panel">
-      <h2>2. Drift dynamic</h2>
-      <p class="panel-eq">dρ/dt = α − β·r·ρ &nbsp;⇒&nbsp; ρ_ss = α / (β·r), &nbsp; τ = 1 / (β·r)</p>
+      <h2>2. Hedonic decay</h2>
+      <p class="panel-eq">m(t) = m∞ + (1 − m∞)·e^(−t/τₘ) &nbsp;⇒&nbsp; ρᴾ(t) = ρ₀ / m(t)</p>
       <p class="panel-desc">
-        Friction drifts under environmental injection α, drained by
-        recovery intensity r scaled by per-person sensitivity β. The
-        trajectory relaxes to ρ_ss with timescale τ. Burnout is
-        ρ_ss &gt; ρ*. Try lowering r without changing α to see why
-        a sabbatical alone does not fix burnout.
+        Same desk, same hours, less will to start the day. The
+        numerator (overhead) did not change; the denominator (perceived
+        output value) did. A multiplier <em>m(t)</em> decays from 1
+        toward a job-match floor <em>m∞</em> on time scale <em>τₘ</em>.
+        Under realistic parameters, a new job at ρ₀ = 0.6 (well in the
+        safe zone) can drift past ρ* purely because the
+        pride-and-novelty multiplier collapses.
       </p>
       <div class="play-grid">
         <div class="play-controls">
-          <label>α — overhead injection rate
-            <input type="range" id="tr-alpha" min="0" max="0.30" step="0.005" value="0.12" />
-            <output id="tr-alpha-val">0.12</output>
+          <label>ρ₀ — initial friction ratio
+            <input type="range" id="hd-rho0" min="0.1" max="2" step="0.05" value="0.60" />
+            <output id="hd-rho0-val">0.60</output>
           </label>
-          <label>β — restoration sensitivity
-            <input type="range" id="tr-beta" min="0" max="0.50" step="0.005" value="0.10" />
-            <output id="tr-beta-val">0.10</output>
+          <label>m∞ — long-run hedonic floor
+            <input type="range" id="hd-minf" min="0.05" max="1" step="0.01" value="0.40" />
+            <output id="hd-minf-val">0.40</output>
           </label>
-          <label>r — recovery intensity (0–1)
-            <input type="range" id="tr-r" min="0" max="1" step="0.01" value="0.80" />
-            <output id="tr-r-val">0.80</output>
-          </label>
-          <label>ρ₀ — initial ratio
-            <input type="range" id="tr-r0" min="0" max="3" step="0.05" value="0.40" />
-            <output id="tr-r0-val">0.40</output>
+          <label>τₘ — decay time scale (weeks)
+            <input type="range" id="hd-tau" min="2" max="120" step="1" value="32" />
+            <output id="hd-tau-val">32</output>
           </label>
           <label>ρ* — collapse threshold
-            <input type="range" id="tr-rstar" min="0.5" max="2" step="0.05" value="1.00" />
-            <output id="tr-rstar-val">1.00</output>
+            <input type="range" id="hd-rstar" min="0.5" max="2" step="0.05" value="1.00" />
+            <output id="hd-rstar-val">1.00</output>
+          </label>
+          <label>t — observation time (weeks)
+            <input type="range" id="hd-t" min="0" max="200" step="1" value="52" />
+            <output id="hd-t-val">52</output>
           </label>
           <div class="readouts">
-            <div><span class="rk">ρ_ss</span><span id="tr-ss" class="rv">1.50</span></div>
-            <div><span class="rk">τ</span><span id="tr-tau" class="rv">12 wk</span></div>
-            <div><span class="rk">collapse</span><span id="tr-collapse" class="rv">— wk</span></div>
+            <div><span class="rk">m(t)</span><span id="hd-mt" class="rv">0.62</span></div>
+            <div><span class="rk">ρᴾ(t)</span><span id="hd-rho" class="rv">0.97</span></div>
+            <div><span class="rk">ρ∞</span><span id="hd-rinf" class="rv">1.50</span></div>
+            <div><span class="rk">collapse</span><span id="hd-collapse" class="rv">— wk</span></div>
           </div>
         </div>
-        <canvas id="tr-canvas" width="540" height="320"></canvas>
+        <canvas id="hd-canvas" width="540" height="320"></canvas>
       </div>
     </section>
 
@@ -109,10 +116,12 @@
       <h2>3. Population sigmoid B(t)</h2>
       <p class="panel-eq">B(t) = Φ( (μ₀ + δ·t − μ*) / √(σ² + σ*²) )</p>
       <p class="panel-desc">
-        Population fraction in burnout under heterogeneous drift
-        (within-person spread σ) and heterogeneous threshold (between-person
-        spread σ*). δ is cohort-mean log-ρ drift per week, μ* is the
-        median log-threshold. The dot is the chosen observation time t.
+        Lift from individual to population. With heterogeneous drift
+        (within-person spread σ) and heterogeneous threshold
+        (between-person spread σ*), the burnout fraction follows a
+        sigmoid in time. δ is cohort-mean log-ρ drift per week, μ* is
+        the median log-threshold. The dot marks the chosen observation
+        time.
       </p>
       <div class="play-grid">
         <div class="play-controls">
@@ -150,10 +159,58 @@
       </div>
     </section>
 
+    <section class="play-panel">
+      <h2>4. Optimal stopping (Charnov MVT)</h2>
+      <p class="panel-eq">u(t) = u₀·m(t) &nbsp;&nbsp; A(T) = (1/(s+T))·∫₀ᵀ u(τ)dτ &nbsp;⇒&nbsp; quit at u(t*) = A(t*)</p>
+      <p class="panel-desc">
+        Given the decay is real, when exactly should you quit?
+        Charnov's Marginal Value Theorem (1976), originally for birds
+        foraging in a patch: leave the current patch when its current
+        intake rate equals the long-run average rate over the cycle of
+        search-plus-forage. Same equation governs jobs.
+        <em>s</em> is the search / transition cost in weeks; current
+        utility u(t) decays with m(t). The intersection marks
+        <em>t*</em>.
+      </p>
+      <div class="play-grid">
+        <div class="play-controls">
+          <label>u₀ — initial flow utility
+            <input type="range" id="os-u0" min="0.5" max="3" step="0.05" value="1.00" />
+            <output id="os-u0-val">1.00</output>
+          </label>
+          <label>m∞ — long-run hedonic floor
+            <input type="range" id="os-minf" min="0.05" max="1" step="0.01" value="0.40" />
+            <output id="os-minf-val">0.40</output>
+          </label>
+          <label>τₘ — decay time scale (weeks)
+            <input type="range" id="os-tau" min="2" max="120" step="1" value="32" />
+            <output id="os-tau-val">32</output>
+          </label>
+          <label>s — search / transition cost (weeks)
+            <input type="range" id="os-s" min="1" max="52" step="1" value="12" />
+            <output id="os-s-val">12</output>
+          </label>
+          <div class="readouts">
+            <div><span class="rk">t*</span><span id="os-tstar" class="rv">— wk</span></div>
+            <div><span class="rk">u(t*)</span><span id="os-ustar" class="rv">—</span></div>
+            <div><span class="rk">A(t*)</span><span id="os-astar" class="rv">—</span></div>
+          </div>
+          <p id="os-status" class="panel-status">…</p>
+        </div>
+        <canvas id="os-canvas" width="540" height="320"></canvas>
+      </div>
+    </section>
+
     <p class="play-source">
-      Source figures: <a href="https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout">code/burnout</a>
-      &nbsp;·&nbsp; Paper PDF: <a href="papers/2026-05-06-burnout-v2.pdf">2026-05-06-burnout-v2.pdf</a>
-      &nbsp;·&nbsp; Source: <a href="https://github.com/hakvinv/h.vosteen-research-/blob/main/sources/burnout.tex">sources/burnout.tex</a>
+      Paper PDFs:
+      <a href="papers/2026-05-07-burnout-paper.pdf">unified (v4 + 4 mechanisms)</a>
+      &nbsp;·&nbsp; <a href="papers/2026-05-07-burnout-v4.pdf">v4 — optimal stopping</a>
+      &nbsp;·&nbsp; <a href="papers/2026-05-07-burnout-v3.pdf">v3 — hedonic decay</a>
+      &nbsp;·&nbsp; <a href="papers/2026-05-06-burnout-v2.pdf">v2 — observer + heterogeneity</a>
+      &nbsp;·&nbsp; <a href="papers/2026-04-24-burnout.pdf">v1 — ratio</a>
+      <br>
+      Figures source: <a href="https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout">code/burnout</a>
+      &nbsp;·&nbsp; LaTeX: <a href="https://github.com/hakvinv/h.vosteen-research-/blob/main/sources/burnout-paper.tex">sources/burnout-paper.tex</a>
     </p>
   </main>
 
