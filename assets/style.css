@@ -393,6 +393,18 @@ section { margin-bottom: 3rem; }
   border-radius: 999px;
   font-size: 0.75rem;
 }
+.paper-venue {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.12rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.paper-venue.venue-ssrn {
+  background: #b8332a;
+}
 .paper-title {
   margin: 0.4rem 0 0.3rem;
   font-size: 1.2rem;

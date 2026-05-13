@@ -66,7 +66,12 @@ corollary wrapped in explainer prose, empirical anchors, and
 accompanying `slide-*.png`/`POST.txt` artifacts. Mark these with
 `"type": "essay"` in `data/papers.json`. Longer, conventionally titled
 working papers without TikTok artifacts are `"type": "paper"`
-(default). The site renders the two types in separate groups.
+(default). Papers already published on SSRN (or another preprint
+server) use `"type": "ssrn"`, omit the `file` field, and put the
+public URL into `links` (the first link is auto-promoted to a primary
+"Read on …" button). Setting `"venue": "SSRN"` adds a coloured badge
+on the card. The site renders each type in its own group, with SSRN
+shown first.
 
 Bundles dropped in a single subfolder (e.g.
 `inbox/all_posts_kw_YYYY-MM-DD/<paper>/`) are allowed and should be
