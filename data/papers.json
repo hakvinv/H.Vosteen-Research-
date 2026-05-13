@@ -1,5 +1,33 @@
 [
   {
+    "slug": "regulatory-waterbed",
+    "title": "The Regulatory Waterbed: Why Mandatory Disclosure Moves Information Asymmetry Instead of Removing It",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-20",
+    "type": "ssrn",
+    "venue": "SSRN",
+    "abstract": "Mandatory disclosure regulation is designed to reduce information asymmetry between firms and investors. This paper argues that it works like a waterbed: push down in one place, and the problem surfaces somewhere else. I formalize this as the Asymmetry Migration Principle using a graph-Laplacian diffusion model: information asymmetry is a field on an institutional graph, regulation is a source term, and migration follows the graph's eigenmodes with empirically measurable relaxation times. Applied to the EU Corporate Sustainability Reporting Directive (CSRD), the framework identifies three migration channels — audit, supply chain, and processing — and predicts their activation sequence and speed. Using bibliometric data from OpenAlex (2015–2025, N = 114,000+ papers) and KPMG survey data, I calibrate the model and find three timescales spanning an order of magnitude: processing relaxes in ~1 year (λ = 1.0), supply chains in ~11 years (λ = 0.09), audit institutions in ~14 years (λ = 0.07). ESG rating disagreement is growing faster than disclosure research (Welch t = −4.1, p = 0.008), sustainability-assurance research has grown 502% since 2020 (ρ = 0.98), and the KPMG readiness gap shows the system becoming 33% stickier post-CSRD (disclosure at 77%, audit readiness at 29%). The framework reconciles the contradictory findings of Krueger et al. (2024) and Boulton (2024): both measure different nodes of the same graph.",
+    "tags": ["regulatory-waterbed", "information-asymmetry", "csrd", "esg-disclosure", "graph-laplacian", "sustainability-reporting", "jel-d82", "jel-g14", "jel-g18", "jel-m41", "jel-m48", "jel-q56"],
+    "bibkey": "vosteen2026waterbed",
+    "links": [
+      {"label": "Read on SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6415318"}
+    ]
+  },
+  {
+    "slug": "besserwisser-effect",
+    "title": "The Besserwisser Effect: A Complexity-Theoretic Proof that Criticism Cannot Substitute for Production",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-04-20",
+    "type": "ssrn",
+    "venue": "SSRN",
+    "abstract": "We provide a formal account of a widely observed empirical regularity: individuals with no production experience in a domain exhibit systematic overconfidence when evaluating artifacts produced by others. We call this the Besserwisser Effect. Assuming P ≠ NP, we prove that the Production Problem — finding a quality artifact in an expressive domain — is NP-hard, while the Verification Problem — judging a given artifact — lies in P. This complexity gap is categorical: no polynomial accumulation of evaluation operations can solve an NP-hard production task (Theorem 1). An information-theoretic complement, which holds unconditionally, shows that k evaluation operations generate at most k bits of novel domain knowledge, while a single production operation generates Ω(log |D|) bits, where |D| is the domain size (Proposition 1). We apply the framework to educational systems, showing that standard curricula are structurally evaluation-training machines, and derive three falsifiable empirical predictions.",
+    "tags": ["computational-complexity", "p-vs-np", "verification", "production", "expertise", "dunning-kruger", "information-theory", "education"],
+    "bibkey": "vosteen2026besserwisser",
+    "links": [
+      {"label": "Read on SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6503718"}
+    ]
+  },
+  {
     "slug": "research-program",
     "title": "Architecture > Population: A Research Program for the Inter-Agent Mesoscale",
     "authors": ["Hakvin Vosteen"],

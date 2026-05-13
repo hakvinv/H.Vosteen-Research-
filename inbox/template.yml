@@ -9,11 +9,14 @@ authors:
 date:     2026-04-22
 # version: string, default "1.0"
 version:  "1.0"
-# type:    "paper" (full working paper) or "essay" (short ~4-page
-#          theory essay with a hook title — theorem + sketch + corollary
-#          wrapped in explainer prose). Default "paper". Renders in a
-#          separate "Essays" group on the site.
+# type:    "paper" (full working paper), "essay" (short ~4-page
+#          theory essay), or "ssrn" (published on SSRN; link in `links`,
+#          no local PDF needed). Default "paper". Each type renders in
+#          its own group on the site.
 type:     "paper"
+# venue:   optional badge shown on the card (e.g. "SSRN"). Recognised
+#          venues get a distinct accent colour.
+# venue:   "SSRN"
 # slug:    kebab-case, default = derived from filename
 slug:     your-paper-slug
 # tags:    list of topic keywords, default []

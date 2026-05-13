@@ -55,9 +55,14 @@
       .join("\n");
   };
 
-  const typeOf = (p) => (p.type === "essay" ? "essay" : "paper");
+  const typeOf = (p) => {
+    if (p.type === "ssrn") return "ssrn";
+    if (p.type === "essay") return "essay";
+    return "paper";
+  };
 
   const GROUPS = [
+    { key: "ssrn", label: "On SSRN" },
     { key: "paper", label: "Working Papers" },
     { key: "essay", label: "Essays" },
   ];
@@ -80,6 +85,15 @@
         versionEl.textContent = `v${paper.version}`;
       } else {
         versionEl.remove();
+      }
+
+      const venueEl = node.querySelector(".paper-venue");
+      if (paper.venue) {
+        venueEl.textContent = paper.venue;
+        const vClass = paper.venue.toLowerCase().replace(/[^a-z0-9]+/g, "");
+        if (vClass) venueEl.classList.add(`venue-${vClass}`);
+      } else {
+        venueEl.remove();
       }
 
       const tagsEl = node.querySelector(".paper-tags");
@@ -130,10 +144,12 @@
       }
 
       const citeBtn = node.querySelector(".paper-cite");
-      (paper.links || []).forEach((link) => {
+      const hasFile = !!paper.file;
+      (paper.links || []).forEach((link, i) => {
         if (!link || !link.url || !link.label) return;
         const a = document.createElement("a");
-        a.className = "btn btn-ghost paper-link";
+        const isPrimary = !hasFile && i === 0;
+        a.className = `btn ${isPrimary ? "btn-primary" : "btn-ghost"} paper-link`;
         a.href = link.url;
         a.target = "_blank";
         a.rel = "noopener";
