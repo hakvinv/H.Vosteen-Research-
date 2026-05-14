@@ -1,5 +1,35 @@
 [
   {
+    "slug": "platform-laundering",
+    "title": "Platform Information Laundering: How Low-Cost Aggregated Reactions Become High-Cost Validation Metrics",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-14",
+    "version": "1.0",
+    "type": "paper",
+    "abstract": "Classical signaling theory (Spence 1973) assumes that observers process signals efficiently given their information sets. This assumption is plausible for professional observers (venture capitalists, banks, recruiters) whose economic incentives justify costly information processing. It fails for the dominant observer class on modern social platforms: retail users who react impulsively, at near-zero cost, and without verification. We argue that platforms create an information laundering mechanism by aggregating low-cost retail reactions into metrics (likes, follower counts, engagement scores) that are subsequently read by professional observers as if they were the output of high-cost professional verification. This pricing arbitrage between two distinct information-processing modes explains why signal-substance decoupling has accelerated in markets with strong platform presence. The mechanism does not require new behavioral assumptions on individual agents; it follows from the architectural transformation of unaggregated impulses into aggregated metrics. We develop a formal model, identify three observer classes, derive the laundering pipeline, and discuss empirical signatures and policy implications. Bibliometric evidence from the OpenAlex API (2015–2025) shows research output on platform-information pathologies growing 4.0× faster than baseline economics, social science, and psychology output, consistent with the predicted structural acceleration. The framework provides a micro-foundation for the platform component of contemporary LARP and connects to the macro pattern of regulatory waterbed effects.",
+    "tags": ["signaling", "platforms", "observer-classes", "information-laundering", "bibliometrics", "spence"],
+    "file": "papers/2026-05-14-platform-laundering.pdf",
+    "bibkey": "vosteen2026laundering",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/platform-laundering"}
+    ]
+  },
+  {
+    "slug": "strategic-larp",
+    "title": "A Theory of Strategic LARP: Cognitive Hierarchy, Endogenous Observation Regimes, and Type Selection in Signaling Markets",
+    "authors": ["Hakvin Vosteen"],
+    "date": "2026-05-14",
+    "version": "1.0",
+    "type": "paper",
+    "abstract": "We propose a signaling model for the phenomenon of life-action role-playing (LARP) in modern startup, labor, and capital markets, in which agents of low productive type (L) mimic the behavior of high productive type (H) to extract resources from observers with limited verification capacity. The standard Spence framework predicts a separating equilibrium in which truth is asymptotically revealed. We argue this framework requires four modifications. First, the cost structure depends on whether signals are substance-driven or volume-driven, with the single-crossing property holding in the former and inverting in the latter. Second, asymptotic convergence depends on observation noise σ_obs, which varies systematically across domains. Third, observation regimes are endogenously chosen by agents, producing self-selection of types into market regimes. Fourth, and most importantly, LARP success is not monotonically decreasing in observer sophistication. We show that market vulnerability to LARP is U-shaped in the cognitive hierarchy level k of the observer population: naive observers (k ≈ 0) can be deceived by substance mimicry, sophisticated observers (k ≥ 3) can be deceived by Schelling-type madman strategies that exploit the assumption of rationality, while observers at intermediate k levels are most defended against both. We derive a taxonomy of four distinct LARP strategies and apply the framework to two recent cases: Elizabeth Holmes (Mimicry-LARP against k ≤ 1) and Sam Bankman-Fried (Inversion-LARP against k = 2 Bayesian subculture). The framework connects to a parallel macro-level analysis of mandatory disclosure regulation, showing that the micro-mechanism of strategic type self-selection produces the macro-pattern of asymmetry migration.",
+    "tags": ["signaling", "cognitive-hierarchy", "larp", "type-selection", "market-design", "spence"],
+    "file": "papers/2026-05-14-strategic-larp.pdf",
+    "bibkey": "vosteen2026larp",
+    "links": [
+      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/strategic-larp"}
+    ]
+  },
+  {
     "slug": "regulatory-waterbed",
     "title": "The Regulatory Waterbed: Why Mandatory Disclosure Moves Information Asymmetry Instead of Removing It",
     "authors": ["Hakvin Vosteen"],

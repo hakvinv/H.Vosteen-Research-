@@ -32,19 +32,26 @@ if not isinstance(papers, list):
     sys.exit("papers.json root must be an array")
 slugs = set()
 for i, p in enumerate(papers):
-    for k in ("slug", "title", "file"):
+    for k in ("slug", "title"):
         if k not in p:
             sys.exit(f"paper[{i}] missing required field: {k}")
     if p["slug"] in slugs:
         sys.exit(f"duplicate slug: {p['slug']}")
     slugs.add(p["slug"])
-    if not os.path.isfile(p["file"]):
-        sys.exit(f"paper[{p['slug']}] file not found: {p['file']}")
+    ptype = p.get("type", "paper")
+    if ptype not in ("paper", "essay", "ssrn"):
+        sys.exit(f"paper[{p['slug']}] invalid type: {ptype!r} (expected 'paper', 'essay', or 'ssrn')")
+    if ptype == "ssrn":
+        if not p.get("links"):
+            sys.exit(f"paper[{p['slug']}] ssrn entry must have at least one link")
+    else:
+        if "file" not in p:
+            sys.exit(f"paper[{p['slug']}] missing required field: file")
+        if not os.path.isfile(p["file"]):
+            sys.exit(f"paper[{p['slug']}] file not found: {p['file']}")
     for j, v in enumerate(p.get("versions", []) or []):
         if "file" in v and not os.path.isfile(v["file"]):
             sys.exit(f"paper[{p['slug']}] versions[{j}] file not found: {v['file']}")
-    if "type" in p and p["type"] not in ("paper", "essay"):
-        sys.exit(f"paper[{p['slug']}] invalid type: {p['type']!r} (expected 'paper' or 'essay')")
     for link in p.get("links", []):
         if link.get("label") == "Code":
             expected = f"code/{p['slug']}"
