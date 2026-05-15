@@ -49,8 +49,8 @@ ax.set_xticks([0, 1, 2, 3, 4, 5])
 ax.set_xticklabels([r"$0$ (naive)", r"$1$", r"$2$", r"$3$", r"$4$", r"$5$ (pros)"])
 
 plt.tight_layout()
-fig.savefig("/home/claude/larp_paper/figures/cognitive_hierarchy.pdf", bbox_inches="tight")
-fig.savefig("/home/claude/larp_paper/figures/cognitive_hierarchy.png", bbox_inches="tight", dpi=220)
+fig.savefig("figures/cognitive_hierarchy.pdf", bbox_inches="tight")
+fig.savefig("figures/cognitive_hierarchy.png", bbox_inches="tight", dpi=220)
 plt.close()
 
 # ---------------------------------------------------------------
@@ -84,8 +84,8 @@ ax.tick_params(labelsize=8)
 ax.set_ylim(0, 35)
 
 plt.tight_layout()
-fig.savefig("/home/claude/larp_paper/figures/cost_regimes.pdf", bbox_inches="tight")
-fig.savefig("/home/claude/larp_paper/figures/cost_regimes.png", bbox_inches="tight", dpi=220)
+fig.savefig("figures/cost_regimes.pdf", bbox_inches="tight")
+fig.savefig("figures/cost_regimes.png", bbox_inches="tight", dpi=220)
 plt.close()
 
 # ---------------------------------------------------------------
@@ -117,8 +117,8 @@ ax.set_xlim(0, 3.0)
 ax.set_ylim(0, 75)
 
 plt.tight_layout()
-fig.savefig("/home/claude/larp_paper/figures/convergence_decay.pdf", bbox_inches="tight")
-fig.savefig("/home/claude/larp_paper/figures/convergence_decay.png", bbox_inches="tight", dpi=220)
+fig.savefig("figures/convergence_decay.pdf", bbox_inches="tight")
+fig.savefig("figures/convergence_decay.png", bbox_inches="tight", dpi=220)
 plt.close()
 
 # ---------------------------------------------------------------
@@ -159,8 +159,8 @@ ax.tick_params(labelsize=8)
 ax.set_title("Four LARP modes by required observer reasoning level", fontsize=10)
 
 plt.tight_layout()
-fig.savefig("/home/claude/larp_paper/figures/larp_taxonomy.pdf", bbox_inches="tight")
-fig.savefig("/home/claude/larp_paper/figures/larp_taxonomy.png", bbox_inches="tight", dpi=220)
+fig.savefig("figures/larp_taxonomy.pdf", bbox_inches="tight")
+fig.savefig("figures/larp_taxonomy.png", bbox_inches="tight", dpi=220)
 plt.close()
 
 print("Four figures written.")
