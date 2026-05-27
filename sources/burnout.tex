@@ -1,0 +1,263 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+% =============== PAGE 1 ===============
+\noindent{\LARGE\textbf{Burnout Is Not Too Much Work, v4}}\\[0.3em]
+\noindent{\small How to mathematical ragequit your job \hfill 2026}
+\vspace{0.3cm}
+
+\noindent{\small\textit{Theoretical model. Calibration illustrative. Action item, not advice.}}
+\vspace{0.7cm}
+
+\noindent v1 said burnout is a ratio. v2 said the ratio drifts and the
+accounting is observer-dependent. v3 said the denominator decays even at
+constant work. All three were diagnosis. v4 is the action item: given
+everything we now know, when exactly should you quit?
+
+\medskip\noindent The answer has a name. Charnov 1976 wrote it down for birds
+foraging in a patch. The Marginal Value Theorem says a forager should leave
+the current patch when its current intake rate equals the long-run average
+rate over the cycle of search-plus-forage. The same equation governs jobs.
+A bird with no mortgage solves this in seconds. Humans take years.
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{figures/mvt_crossing.pdf}
+\end{center}
+
+\medskip\noindent\textbf{Setup.}\quad At time $t$ in a role, person $i$ earns
+wage $w$ and pays burnout cost $c(\rho_i(t))$ where $\rho_i(t)$ is the v2+v3
+combined ratio. Quitting costs $c_s$ once and forgoes wage for search time
+$s$. After quitting, $m_i$ resets to 1 and $\rho_i$ returns to baseline. A
+single cycle is one role plus one search. The question is the optimal cycle
+length.
+
+\newpage
+
+% =============== PAGE 2 ===============
+\begin{definition}[Net Flow Utility]
+For person $i$ in role at time $t \geq 0$,
+\[
+u_i(t) \;=\; w \;-\; c(\rho_i(t)),
+\]
+where $w > 0$ is wage flow and $c: \mathbb{R}_+ \to \mathbb{R}_+$ is a
+continuous, weakly increasing burnout cost. Under the v2+v3 dynamics with
+strictly increasing $\rho_i(t)$, $u_i$ is strictly decreasing in $t$.
+\end{definition}
+
+\begin{definition}[Long-Run Average Reward]
+For a quit time $t^* > 0$ and search time $s > 0$, the long-run average
+reward over one role-plus-search cycle is
+\[
+A_i(t^*) \;=\; \frac{1}{t^* + s} \left[ \int_0^{t^*} u_i(\tau)\, d\tau \;-\; c_s \right],
+\]
+where $c_s > 0$ is the switch cost and we assume zero income during search.
+\end{definition}
+
+\begin{theorem}[Marginal Value Theorem for Job Stopping]
+Assume $u_i$ is strictly decreasing and continuous on $[0, \infty)$ with
+$u_i(0) > 0$ and $\lim_{t \to \infty} u_i(t) < 0$. Assume $c_s > 0$ and $s > 0$.
+Then $A_i$ has a unique interior maximum at $t^* > 0$ characterized by
+\[
+\boxed{\; u_i(t^*) \;=\; A_i(t^*). \;}
+\]
+\end{theorem}
+
+\begin{proof}
+$A_i$ is differentiable on $(0, \infty)$ with
+\[
+A_i'(t^*) = \frac{u_i(t^*)(t^* + s) - \left[\int_0^{t^*} u_i\,d\tau - c_s\right]}{(t^*+s)^2}
+         = \frac{u_i(t^*) - A_i(t^*)}{t^* + s}.
+\]
+The sign of $A_i'(t^*)$ matches the sign of $u_i(t^*) - A_i(t^*)$. As
+$t^* \to 0^+$, $A_i \to -c_s/s < 0 < u_i(0)$, so $A_i'(0^+) > 0$. As
+$t^* \to \infty$, $\int_0^{t^*} u_i\,d\tau \to -\infty$ (because $u_i$ is
+eventually negative and decreasing without bound or to a negative
+asymptote), so $A_i \to u_i(\infty) < 0$ from above, and $u_i$ continues
+decreasing past $A_i$, so eventually $u_i < A_i$ and $A_i' < 0$. By
+continuity, $A_i' = 0$ at some $t^*$, where $u_i(t^*) = A_i(t^*)$.
+Uniqueness follows because $u_i$ is strictly decreasing while $A_i$ is
+single-peaked: once $A_i$ has crossed below $u_i$ from above, it cannot
+cross back, since further $t^*$ only adds increasingly negative $u_i$
+values to the running average.
+\end{proof}
+
+\noindent The proof gives the geometry: $A_i$ rises while it sits below
+$u_i$, peaks where they cross, then falls. The peak is the only crossing.
+
+\newpage
+
+% =============== PAGE 3 ===============
+\noindent The structurally important fact is that the rational quit time
+$t^*$ is \textbf{later} than the threshold crossing $\rho_i(t) = \rho_i^*$,
+and \textbf{later} than the moment net utility hits zero. There are three
+distinct milestones, and they sit in this order.
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/the_gap.pdf}
+\end{center}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Milestone & Condition & In our calibration \\
+\midrule
+Threshold crossing & $\rho_i(t) = \rho_i^*$ & $t = 4.3$ months \\
+Subjective hate    & $u_i(t) = 0$ (no net benefit) & $t = 8.5$ months \\
+Rational quit      & $u_i(t) = A_i(t)$ (MVT)       & $t^* = 9.1$ months \\
+\bottomrule
+\end{tabular}
+
+\medskip\noindent The gap between threshold crossing and rational quit (about
+$5$ months in our calibration) is not a bug. It is the period during which
+amortizing the switch cost still pays off. The subjective sensation is
+``something is wrong but I cannot afford to leave yet,'' and that sensation
+is exactly correct.
+
+\medskip\noindent\textbf{Worked example.}\quad With $w = 1$, $\rho_0 = 0.6$,
+$m_\infty = 0.5$, $\tau_m = 5$ months, environmental drift $\alpha = 0.04$
+per month, stress sensitivity $\lambda = 0.7$, switch cost $c_s = 3$ months
+of wage, and search time $s = 2$ months, the model gives
+\[
+t^* \approx 9.1 \text{ months}, \quad \rho_i(t^*) \approx 1.49, \quad u_i(t^*) = A_i(t^*) \approx -0.04.
+\]
+Note that $A_i(t^*)$ is itself negative. The optimal cycle delivers slightly
+negative net welfare. Quitting earlier delivers more negative welfare. Quitting
+later delivers more negative welfare. The system is stuck in a regime where
+\textit{all} options lose money, and the best move is to lose the least.
+
+\begin{remark}[Why animals do this and humans don't]
+The MVT applies whenever a forager has access to an outside option of known
+average value. Birds use it because patches are short-lived, search is cheap,
+and the brain has dedicated circuitry for tracking running averages. Humans
+have long tenure, expensive search, mortgages, employer-tied health insurance,
+and no introspective access to $A_i(t^*)$. The math is the same. The
+implementation is harder.
+\end{remark}
+
+\newpage
+
+% =============== PAGE 4 ===============
+\noindent How $t^*$ depends on the parameters. Three things move it.
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/comparative_statics.pdf}
+\end{center}
+
+\medskip\noindent Switch cost (left panel) raises $t^*$ monotonically:
+expensive transitions force longer cycles. Environmental drift rate $\alpha$
+(right panel) lowers $t^*$ monotonically: a deteriorating environment makes
+each additional month worse, pulling the optimum forward. Match quality
+$m_\infty$ shifts both curves up: better match means longer optimal cycles
+because the denominator collapses less.
+
+\medskip\noindent\textbf{The four-lever diagnostic.}\quad If you find yourself
+past threshold and contemplating quit, the model says exactly which lever
+applies.
+
+\begin{tabular}{ll}
+\toprule
+What you can change & What it does to $t^*$ \\
+\midrule
+Reduce switch cost (network, savings, planning) & shifts $t^*$ earlier \\
+Reduce search time (better positioned for next role) & shifts $t^*$ earlier \\
+Reduce environmental drift (negotiate workload) & shifts $t^*$ later \\
+Raise match quality (find a role with higher $m_\infty$) & shifts $t^*$ later or to $\infty$ \\
+\bottomrule
+\end{tabular}
+
+\medskip\noindent The asymmetry is informative. The first two levers make
+quitting easier. The second two make staying viable. There are no levers
+that ``do nothing'' to $t^*$. Every action you can take changes when you
+should leave.
+
+\medskip\noindent\textbf{Falsification routes.}\quad
+
+\noindent\textit{Route 1.}\quad Predict actual quit timing from individual
+$(c_s, s, \alpha, m_\infty)$ estimates. The model says realized quits should
+cluster around $t^*$ with deviations explained by liquidity constraints. If
+quits are uniform in $t$ or correlate with calendar effects (year-end bonuses),
+the model is missing terms.
+
+\noindent\textit{Route 2.}\quad Predict that high-$c_s$ industries (Big Law,
+Medicine, Tenure Track, defense contracting) have systematically longer mean
+tenures. They do.
+
+\noindent\textit{Route 3.}\quad Predict that workers with shorter expected
+search times (high-demand specialties, geographically mobile) quit earlier
+controlling for income. Test on labor mobility data.
+
+\newpage
+
+% =============== PAGE 5 ===============
+\medskip\noindent\textbf{Empirical anchors.}
+
+\begin{tabular}{lll}
+\toprule
+Quantity & Value & Source \\
+\midrule
+Median tenure, US private sector (2024)     & $\sim 3.9$ years     & BLS \\
+Mean tenure, Big Law associate              & $\sim 3.0$ years     & NALP \\
+Mean tenure, US tech (FAANG)                & $\sim 2.0$ years     & Industry surveys \\
+Mean job-search duration (2024)             & $\sim 6$ months      & BLS \\
+Switch cost (median total compensation gap) & $\sim 2$--$4$ months & Glassdoor \\
+\bottomrule
+\end{tabular}
+
+\medskip\noindent The tech tenure number is the diagnostic. Two years is short
+even compared to the v3 honeymoon-decay prediction of roughly $1.5$ years to
+steady state ($3\tau_m$). Adding the v4 amortization layer pushes optimal
+$t^*$ from $1.5$ to roughly $2$ years for typical tech parameters, which
+matches the observed mean. Big Law's longer tenure is consistent with high
+$c_s$ (specialized human capital, partner-track lock-in). The model matches
+the rank ordering of industries.
+
+\medskip\noindent\textbf{The series in one table.}
+
+\begin{tabular}{lll}
+\toprule
+Post & What it added & What it took out \\
+\midrule
+v1 & Static threshold $\rho^*$            & n/a \\
+v2 & Drift, private threshold, observer wedge & ``rest fixes everything'' \\
+v3 & Hedonic decay, denominator dynamics  & ``new job feels different is naivety'' \\
+v4 & Optimal stopping, $u(t^*) = A(t^*)$  & ``quit when you cross threshold'' \\
+\bottomrule
+\end{tabular}
+
+\medskip\noindent\textbf{What this still does not address.}\quad Risk
+aversion (the model is risk-neutral; in practice, fear of unemployment biases
+$t^*$ later). Job-market state ($A_i(t^*)$ depends on the average value of
+\textit{available} next jobs, which fluctuates). Family or care obligations
+that lock $c_s$ to a higher value than the worker can change. Anti-pattern
+quitting where someone leaves before $t^*$ for emotional reasons and ends up
+in a worse role. The model gives the optimum; it does not guarantee
+implementation.
+
+\vspace{0.5cm}
+\noindent\textbf{References}
+
+\noindent[1] Charnov, E.L. (1976). Optimal foraging, the marginal value theorem. \textit{Theoretical Population Biology} 9(2), 129--136.
+
+\noindent[2] McCall, J.J. (1970). Economics of information and job search. \textit{Quarterly Journal of Economics} 84(1), 113--126.
+
+\noindent[3] Mortensen, D.T. (1986). Job search and labor market analysis. \textit{Handbook of Labor Economics} 2, 849--919.
+
+\noindent[4] Stephens, D.W., Krebs, J.R. (1986). \textit{Foraging Theory}. Princeton University Press.
+
+\noindent[5] Bureau of Labor Statistics (2024). Employee Tenure in 2024. \textit{USDL-24-1881}.
+
+\end{document}

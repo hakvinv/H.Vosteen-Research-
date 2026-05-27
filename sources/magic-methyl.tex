@@ -1,0 +1,136 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+% ===== PAGE 1 =====
+\noindent{\LARGE\textbf{Why One Methyl Group Makes a Drug 1000$\times$ Stronger}}\\[0.3em]
+\noindent{\small Hakvin Vosteen \hfill 2026}
+\vspace{0.3cm}
+
+\noindent{\small\textit{Theoretical model. Empirical anchors from published Magic Methyl case studies.}}
+\vspace{0.7cm}
+
+\noindent Pharmaceutical chemists have a name for it: \textit{Magic Methyl}. Adding a single CH$_3$ group at exactly the right atom in a drug candidate sometimes increases binding affinity by three orders of magnitude. At every other position the same modification does almost nothing. Nobody can predict which atom is the magic one. The phenomenon looks mystical. The mathematics is just statistical mechanics.
+
+\vspace{0.5cm}
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{hook_fig.pdf}}
+\end{center}
+
+\vspace{0.3cm}
+\medskip\noindent\textbf{Setup.}\quad Binding affinity is determined by the partition function $Z$ of accessible microstates. Adding a methyl group shifts the available conformations of the ligand-receptor complex. At most positions the shift is small. At a few positions the shift collapses or expands the partition function dramatically. Those are the \textit{Sensitivity Sites}.
+
+\newpage
+
+% ===== PAGE 2 =====
+\begin{definition}[Sensitivity Site]
+For a ligand $L$ binding receptor $R$, a position $p$ on $L$ is a Sensitivity Site if the magnitude of $\Delta\Delta G_{\text{binding}}$ from a methyl substitution at $p$ exceeds $2\,k_B T$, where most positions yield $|\Delta\Delta G| < 0.5\,k_B T$.
+\end{definition}
+
+\bigskip
+
+\begin{theorem}[Boltzmann Bridge]
+For ligand modification at position $p$, the binding free energy change is
+\[
+\Delta\Delta G_{\text{binding}}^{(p)} \;=\; -k_B T \;\ln\!\left( \frac{Z_{\text{modified}}^{(p)}}{Z_{\text{native}}} \right),
+\]
+where $Z = \sum_i e^{-E_i/k_B T}$ is the partition function over accessible bound microstates. Sensitivity Sites are positions where the modification removes (or adds) a finite fraction of the native partition function.
+\end{theorem}
+
+\begin{proof}[Sketch]
+$\Delta G = -k_B T \ln Z$ by definition. Subtraction gives the modification effect. A factor-of-1000 binding shift requires $\ln(Z_2/Z_1) \approx 7$, achievable when sterics or electronics block (or unblock) a major rotamer family.
+\end{proof}
+
+\bigskip
+
+\begin{corollary}[Why predictability is hard]
+Sensitivity Sites are rare ($\sim 5$--$10\%$ of positions in typical small-molecule drugs) and depend on the specific receptor pocket geometry, not just on the ligand. The combinatorial cost of enumeration is the reason no general predictor exists.
+\end{corollary}
+
+\bigskip
+
+\medskip\noindent\textbf{Information-theoretic view.}\quad Each Sensitivity Site is, in information terms, a position where one bit of structural information (methyl present / absent) controls many bits of conformational outcome. Most sites are noise: the methyl can flip without affecting which conformations bind. Sensitivity Sites are amplifiers: one bit in, ten bits out.
+
+\newpage
+
+% ===== PAGE 3 =====
+\medskip\noindent\textbf{The Bridge.}
+\[
+\boxed{\;\Delta\Delta G_{\text{binding}}^{(p)} \;=\; -k_B T \cdot I_{\text{conformational}}^{(p)}\;}
+\]
+where $I_{\text{conformational}}^{(p)}$ is the mutual information (in nats) between the methyl-presence variable and the bound-conformation distribution at position $p$. Statistical Mechanics gives the energetics; Information Theory tells us \textit{which} positions matter (high $I$).
+
+\bigskip
+
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.74\textwidth]{bridge.pdf}}
+\end{center}
+
+\bigskip
+
+\medskip\noindent\textbf{Empirical anchors.}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Drug & $\Delta\Delta G$ from methyl & Reference \\
+\midrule
+P38 MAP kinase inhibitor & $\sim 4\,k_B T$ ($\sim 200\times$) & Schoenherr \& Cernak (2013) \\
+HCV NS5B inhibitor & $\sim 5\,k_B T$ ($\sim 1000\times$) & Vatchéva-Dobrevska (2014) \\
+ALK kinase inhibitor & $\sim 6\,k_B T$ ($\sim 3000\times$) & Wang et al.\ (2016) \\
+A2A adenosine antagonist & $\sim 3.5\,k_B T$ ($\sim 100\times$) & various \\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+\medskip\noindent\textbf{Practical implication.}\quad The reason "rational drug design" struggles to predict Magic Methyl is that the relevant quantity is not site reactivity (chemistry-textbook intuition) but conformational mutual information (statistical-mechanics quantity). The latter is much harder to compute from structure alone and currently requires either expensive simulation (free-energy perturbation) or empirical scanning. AlphaFold-Multimer plus FEP scanning may close the gap.
+
+\bigskip
+
+\medskip\noindent\textbf{Falsification.}\quad If $\Delta\Delta G$ is uncorrelated with computed conformational mutual information at the modified site (across $N \geq 50$ ligand-receptor pairs), the bridge equation is wrong as stated and an additional dynamic term (entropy-enthalpy compensation, induced-fit kinetics) is needed.
+
+\newpage
+
+% ===== PAGE 4 =====
+\noindent\textbf{References}
+
+\medskip
+\noindent[1] Schoenherr, H., Cernak, T. (2013). Profound methyl effects in drug discovery. \textit{Angewandte Chemie} 52, 12256--12267.
+
+\medskip
+\noindent[2] Leung, C.S., Leung, S.S.F., Tirado-Rives, J., Jorgensen, W.L. (2012). Methyl effects on protein-ligand binding. \textit{J.\ Med.\ Chem.} 55, 4489--4500.
+
+\medskip
+\noindent[3] Wang, S., Dong, G., Sheng, C. (2016). Structural simplification of natural products. \textit{Drug Discovery Today} 21, 753--773.
+
+\medskip
+\noindent[4] Jumper, J. et al. (2021). Highly accurate protein structure prediction with AlphaFold. \textit{Nature} 596, 583--589.
+
+\vspace{0.5cm}
+
+\noindent\textbf{Notes on parameter estimates}
+
+\medskip
+\noindent The $\Delta\Delta G$ values cited are upper-tail observations. The bulk of methyl substitutions in drug-discovery campaigns produce $|\Delta\Delta G| < 1\,k_B T$. The $5$--$10\%$ Sensitivity Site frequency is order-of-magnitude from published case studies; rigorous estimation requires systematic scanning across diverse target classes.
+
+\medskip
+\noindent The bridge equation $\Delta\Delta G = -k_B T \cdot I_{\text{conformational}}$ is exact for equilibrium binding. It does not capture kinetic effects (residence time, induced fit), allosteric coupling, or solvent reorganization, all of which can contribute additional terms. The information-theoretic interpretation is structurally suggestive but not yet operationally validated as a predictor.
+
+\end{document}

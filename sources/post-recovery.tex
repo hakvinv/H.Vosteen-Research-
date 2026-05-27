@@ -1,0 +1,157 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+% ===== PAGE 1 — SPARSE =====
+\noindent{\LARGE\textbf{Why a Bad Post Doesn't Tank Your Account}}\\[0.3em]
+\noindent{\small Hakvin Vosteen \hfill 2026}
+\vspace{0.3cm}
+
+\noindent{\small\textit{Theoretical model. Recovery times estimated from public TikTok / Instagram statements.}}
+\vspace{0.7cm}
+
+\noindent A creator posts a video that performs poorly. Engagement is flat for two hours. The intuition is that the platform is punishing the post. The mechanism is simpler. Within roughly $90$ seconds, the platform has updated its model of the creator's class and the trial is closed. There is no punishment, only Bayesian inference moving on.
+
+\vspace{0.5cm}
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{hook_fig.pdf}}
+\end{center}
+
+\vspace{0.3cm}
+\medskip\noindent\textbf{Setup.}\quad The platform holds a posterior distribution $P(\text{class} \mid \text{recent posts})$ over each creator. Each new post is a trial: a sample of users sees it, three signals are measured (completion rate, engagement velocity, retention curve), and the posterior is updated. The convergence time of this update we call \textit{Algorithmic Recovery Time}, denoted $\tau_R$.
+
+\newpage
+
+% ===== PAGE 2 — DENSE: BAYESIAN =====
+\begin{definition}[Algorithmic Recovery Time]
+For a recommender system maintaining a posterior $P(\text{class} \mid D)$ over creator classes, $\tau_R$ is the time required for the posterior to converge within tolerance $\alpha$ of its post-update equilibrium after a single new post enters the evidence set $D$.
+\end{definition}
+
+\bigskip
+
+\begin{theorem}[Bayesian Convergence Bound]
+For Bernoulli-like engagement trials with informative likelihood,
+\[
+\tau_R \;\leq\; \frac{-\log \alpha}{D_{\mathrm{KL}}(\,P_{\text{prior}} \;\|\; P_{\text{posterior}})}
+\;\cdot\; \tau_{\text{trial}},
+\]
+where $D_{\mathrm{KL}}$ is the Kullback-Leibler divergence between prior and posterior in bits, and $\tau_{\text{trial}}$ is the per-trial time (seconds per sampled user response).
+\end{theorem}
+
+\begin{proof}[Sketch]
+Posterior update under $n$ independent Bernoulli trials concentrates as $\exp(-n \cdot D_{\mathrm{KL}})$. Setting concentration to $\alpha$ gives $n = -\log\alpha / D_{\mathrm{KL}}$. Each trial takes $\tau_{\text{trial}}$ in wall-clock time on the platform.
+\end{proof}
+
+\bigskip
+
+\medskip\noindent\textbf{Plugging in TikTok-typical parameters.}
+\begin{itemize}
+\item $\alpha = 0.05$ (5\% tolerance) gives $-\log\alpha \approx 3$
+\item $D_{\mathrm{KL}} \approx 3$ bits per post (informative engagement signal)
+\item $\tau_{\text{trial}} \approx 30$ seconds per round of user sampling
+\end{itemize}
+\[
+\tau_R \;\approx\; \frac{3}{3} \cdot 30 \;\approx\; 30\!-\!120 \text{ seconds}.
+\]
+
+This matches anecdotal creator reports of "post is dead within $90$ seconds."
+
+\begin{corollary}
+The system does not punish bad posts. It re-evaluates them. The shift in the posterior from a single bad post is bounded by $D_{\mathrm{KL}}$ and recovers automatically with the next informative post.
+\end{corollary}
+
+\newpage
+
+% ===== PAGE 3 — DENSE: SCALING + GAME THEORY =====
+\medskip\noindent\textbf{The Bridge.}\quad The Bayesian formulation tells us how fast the platform updates. Game Theory tells us why the platform updates this way:
+\[
+\boxed{\;\text{platform optimizes } \mathbb{E}[\text{watch time} \mid \text{global feed}] \;\not=\; \text{creator growth}\;}
+\]
+The objective function of the platform is total user retention, not creator welfare. Bayesian inference on creator class is the cheapest way to optimize this objective. There is no penalty function for bad posts because penalties would be computationally wasteful.
+
+\bigskip
+
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{scaling.pdf}}
+\end{center}
+
+\bigskip
+
+\medskip\noindent\textbf{Cross-platform predictions.}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Platform & $\tau_R$ estimate & Architecture \\
+\midrule
+TikTok & $\sim 90$ sec & Continuous Bayesian update, dense sampling \\
+Instagram Reels & $2\!-\!4$ hours & Trial-Reels architecture, batched sampling \\
+YouTube Shorts & $30\!-\!60$ min & Watch-time-weighted, slower convergence \\
+Bluesky & not Bayesian & Reverse-chronological, no posterior \\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+\medskip\noindent\textbf{What this means for creators.}\quad The first 90 seconds are decisive but not under your control. A single bad post does not damage your account. Refreshing analytics after the recovery window is information-free. Small accounts feel more volatile because their priors are flatter (less concentrated posterior) and updates are larger relative to baseline. This is not unfair treatment. It is a property of Bayesian information density.
+
+\newpage
+
+% ===== PAGE 4 — REFERENCES + NOTES =====
+\noindent\textbf{Empirical anchors.}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Quantity & Value & Source \\
+\midrule
+TikTok per-post test sample & $5\!-\!10\%$ of followers & Newsroom transparency reports \\
+First-3-second skip rate & $\sim 50\%$ drop-off & TrueFuture Media analysis \\
+Instagram DM share weight & dominant ranking signal & Mosseri public statements 2025 \\
+Bayesian update bits per post & $1\!-\!4$ bits (estimate) & structural, not measured directly \\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+\noindent\textbf{References}
+
+\medskip
+\noindent[1] MacKay, D.J.C. (2003). \textit{Information Theory, Inference, and Learning Algorithms.} Cambridge University Press.
+
+\medskip
+\noindent[2] Mosseri, A. (2025). Instagram ranking signals public statements, Threads / personal account.
+
+\medskip
+\noindent[3] TikTok Newsroom (2024). Transparency reports on recommendation system.
+
+\medskip
+\noindent[4] Various creator analytics platforms (Socialync, TrueFuture, Dataslayer) 2026 reports on algorithmic ranking signal weights.
+
+\vspace{0.6cm}
+
+\noindent\textbf{Notes on parameter estimates}
+
+\medskip
+\noindent The exact values of $\alpha$ (tolerance), $D_{\mathrm{KL}}$ (per-post information gain), and $\tau_{\text{trial}}$ (sampling round time) are not published by any major platform. The numerical estimates here are derived from creator-reported anecdotes and triangulation against documented behaviors. The structural form of $\tau_R = -\log\alpha / D_{\mathrm{KL}} \cdot \tau_{\text{trial}}$ is exact under the Bernoulli-trial assumption and is the testable claim.
+
+\medskip
+\noindent What the model does not explain: long-term shadowbans (community-guideline-related, different mechanism), platform-level manual moderation interventions, bot-inflation effects on the prior. Those operate on different timescales and are not Bayesian-recovery phenomena.
+
+\end{document}

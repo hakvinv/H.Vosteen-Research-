@@ -1,0 +1,276 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+
+\title{\Large\textbf{A Theory of Strategic LARP:}\\
+Cognitive Hierarchy, Endogenous Observation Regimes, and Type Selection in Signaling Markets}
+\author{Hakvin Vosteen\\\small Universit\"at Bremen\\\small \texttt{vosteen@uni-bremen.de}}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent We propose a signaling model for the phenomenon of life-action role-playing (LARP) in modern startup, labor, and capital markets, in which agents of low productive type (L) mimic the behavior of high productive type (H) to extract resources from observers with limited verification capacity. The standard Spence framework predicts a separating equilibrium in which truth is asymptotically revealed. We argue this framework requires four modifications. First, the cost structure depends on whether signals are substance-driven or volume-driven, with the single-crossing property holding in the former and inverting in the latter. Second, asymptotic convergence depends on observation noise $\sigma_{\mathrm{obs}}$, which varies systematically across domains. Third, observation regimes are endogenously chosen by agents, producing self-selection of types into market regimes. Fourth, and most importantly, LARP success is not monotonically decreasing in observer sophistication. We show that market vulnerability to LARP is U-shaped in the cognitive hierarchy level $k$ of the observer population: naive observers ($k \approx 0$) can be deceived by substance mimicry, sophisticated observers ($k \geq 3$) can be deceived by Schelling-type madman strategies that exploit the assumption of rationality, while observers at intermediate $k$ levels are most defended against both. We derive a taxonomy of four distinct LARP strategies and apply the framework to two recent cases: Elizabeth Holmes (Mimicry-LARP against $k \leq 1$) and Sam Bankman-Fried (Inversion-LARP against $k = 2$ Bayesian subculture). The framework connects to a parallel macro-level analysis of mandatory disclosure regulation (Vosteen 2026a), showing that the micro-mechanism of strategic type self-selection produces the macro-pattern of asymmetry migration.
+\end{abstract}
+
+\section{Introduction}
+
+Modern signaling markets are characterized by an abundance of agents whose visible activity does not correspond to underlying productive substance. We refer to the strategy of producing signals without substance as life-action role-playing, or LARP. The phenomenon is widely observed in venture capital, technology hiring, academia, and finance.
+
+The standard economic framework for analyzing signaling is due to \cite{spence1973}. In that framework, a separating equilibrium obtains under a single-crossing property on signaling costs, and asymptotic learning results in the tradition of \cite{diamond1989} and \cite{tirole1996} suggest truth is asymptotically revealed. We argue this framework requires four substantive modifications to capture LARP behavior in modern markets.
+
+The first three modifications concern the structure of costs, the role of observation noise, and the endogeneity of market choice. They are developed in Sections 2--4. The fourth modification is the central contribution of this paper. It concerns the role of \emph{observer cognitive hierarchy} (Section 5). Following \cite{nagel1995} and \cite{camerer2004}, we model observers as reasoning at finite levels $k = 0, 1, 2, \ldots$, where higher $k$ corresponds to more sophisticated reasoning about the strategic behavior of others. Standard Spence implicitly assumes high $k$ (Bayesian observers). We argue that this assumption fails in two directions, producing a U-shaped vulnerability curve.
+
+Section 6 develops a taxonomy of four LARP strategies, each corresponding to a different observer-$k$ regime. Section 7 examines two case studies (Holmes and Bankman-Fried) through this taxonomy. Section 8 connects the framework to the macro-level analysis of \cite{vosteen2026waterbed}, showing that the micro-mechanism of strategic type self-selection produces the macro-pattern of regulatory waterbed effects. Section 9 discusses implications for due diligence, market design, and regulation.
+
+\section{The Cost Structure: Substance vs.\ Volume}
+
+The single-crossing property in classical Spence states that for productive output $y$,
+\[
+c'_H(y) < c'_L(y).
+\]
+This assumption is plausible when $y$ is itself a measure of productive capability: peer-reviewed publications, audited financial returns, working open-source code.
+
+\begin{definition}[Substance-driven signal]
+A signal $y$ is \emph{substance-driven} if its production requires the underlying skill or knowledge that distinguishes H from L.
+\end{definition}
+
+\begin{definition}[Volume-driven signal]
+A signal $y$ is \emph{volume-driven} if its production requires primarily time investment rather than underlying skill. Examples: social media frequency, conference attendance, networking activity.
+\end{definition}
+
+\begin{proposition}[Inverted Single-Crossing for Volume-Driven Signals]
+\label{prop:inversion}
+For volume-driven signals, the single-crossing property inverts: $c'_H(y) > c'_L(y)$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+The cost of producing one additional unit of a volume-driven signal is primarily the opportunity cost of time. The H-type's opportunity cost is the foregone marginal product of productive activity (building, researching, writing code), which is high. The L-type, lacking productive activity, has near-zero opportunity cost of time.
+\end{proof}
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/cost_regimes.pdf}
+\end{center}
+
+\medskip\noindent\textbf{Marginal vs.\ total cost.} A subtle point arises in volume signals where the H-type can repurpose existing productive activity as signal content. A founder building open-source code may post commits with near-zero marginal cost per post, since the post draws from existing work. In such cases the H-type's marginal cost per unit volume signal returns to low levels, but the total volume the H-type can produce is bounded by their productive activity. The L-type, by contrast, can scale signal volume arbitrarily. The market typically observes total signal output rather than marginal cost, so the L-type advantage in volume persists even when the H-type's marginal cost is locally lower.
+
+\section{Observation Noise}
+
+The classical asymptotic-learning results assume the market observes output in a Bayesian-efficient manner. In practice, observation quality varies substantially.
+
+\begin{definition}[Observation Noise]
+Let $X_t$ be the market's observation of agent output at time $t$ and $y_t$ the true output. We write $X_t = y_t + \varepsilon_t$, $\varepsilon_t \sim \mathcal{N}(0, \sigma_{\mathrm{obs}}^2)$.
+\end{definition}
+
+The parameter $\sigma_{\mathrm{obs}}$ is domain-specific. Low in open-source, peer-reviewed publications, audited markets. High in private equity, healthtech with closed lab results, defense, vanity-metric platforms.
+
+\begin{theorem}[Convergence under Observation Noise]
+\label{thm:convergence}
+Let $T_L$ denote the expected time for the market to distinguish L-types from H-types by Bayesian updating on $X_t$. Then $T_L$ is increasing in $\sigma_{\mathrm{obs}}^2$, with $T_L \to \infty$ as $\sigma_{\mathrm{obs}} \to \infty$.
+\end{theorem}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/convergence_decay.pdf}
+\end{center}
+
+\medskip\noindent The empirical anchors are the cases of \emph{Theranos} ($T_L \approx 15$ years) and \emph{FTX} ($T_L \approx 3$ years), both of which operated in domains with elevated $\sigma_{\mathrm{obs}}$ and survived well beyond the convergence time predicted by the classical model.
+
+\section{Endogenous Regime Choice}
+
+The previous sections treated $\sigma_{\mathrm{obs}}$ as exogenous. In reality, agents choose markets, and therefore choose observation regimes.
+
+\begin{definition}[Two-Stage Signaling Game]
+Stage 1: agent observes own type $\theta \in \{H, L\}$ and selects domain $d$ with associated $\sigma_d$. Stage 2: standard Spence signaling game within $d$.
+\end{definition}
+
+\begin{theorem}[Self-Selection by Type]
+\label{thm:selection}
+H-types weakly prefer low-$\sigma_{\mathrm{obs}}$ domains; L-types weakly prefer high-$\sigma_{\mathrm{obs}}$ domains. The pure-strategy Stage-1 equilibrium concentrates H-types in transparent domains and L-types in opaque domains.
+\end{theorem}
+
+\begin{corollary}[Domain Choice as Signal]
+The choice of domain itself signals type. Agents operating in low-$\sigma_{\mathrm{obs}}$ domains carry a positive type inference; agents operating in high-$\sigma_{\mathrm{obs}}$ domains carry an L-type risk premium.
+\end{corollary}
+
+\begin{remark}[Tragedy of Structurally Opaque Domains]
+Some productive domains are structurally opaque due to the nature of the work: medicine, defense research, quantitative finance. H-types in these domains cannot escape the high-$\sigma_{\mathrm{obs}}$ environment by changing markets. They bear the L-type risk premium imposed by domain choice, regardless of their true type.
+\end{remark}
+
+\section{Cognitive Hierarchy and the U-Shaped Vulnerability}
+
+The above sections inherit the standard Spence assumption that observers are Bayesian, processing signals optimally given their information set. This assumption is unrealistic. Behavioral game theory has shown that observers reason at finite levels in a cognitive hierarchy.
+
+\begin{definition}[Observer Cognitive Hierarchy]
+\label{def:khierarchy}
+Let $k \in \{0, 1, 2, \ldots\} \cup \{\infty\}$ denote the observer's level of reasoning. A $k = 0$ observer takes signals at face value. A $k = n$ observer assumes the agent is a $k = n-1$ thinker and best-responds accordingly. A $k = \infty$ observer is Bayesian (common knowledge of rationality).
+\end{definition}
+
+The standard Spence framework assumes $k = \infty$. Empirical evidence suggests $k$ is finite and varies across populations \cite{nagel1995, camerer2004}. The mean $k$ in laboratory experiments is approximately 1.5, with substantial variation across domains.
+
+\begin{proposition}[U-Shaped Vulnerability]
+\label{prop:ushape}
+Market vulnerability to LARP, defined as the probability that an L-type agent extracts resources before detection, is not monotonically decreasing in the observer cognitive hierarchy level $k$. It is U-shaped, with maxima at $k \approx 0$ (naive observers, substance mimicry works) and $k \geq 3$ (highly sophisticated observers vulnerable to Schelling-type madman strategies), and a minimum at intermediate $k$.
+\end{proposition}
+
+\begin{proof}[Sketch]
+At $k = 0$, observers take signals at face value, so an L-type producing apparent substance signals (mimicry) is accepted. At $k = 1$, observers check for surface authenticity markers, partially defending against pure mimicry. At $k = 2$, observers check for substance verification, more strongly defended. At $k \geq 3$, observers reason about the agent's reasoning about the observer's reasoning, opening the door to inversion strategies: an L-type producing anti-signals (apparent indifference to signaling) is read by sophisticated observers as too-genius-to-bother, an inverted Spence equilibrium. The intermediate $k$ regime is the unique zone where neither mimicry nor inversion is profitable.
+\end{proof}
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figures/cognitive_hierarchy.pdf}
+\end{center}
+
+\medskip\noindent\textbf{The CS:GO analogy.} The U-shape is intuitive in game-theoretic settings where skill is observable. In Counter-Strike: Global Offensive, a fake defuse move (producing the defuse sound without actually defusing) is effective against low-rank opponents who take the sound at face value, and is also effective against very high-rank opponents who reason at deep cognitive levels and assume the opponent would not commit to a transparently irrational move. At intermediate ranks, the fake fails: opponents know about fake defuses, expect them, and check before committing. The same mechanism operates in financial markets, but with longer time scales and larger stakes.
+
+\begin{remark}[Schelling's Madman as $k$-Inversion]
+The strategy of credible irrationality, articulated by \cite{schelling1960} in the context of nuclear brinkmanship, is the canonical case of exploiting sophisticated observers. A negotiator who appears irrationally committed extracts concessions that a rational negotiator could not. In LARP applications, an agent who appears too genius to bother with conventional signaling extracts trust that a conventional signaler could not.
+\end{remark}
+
+\section{A Taxonomy of LARP Strategies}
+
+The cognitive-hierarchy framework yields a four-mode taxonomy of LARP strategies, each suited to a different observer-$k$ regime.
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{figures/larp_taxonomy.pdf}
+\end{center}
+
+\begin{enumerate}
+\item \textbf{Mimicry-LARP} ($k \approx 0$). The agent imitates the surface markers of an H-type: credentials, aesthetic, narrative slot. Effective against naive observers who take markers at face value. Vulnerable to any external verification.
+
+\item \textbf{Volume-LARP} ($k \approx 1$). The agent saturates the signaling channel with high-frequency activity, exploiting the inverted cost structure of Section 2. Effective against observers who use volume as a proxy for productivity. Vulnerable to substance verification.
+
+\item \textbf{Status-LARP} ($k \approx 2$). The agent acquires high-status co-validators (board members, investors, endorsers) whose reputations transfer to the agent. Effective against observers who use reputation networks as a heuristic for verification. Vulnerable to validator failure cascades.
+
+\item \textbf{Inversion-LARP} ($k \geq 3$). The agent produces anti-signals interpreted by sophisticated observers as too-genius-to-bother. Effective against observers with specific subcultural belief systems that read anti-conformity as H-type marker. Vulnerable to exogenous shocks (liquidity crises) rather than detection.
+\end{enumerate}
+
+These four modes are not mutually exclusive. A sophisticated L-type may combine them: a high-status board (Status-LARP), high-volume PR (Volume-LARP), and personal anti-conformity (Inversion-LARP), all on a foundation of credential mimicry (Mimicry-LARP). The most successful historical LARP cases combine multiple modes.
+
+\section{Two Case Studies}
+
+\subsection{Elizabeth Holmes: Mimicry-LARP at $k \leq 1$}
+
+Holmes operated in the BioTech diagnostics market, where $\sigma_{\mathrm{obs}}$ is structurally high: lab equipment is proprietary, patient data is inaccessible, FDA processes are opaque, and outside investors lack the domain expertise to verify technical claims. The observer population (politicians on the board, generalist investors, non-technical journalists) operated predominantly at $k \leq 1$.
+
+Holmes's signaling strategy was substance mimicry. Every observable surface marker imitated a high-type technology founder: Stanford dropout (narrative slot of Jobs/Gates/Zuckerberg), black turtleneck (visual aesthetic of Jobs), reportedly artificially deepened voice (gravitas signal), lab coat in photos (scientific aesthetic), product name ``Edison machine'' (innovator lineage), and the high-status board of Henry Kissinger, James Mattis, and George Shultz (Status-LARP layered on top).
+
+The strategy was viable for approximately 15 years because the observer population at $k \leq 1$ could not penetrate the surface markers, and the high $\sigma_{\mathrm{obs}}$ of the domain prevented external verification. Failure came not through detection by the market but through an exogenous reduction in $\sigma_{\mathrm{obs}}$: investigative journalism by John Carreyrou (Wall Street Journal, 2015) used whistleblower testimony to bypass the structural opacity.
+
+\subsection{Sam Bankman-Fried: Inversion-LARP at $k = 2$}
+
+Bankman-Fried operated in cryptocurrency, where $\sigma_{\mathrm{obs}}$ is elevated by unregulated structure and vanity-metric dominance. The observer population (crypto venture capitalists, the effective altruism community, tech journalists) operated predominantly at $k = 2$, with a specific subcultural belief that anti-conformity signals authentic genius.
+
+Bankman-Fried's signaling strategy was inversion. Every observable surface marker actively rejected conventional H-type aesthetics: wrinkled t-shirt and shorts in investor meetings (anti-aesthetic), reportedly playing League of Legends during investor calls (cultivated indifference), sleeping at the desk (workaholism inversion), effective altruism rhetoric (moral signaling over skill signaling). The implicit claim was: I do not need to perform competence because my underlying genius makes performance unnecessary.
+
+The strategy was viable for approximately 3 years because the $k = 2$ observer population read the inversion as authentic. Subsequent court testimony revealed Bankman-Fried understood the mechanism explicitly: the effective altruism framework was described as ``PR,'' the disheveled appearance as ``performance.'' This is not an accident of personality but a deliberate exploitation of the $k = 2$ Bayesian update rule in a specific subculture.
+
+\begin{remark}
+The Bankman-Fried case represents a third-order strategic move: not merely choosing a domain (Stage 1), not merely signaling within the domain (Stage 2), but selecting which observer reasoning level to target. This is Stage 0: meta-signaling about signal conventions. A formal extension of the model to incorporate Stage 0 would treat the agent as choosing not only $d$ and the signal level $y$, but also the target observer cognitive level $k^*$ that the strategy assumes.
+\end{remark}
+
+\subsection{Comparison}
+
+The two cases illustrate distinct points on the U-curve of Proposition \ref{prop:ushape}. Holmes succeeded against naive observers through substance mimicry. Bankman-Fried succeeded against sophisticated observers through inversion. Neither strategy would have worked at intermediate $k$: observers checking for substance would have penetrated Holmes; observers reasoning at $k = 3$ would have recognized Bankman-Fried's inversion as itself a signaling strategy.
+
+The structural failure modes differ. Holmes failed through whistleblower-driven $\sigma_{\mathrm{obs}}$ reduction (journalism). Bankman-Fried failed through liquidity crisis (market shock). In both cases the LARP strategy was internally coherent; collapse came through exogenous shocks rather than market-internal detection.
+
+\section{Connection to Macro-Level Asymmetry Migration}
+
+The micro-foundation developed in this paper produces a macro-pattern documented separately in \cite{vosteen2026waterbed}. That work analyzes the EU Corporate Sustainability Reporting Directive (CSRD) and shows that mandatory disclosure regulation does not eliminate information asymmetry but redistributes it, with empirical evidence from bibliometric data on academic research attention to three migration channels: audit quality, supply chain data, and ESG rating processing.
+
+The micro-mechanism is the self-selection of Theorem \ref{thm:selection} combined with the cognitive-hierarchy structure of Proposition \ref{prop:ushape}. When regulation lowers $\sigma_{\mathrm{obs}}$ in the regulated domain (firm-level disclosure), L-types do not exit the market; they reallocate to adjacent domains where $\sigma_{\mathrm{obs}}$ remains high (audit relationships, supply chain estimates, intermediary processing) or where their LARP strategy can shift to a different observer-$k$ regime (greenhushing as Inversion-LARP at $k = 2$ ESG-savvy subcultures, vague sustainability-linked loan metrics as Mimicry-LARP at $k \leq 1$ retail investors).
+
+The connection unifies the macro and micro perspectives: regulation that compresses $\sigma_{\mathrm{obs}}$ in one channel without addressing the cognitive hierarchy distribution of observers in adjacent channels does not eliminate the structural conditions for LARP. It only forces a reallocation of LARP modes across channels.
+
+\section{Implications: Risk Premium, Due Diligence, Market Design}
+
+\subsection{LARP Risk Premium}
+
+The combined framework yields a risk premium
+\[
+\pi_{\mathrm{LARP}}(d, p, v, k) \;=\; f(\sigma_d, p, v, k),
+\]
+where $\sigma_d$ is domain observation noise, $p$ is the agent's hierarchical position (less verifiable at higher levels), $v$ is verification cost, and $k$ is the cognitive hierarchy level of the relevant observer population. The premium is increasing in $\sigma_d$, $p$, and $v$, but \emph{U-shaped} in $k$: high at both naive and hyper-sophisticated observer levels.
+
+\medskip\noindent\textbf{Theranos worked example.} Domain healthtech ($\sigma_d$ high), CEO position ($p$ high), no peer-reviewed outputs ($v$ high), observer cognitive level $k \leq 1$ (politicians, generalist board): implied $\pi_{\mathrm{LARP}}$ on the order of 80--90\%. Claimed valuation of \$9 billion should have been discounted to roughly \$1.5 billion absent external verification.
+
+\medskip\noindent\textbf{FTX worked example.} Domain crypto ($\sigma_d$ high), CEO position ($p$ high), vanity-metric outputs ($v$ medium-high), observer cognitive level $k = 2$ with specific inversion belief ($k$ in vulnerability tail): implied $\pi_{\mathrm{LARP}}$ on the order of 60--75\%. Claimed valuation of \$32 billion should have been discounted accordingly.
+
+\subsection{Due Diligence Procedure}
+
+\begin{enumerate}
+\item Identify the agent's domain. Compute base $\sigma_d$.
+\item Identify the agent's position. Compute position multiplier.
+\item Enumerate available outputs. Compute verification cost.
+\item Identify the cognitive hierarchy level $k$ of the relevant observer community for this agent. Adjust the premium for U-shape effects.
+\item Compute $\pi_{\mathrm{LARP}}$ and discount claimed valuations.
+\item Demand verification mechanisms before accepting the discounted valuation.
+\end{enumerate}
+
+The cognitive-hierarchy step is the procedure's contribution beyond standard due diligence. If the relevant observer community is at the U-curve extremes (very naive or very sophisticated with specific subcultural beliefs), the agent's LARP risk is higher than the structural noise of the domain alone would suggest.
+
+\subsection{Market Design}
+
+Market design choices that move the observer population toward intermediate $k$ reduce LARP density. Mechanisms include education programs that raise observer reasoning levels from $k = 0$ to $k = 1$ or $k = 2$, and skepticism-promoting interventions that prevent observer reasoning from crossing into the $k \geq 3$ inversion-vulnerable zone where elaborate counter-signaling becomes plausible. The latter is counterintuitive: in some markets, less sophistication may be better than more.
+
+\subsection{Regulatory Design}
+
+Regulation typically acts on $\sigma_{\mathrm{obs}}$ rather than on observer cognitive hierarchy. The SEC, FDA, and CSRD reduce $\sigma_{\mathrm{obs}}$ in regulated domains. However, regulation does not address the cognitive hierarchy distribution of observers, and therefore does not eliminate LARP. It only redistributes which LARP modes are feasible in which channels. This is the macro pattern documented in \cite{vosteen2026waterbed}.
+
+\section{Limitations}
+
+The model treats type as binary; productive capability is a continuum. The model treats observer cognitive hierarchy $k$ as observable to the agent; in practice, agents face uncertainty about $k$ and must form beliefs over the distribution of observer reasoning levels. The Stage-0 meta-signaling discussed in the Bankman-Fried case is sketched rather than formalized; a full treatment would require an explicit decision-theoretic model of $k^*$ selection under uncertainty. The U-shape of Proposition \ref{prop:ushape} is qualitative; precise quantitative calibration would require empirical estimates of LARP success rates across markets with different observer-$k$ distributions, which to our knowledge do not exist in published form.
+
+\section{Conclusion}
+
+The classical Spence framework describes a signaling environment in which truth is asymptotically revealed and high types win. Modern markets do not match this environment, in four identifiable ways. Cost structures invert when signals become volume-driven. Convergence fails in opaque markets. The choice of market is itself a signal. And LARP vulnerability is U-shaped in observer sophistication: both naive and hyper-sophisticated markets are vulnerable, while intermediate markets are best defended.
+
+The deeper implication is that LARP density is a function of market design choices and observer cognitive hierarchy distribution, not of individual character. A market with low observation noise and moderate observer sophistication will select for H-types regardless of who enters initially. A market with high observation noise and either very naive or very sophisticated observers will select for L-types regardless of initial intentions. Persistent LARP problems in venture capital, cryptocurrency, and vanity-metric platforms are predictable structural outcomes, not failures of individual ethics.
+
+\vspace{0.5cm}
+\noindent\textbf{Acknowledgments.} Thanks to roldess22 for substantive critiques during a multi-day exchange of comments on a four-part TikTok exposition of an earlier version of the LARP model. The two-regime cost structure (Section 2), the observation-noise treatment of convergence (Section 3), the endogenous-regime extension (Section 4), and the cognitive-hierarchy framework (Section 5) were each developed in response.
+
+\vspace{0.5cm}
+\noindent\textbf{References}
+
+\begin{thebibliography}{99}
+
+\bibitem{akerlof1970} Akerlof, G. (1970). The market for lemons: Quality uncertainty and the market mechanism. \textit{Quarterly Journal of Economics} 84(3), 488--500.
+
+\bibitem{camerer2004} Camerer, C.F., Ho, T.-H., Chong, J.-K. (2004). A cognitive hierarchy model of games. \textit{Quarterly Journal of Economics} 119(3), 861--898.
+
+\bibitem{diamond1989} Diamond, D. (1989). Reputation acquisition in debt markets. \textit{Journal of Political Economy} 97(4), 828--862.
+
+\bibitem{hayek1945} Hayek, F.A. (1945). The use of knowledge in society. \textit{American Economic Review} 35(4), 519--530.
+
+\bibitem{holmstrom1979} Holmstrom, B. (1979). Moral hazard and observability. \textit{Bell Journal of Economics} 10(1), 74--91.
+
+\bibitem{nagel1995} Nagel, R. (1995). Unraveling in guessing games: An experimental study. \textit{American Economic Review} 85(5), 1313--1326.
+
+\bibitem{schelling1960} Schelling, T.C. (1960). \textit{The Strategy of Conflict}. Harvard University Press.
+
+\bibitem{spence1973} Spence, M. (1973). Job market signaling. \textit{Quarterly Journal of Economics} 87(3), 355--374.
+
+\bibitem{stiglitz1981} Stiglitz, J.E., Weiss, A. (1981). Credit rationing in markets with imperfect information. \textit{American Economic Review} 71(3), 393--410.
+
+\bibitem{tirole1996} Tirole, J. (1996). A theory of collective reputations. \textit{Review of Economic Studies} 63(1), 1--22.
+
+\bibitem{vosteen2026waterbed} Vosteen, H. (2026). The regulatory waterbed: Why mandatory disclosure moves information asymmetry instead of removing it. SSRN Working Paper.
+
+\end{thebibliography}
+
+\end{document}

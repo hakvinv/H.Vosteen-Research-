@@ -1,0 +1,151 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.7cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\setlength{\parindent}{1.4em}
+\setlength{\parskip}{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+% ===== PAGE 1 — SPARSE =====
+\noindent{\LARGE\textbf{ADHD Is Not a Deficit. It's a Different Attractor.}}\\[0.3em]
+\noindent{\small Hakvin Vosteen \hfill 2026}
+\vspace{0.3cm}
+
+\noindent{\small\textit{Theoretical model. Phase-space coordinates illustrative.}}
+\vspace{0.7cm}
+
+\noindent The standard framing of ADHD is a deficit: missing attention, missing focus, missing self-regulation. The dynamical-systems framing is different. Attention is a state in a multi-dimensional phase space. That space has multiple stable attractors. Most brains settle into one. ADHD brains settle into another. The system is not broken. It is running a different equilibrium.
+
+\vspace{0.5cm}
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{hook_fig.pdf}}
+\end{center}
+
+\vspace{0.3cm}
+\medskip\noindent\textbf{Setup.}\quad Let $T$ be the transformation rate (speed of mental state change) and $R$ the filter friction (resistance to switching focus). Define the attractor profile $\Phi = T - R$. The neurotypical attractor sits near $\Phi \approx 0$. The ADHD attractor sits near $\Phi \geq +2$, with simultaneously high $T$ and high $R$, plus high variance in attentional bandwidth $I_{\mathrm{var}}$.
+
+\newpage
+
+% ===== PAGE 2 — DENSE: DS =====
+\begin{definition}[Attractor Profile]
+For an attentional dynamical system parameterized by transformation rate $T$ and filter friction $R$, the attractor profile is $\Phi = T - R$. The ADHD region in phase space is defined by $\Phi > +2$ and $I_{\mathrm{var}} > 3$, where $I_{\mathrm{var}}$ is the variance of attentional bandwidth across temporal windows.
+\end{definition}
+
+\bigskip
+
+\begin{theorem}[Bistability of Attentional Phase Space]
+Under a free-energy minimization dynamic with two-component generative model (constraint-maintenance and novelty-seeking), the steady-state distribution of $\Phi$ across a population is bimodal with peaks near $\Phi \approx 0$ (NT attractor) and $\Phi \approx +2.5$ (ADHD attractor), separated by an unstable saddle.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Two competing precision-weighted prediction errors (constraint vs novelty) generate a double-well potential in $\Phi$. Local minima are stable attractors. Saddle between them is unstable. Brownian motion across the saddle is rare on neurodevelopmental timescales, so individuals settle in one basin and remain there.
+\end{proof}
+
+\bigskip
+
+\medskip\noindent\textbf{What stimulants actually do.}\quad Stimulant medication does not eliminate a deficit. It shifts the attractor location by modifying the precision weights of the underlying generative model. Specifically:
+\[
+R \;\downarrow\; \text{faster than} \;\; T \;\uparrow \quad\Longrightarrow\quad \Phi \;\downarrow.
+\]
+The system relocates closer to the NT attractor. The benefits (better task completion) and costs (loss of features that the ADHD attractor optimizes for) are both consequences of this geometric shift.
+
+\begin{corollary}
+The treatment-versus-acceptance debate is malformed. The intervention question is not "fix the deficit" but "match the profile to an environment that rewards its strengths." Both attractors are valid solutions to attentional optimization. They are valid for different environment types.
+\end{corollary}
+
+\newpage
+
+% ===== PAGE 3 — DENSE: BRIDGE + EMPIRICAL =====
+\medskip\noindent\textbf{Information-theoretic / Free-energy view.}\quad The ADHD generative model has higher Bayesian precision $\pi_T$ on novelty signals and lower precision $\pi_R$ on constraint-maintenance signals. The expected free energy along any policy is then
+\[
+\mathcal{F}_{\text{ADHD}}(\pi_T, \pi_R) \;=\; \mathcal{F}_{\text{NT}}(\pi_T', \pi_R') \;+\; \Delta\mathcal{F},
+\]
+where $\Delta\mathcal{F}$ is environment-dependent. In high-novelty environments, $\Delta\mathcal{F} < 0$ (ADHD-attractor is locally optimal). In low-novelty environments, $\Delta\mathcal{F} > 0$ (mismatch produces suffering).
+
+\bigskip
+
+\medskip\noindent\textbf{The Bridge.}
+\[
+\boxed{\;\Phi \;=\; T - R \;=\; \pi_T^{-1} - \pi_R^{-1}\;}
+\]
+The Dynamical-Systems coordinate $\Phi$ that locates the attractor is exactly the difference of inverse-precisions in the Free-Energy generative model. The two languages describe the same parameter from different angles.
+
+\bigskip
+
+\begin{center}
+\colorbox{white}{\includegraphics[width=0.78\textwidth]{bimodal.pdf}}
+\end{center}
+
+\bigskip
+
+\medskip\noindent\textbf{Empirical predictions.}
+
+\medskip
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item \textbf{Bimodality:} Population distribution of EEG-derived $\Phi$ proxy fails Hartigan's dip test for unimodality.
+\item \textbf{Separation:} Reaction-time variance separates ADHD from non-ADHD with AUC $> 0.85$ on ABCD Study cohort ($N \approx 10000$).
+\item \textbf{Stimulant trajectory:} Pre-vs-post-medication shifts toward $\Phi \approx 0$ predictably, not stochastically.
+\item \textbf{Environment-fit:} High-$\Phi$ profiles in high-novelty environments report lower distress than in low-novelty environments.
+\end{itemize}
+
+\newpage
+
+% ===== PAGE 4 — REFERENCES + NOTES =====
+\noindent\textbf{Empirical anchors.}
+
+\medskip
+\begin{tabular}{lll}
+\toprule
+Quantity & Value & Source \\
+\midrule
+ADHD prevalence (US adults) & $4.4\%$ & NIMH 2024 \\
+Reaction-time variance ratio (ADHD/NT) & $\sim 1.7$ & Kofler et al.\ (2013) meta-analysis \\
+Stimulant response rate & $\sim 70\%$ & Faraone et al.\ (2015) \\
+TikTok ADHD-content misleading rate & $52\%$ & UEA Norwich (Apr 2026) \\
+TikTok ADHD hashtag views & 2.4 billion & ADDitude reporting \\
+\bottomrule
+\end{tabular}
+
+\bigskip
+
+\noindent\textbf{References}
+
+\medskip
+\noindent[1] Friston, K. (2010). The free-energy principle: A unified brain theory? \textit{Nature Reviews Neuroscience} 11, 127--138.
+
+\medskip
+\noindent[2] Kofler, M.J., Rapport, M.D., Sarver, D.E., Raiker, J.S., Orban, S.A., Friedman, L.M., Kolomeyer, E.G. (2013). Reaction time variability in ADHD: A meta-analytic review. \textit{Clinical Psychology Review} 33, 795--811.
+
+\medskip
+\noindent[3] Faraone, S.V., Asherson, P., Banaschewski, T., Biederman, J., Buitelaar, J.K., Ramos-Quiroga, J.A., Rohde, L.A., Sonuga-Barke, E.J.S., Tannock, R., Franke, B. (2015). Attention-deficit/hyperactivity disorder. \textit{Nature Reviews Disease Primers} 1, 15020.
+
+\medskip
+\noindent[4] Chatburn, E. et al. (April 2026). Misinformation in ADHD-related TikTok content. UEA Norwich Medical School.
+
+\medskip
+\noindent[5] de Vries, R., Batstra, L., van Assen, M. (2025). Concept creep: Youth's portrayal of ADHD on TikTok. \textit{SSM Mental Health} 8, art. 100489.
+
+\vspace{0.5cm}
+
+\noindent\textbf{Notes on parameter estimates}
+
+\medskip
+\noindent The threshold $\Phi > +2$ for the ADHD region is structural and depends on the units in which $T$ and $R$ are measured. In any specific empirical operationalization (e.g., reaction-time variance for $T$, sustained-attention task error rate for $R$), the threshold must be re-calibrated. The claim of bimodality is the testable structural prediction; the exact threshold is convention.
+
+\medskip
+\noindent What the model does not explain: ADHD comorbidity patterns (with anxiety, depression, autism), developmental trajectory (childhood to adulthood transitions), and individual variation within each attractor. Those phenomena require additional layers (precision-weighting development, comorbidity-specific generative-model components).
+
+\end{document}
