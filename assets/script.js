@@ -1,16 +1,3 @@
-/* =========================================================================
-   H. Vosteen Research — site renderer (academic redesign)
-   Reads data/papers.json + data/goodies.json (same workflow as AGENTS.md),
-   renders into the new schlank layout with:
-     · SSRN featured section (top, oxblood accent)
-     · Topic filter (live)
-     · Year-grouped working papers & essays (sticky year headers)
-     · Search (title + abstract + tags)
-     · Click any entry to expand abstract + actions
-     · BibTeX cite copy
-     · Goodie lightbox
-   ========================================================================= */
-
 (() => {
   const state = {
     papers: [],
@@ -22,44 +9,26 @@
 
   const els = {
     list: document.getElementById("paper-list"),
-    ssrnList: document.getElementById("ssrn-list"),
-    ssrnSection: document.getElementById("ssrn-section"),
     empty: document.getElementById("empty-state"),
     search: document.getElementById("search"),
     sort: document.getElementById("sort"),
-    topics: document.getElementById("topics-filter"),
-    paperTpl: document.getElementById("paper-template"),
-    ssrnTpl: document.getElementById("ssrn-template"),
-    yearTpl: document.getElementById("year-template"),
-    goodiesGrid: document.getElementById("goodies-grid"),
-    goodieTpl: document.getElementById("goodie-template"),
+    tagFilter: document.getElementById("tag-filter"),
+    template: document.getElementById("paper-card-template"),
     year: document.getElementById("year"),
   };
 
-  if (els.year) els.year.textContent = new Date().getFullYear();
+  els.year.textContent = new Date().getFullYear();
 
-  // ---------- formatters ----------
-
-  const monthShort = (iso) => {
+  const formatDate = (iso) => {
     if (!iso) return "";
     const d = new Date(iso);
     if (Number.isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    return d.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
   };
-  const fullDate = (iso) => {
-    if (!iso) return "";
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
-  };
-
-  const kindLabel = (p) => {
-    if (p.type === "ssrn") return "SSRN";
-    if (p.type === "essay") return "Essay";
-    return "Paper";
-  };
-
-  // ---------- BibTeX ----------
 
   const buildBibtex = (p) => {
     const key =
@@ -74,206 +43,162 @@
     const year = (p.date || "").slice(0, 4);
     return [
       `@techreport{${key},`,
-      `  title       = {${p.title || ""}},`,
-      `  author      = {${authors}},`,
-      `  year        = {${year}},`,
+      `  title   = {${p.title || ""}},`,
+      `  author  = {${authors}},`,
+      `  year    = {${year}},`,
       `  institution = {H. Vosteen Research},`,
-      p.url ? `  url         = {${p.url}},` : null,
-      `  note        = {Working Paper}`,
+      p.url ? `  url     = {${p.url}},` : null,
+      `  note    = {Working Paper}`,
       `}`,
-    ].filter(Boolean).join("\n");
+    ]
+      .filter(Boolean)
+      .join("\n");
   };
 
-  // ---------- card builder ----------
+  const typeOf = (p) => {
+    if (p.type === "ssrn") return "ssrn";
+    if (p.type === "essay") return "essay";
+    return "paper";
+  };
 
-  const buildCard = (paper, { featured = false } = {}) => {
-    const tpl = featured ? els.ssrnTpl : els.paperTpl;
-    const node = tpl.content.firstElementChild.cloneNode(true);
-    if (featured) node.dataset.ssrn = "true";
+  const GROUPS = [
+    { key: "ssrn", label: "On SSRN" },
+    { key: "paper", label: "Working Papers" },
+    { key: "essay", label: "Essays" },
+  ];
 
-    // title
-    const titleEl = node.querySelector(".paper-title");
-    // remove existing kind/version/venue spans inside
-    titleEl.querySelectorAll(".paper-kind, .paper-version, .paper-venue").forEach((el) => el.remove());
+  const renderCard = (paper, frag) => {
+      const node = els.template.content.cloneNode(true);
 
-    // title text + appended labels
-    const titleText = document.createTextNode((paper.title || "Untitled") + " ");
-    titleEl.insertBefore(titleText, titleEl.firstChild);
-
-    if (paper.type === "ssrn") {
-      const venue = document.createElement("span");
-      venue.className = "paper-venue";
-      venue.textContent = "SSRN";
-      titleEl.appendChild(venue);
-    } else {
-      const kind = document.createElement("span");
-      kind.className = "paper-kind";
-      kind.textContent = kindLabel(paper);
-      titleEl.appendChild(kind);
-    }
-    if (paper.version) {
-      const v = document.createElement("span");
-      v.className = "paper-version";
-      v.textContent = "v" + paper.version;
-      titleEl.appendChild(v);
-    }
-
-    // date
-    const dateEl = node.querySelector(".paper-date");
-    dateEl.dateTime = paper.date || "";
-    dateEl.textContent = featured ? fullDate(paper.date) : monthShort(paper.date);
-
-    // authors
-    const authorsEl = node.querySelector(".paper-authors");
-    if (authorsEl) {
-      authorsEl.textContent = Array.isArray(paper.authors)
+      node.querySelector(".paper-title").textContent = paper.title || "Untitled";
+      node.querySelector(".paper-authors").textContent = Array.isArray(paper.authors)
         ? paper.authors.join(", ")
-        : (paper.authors || "Hakvin Vosteen");
-    }
+        : paper.authors || "H. Vosteen";
+      node.querySelector(".paper-abstract").textContent = paper.abstract || "";
 
-    // abstract
-    const absEl = node.querySelector(".paper-abstract");
-    if (absEl) {
-      if (paper.abstract) absEl.textContent = paper.abstract;
-      else absEl.remove();
-    }
+      const dateEl = node.querySelector(".paper-date");
+      dateEl.dateTime = paper.date || "";
+      dateEl.textContent = formatDate(paper.date);
 
-    // actions
-    const actionsEl = node.querySelector(".paper-actions");
-    if (actionsEl) {
-      const actions = [];
-      if (paper.file) {
-        actions.push({ label: "Download PDF", url: paper.file, download: true });
-        actions.push({ label: "View online",  url: paper.file, external: true });
+      const versionEl = node.querySelector(".paper-version");
+      if (paper.version) {
+        versionEl.textContent = `v${paper.version}`;
+      } else {
+        versionEl.remove();
       }
-      (paper.links || []).forEach((link) => {
-        if (link && link.url && link.label) actions.push({ label: link.label, url: link.url, external: true });
-      });
-      actionsEl.innerHTML = "";
-      actions.forEach(({ label, url, download, external }) => {
-        const a = document.createElement("a");
-        a.href = url;
-        if (download) a.setAttribute("download", "");
-        if (external && !download) { a.target = "_blank"; a.rel = "noopener"; }
-        a.textContent = label;
-        actionsEl.appendChild(a);
-      });
-      // Cite button
-      const cite = document.createElement("button");
-      cite.type = "button";
-      cite.className = "paper-cite";
-      cite.textContent = "Cite";
-      cite.style.cssText = "background:transparent;border:none;border-bottom:1px solid currentColor;color:inherit;font:inherit;cursor:pointer;padding:0;";
-      actionsEl.appendChild(cite);
 
-      cite.addEventListener("click", (e) => {
-        e.preventDefault();
-        const existing = node.querySelector(".paper-bibtex");
-        if (existing) { existing.remove(); cite.textContent = "Cite"; return; }
-        const pre = document.createElement("pre");
-        pre.className = "paper-bibtex";
-        pre.textContent = buildBibtex(paper);
-        actionsEl.parentNode.appendChild(pre);
-        cite.textContent = "Hide BibTeX";
-        if (navigator.clipboard) navigator.clipboard.writeText(pre.textContent).catch(() => {});
-      });
-    }
+      const venueEl = node.querySelector(".paper-venue");
+      if (paper.venue) {
+        venueEl.textContent = paper.venue;
+        const vClass = paper.venue.toLowerCase().replace(/[^a-z0-9]+/g, "");
+        if (vClass) venueEl.classList.add(`venue-${vClass}`);
+      } else {
+        venueEl.remove();
+      }
 
-    // tags
-    const tagsEl = node.querySelector(".paper-tags");
-    if (tagsEl) {
-      tagsEl.innerHTML = "";
-      (paper.tags || []).forEach((t) => {
+      const tagsEl = node.querySelector(".paper-tags");
+      (paper.tags || []).forEach((tag) => {
         const li = document.createElement("li");
-        li.textContent = t;
+        li.textContent = tag;
         tagsEl.appendChild(li);
       });
-      if (!(paper.tags || []).length) tagsEl.remove();
-    }
 
-    return node;
-  };
+      const versions = Array.isArray(paper.versions) ? paper.versions : [];
+      const older = versions.filter((v, i) => i > 0);
+      const versionsEl = node.querySelector(".paper-versions");
+      if (versionsEl && older.length) {
+        versionsEl.hidden = false;
+        node.querySelector(".paper-versions-summary").textContent =
+          older.length === 1
+            ? "Earlier version"
+            : `${older.length} earlier versions`;
+        const ul = node.querySelector(".paper-versions-list");
+        for (const v of older) {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = v.file || "";
+          a.textContent = `v${v.version} · ${formatDate(v.date)}`;
+          a.target = "_blank";
+          a.rel = "noopener";
+          li.appendChild(a);
+          if (v.note) {
+            const span = document.createElement("span");
+            span.className = "paper-version-note";
+            span.textContent = ` — ${v.note}`;
+            li.appendChild(span);
+          }
+          ul.appendChild(li);
+        }
+      } else if (versionsEl) {
+        versionsEl.remove();
+      }
 
-  // ---------- render ----------
+      const dl = node.querySelector(".paper-download");
+      const view = node.querySelector(".paper-view");
+      if (paper.file) {
+        dl.href = paper.file;
+        view.href = paper.file;
+      } else {
+        dl.remove();
+        view.remove();
+      }
 
-  const groupByYear = (list) => {
-    const groups = new Map();
-    list.forEach((p) => {
-      const y = (p.date || "").slice(0, 4) || "—";
-      if (!groups.has(y)) groups.set(y, []);
-      groups.get(y).push(p);
-    });
-    return [...groups.entries()].sort((a, b) => b[0].localeCompare(a[0]));
-  };
-
-  const renderTopics = () => {
-    if (!els.topics) return;
-    const counts = new Map();
-    state.papers.forEach((p) => {
-      if (p.draft) return;
-      (p.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1));
-    });
-    const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
-
-    // clear existing buttons (keep .lbl)
-    els.topics.querySelectorAll("button.tag-chip").forEach((b) => b.remove());
-    const search = els.topics.querySelector(".search");
-
-    const make = (label, count, tag) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "tag-chip" + (state.activeTag === tag ? " active" : "");
-      b.innerHTML = `${label}${count != null ? `<span class="n">${count}</span>` : ""}`;
-      b.addEventListener("click", () => {
-        state.activeTag = state.activeTag === tag ? null : tag;
-        renderTopics();
-        applyFilters();
+      const citeBtn = node.querySelector(".paper-cite");
+      const hasFile = !!paper.file;
+      (paper.links || []).forEach((link, i) => {
+        if (!link || !link.url || !link.label) return;
+        const a = document.createElement("a");
+        const isPrimary = !hasFile && i === 0;
+        a.className = `btn ${isPrimary ? "btn-primary" : "btn-ghost"} paper-link`;
+        a.href = link.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        const isGithub = /github\.com\//i.test(link.url);
+        if (isGithub) {
+          a.innerHTML =
+            '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
+            '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z"/>' +
+            '</svg>';
+        }
+        const span = document.createElement("span");
+        span.textContent = link.label;
+        a.appendChild(span);
+        citeBtn.insertAdjacentElement("beforebegin", a);
       });
-      return b;
-    };
 
-    const totalActive = state.papers.filter((p) => !p.draft).length;
-    const allBtn = make("all", totalActive, null);
-    if (!state.activeTag) allBtn.classList.add("active");
-    if (search) els.topics.insertBefore(allBtn, search); else els.topics.appendChild(allBtn);
-    sorted.forEach(([tag, n]) => {
-      const b = make(tag, n, tag);
-      if (search) els.topics.insertBefore(b, search); else els.topics.appendChild(b);
-    });
+      const bibtexEl = node.querySelector(".paper-bibtex");
+      bibtexEl.textContent = buildBibtex(paper);
+      citeBtn.addEventListener("click", () => {
+        const show = bibtexEl.hidden;
+        bibtexEl.hidden = !show;
+        citeBtn.textContent = show ? "Hide BibTeX" : "Cite";
+        if (show && navigator.clipboard) {
+          navigator.clipboard.writeText(bibtexEl.textContent).catch(() => {});
+        }
+      });
+
+      frag.appendChild(node);
   };
 
   const render = () => {
-    // SSRN featured
-    const ssrn = state.filtered.filter((p) => p.type === "ssrn");
-    if (els.ssrnList) {
-      els.ssrnList.innerHTML = "";
-      if (ssrn.length) {
-        els.ssrnSection.hidden = false;
-        ssrn.forEach((p) => els.ssrnList.appendChild(buildCard(p, { featured: true })));
-      } else if (els.ssrnSection) {
-        els.ssrnSection.hidden = true;
-      }
-    }
-
-    // The rest by year
-    const others = state.filtered.filter((p) => p.type !== "ssrn");
     els.list.innerHTML = "";
+    const list = state.filtered;
 
-    if (!others.length && !ssrn.length) {
+    if (!list.length) {
       els.empty.hidden = false;
       return;
     }
     els.empty.hidden = true;
 
-    const groups = groupByYear(others);
     const frag = document.createDocumentFragment();
-    for (const [year, papers] of groups) {
-      const header = els.yearTpl.content.firstElementChild.cloneNode(true);
-      header.querySelector("h3").textContent = year;
-      header.querySelector(".ycount").textContent =
-        `${papers.length} ${papers.length === 1 ? "entry" : "entries"}`;
-      frag.appendChild(header);
-      papers.forEach((p) => frag.appendChild(buildCard(p)));
+    for (const group of GROUPS) {
+      const items = list.filter((p) => typeOf(p) === group.key);
+      if (!items.length) continue;
+      const h3 = document.createElement("h3");
+      h3.className = "group-label";
+      h3.textContent = group.label;
+      frag.appendChild(h3);
+      for (const paper of items) renderCard(paper, frag);
     }
     els.list.appendChild(frag);
   };
@@ -289,15 +214,22 @@
         p.abstract,
         Array.isArray(p.authors) ? p.authors.join(" ") : p.authors,
         (p.tags || []).join(" "),
-      ].filter(Boolean).join(" ").toLowerCase();
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
       return hay.includes(q);
     });
 
     list.sort((a, b) => {
       switch (state.sort) {
-        case "date-asc":  return (a.date || "").localeCompare(b.date || "");
-        case "title-asc": return (a.title || "").localeCompare(b.title || "", "en");
-        default:          return (b.date || "").localeCompare(a.date || "");
+        case "date-asc":
+          return (a.date || "").localeCompare(b.date || "");
+        case "title-asc":
+          return (a.title || "").localeCompare(b.title || "", "en");
+        case "date-desc":
+        default:
+          return (b.date || "").localeCompare(a.date || "");
       }
     });
 
@@ -305,102 +237,137 @@
     render();
   };
 
-  if (els.search) {
-    els.search.addEventListener("input", (e) => { state.query = e.target.value; applyFilters(); });
-  }
-  if (els.sort) {
-    els.sort.addEventListener("change", (e) => { state.sort = e.target.value; applyFilters(); });
-  }
+  const renderTagFilter = () => {
+    const tagCount = new Map();
+    state.papers.forEach((p) =>
+      (p.tags || []).forEach((t) => tagCount.set(t, (tagCount.get(t) || 0) + 1)),
+    );
+    if (!tagCount.size) {
+      els.tagFilter.hidden = true;
+      return;
+    }
+    const tags = [...tagCount.entries()].sort((a, b) => b[1] - a[1]);
+    els.tagFilter.innerHTML = "";
 
-  // ---------- Goodies + lightbox ----------
+    const all = document.createElement("button");
+    all.className = "tag-chip" + (state.activeTag ? "" : " active");
+    all.textContent = "All";
+    all.type = "button";
+    all.addEventListener("click", () => {
+      state.activeTag = null;
+      renderTagFilter();
+      applyFilters();
+    });
+    els.tagFilter.appendChild(all);
 
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
-  const lightboxClose = document.querySelector(".lightbox-close");
+    tags.forEach(([tag, count]) => {
+      const btn = document.createElement("button");
+      btn.className = "tag-chip" + (state.activeTag === tag ? " active" : "");
+      btn.textContent = `${tag} (${count})`;
+      btn.type = "button";
+      btn.addEventListener("click", () => {
+        state.activeTag = state.activeTag === tag ? null : tag;
+        renderTagFilter();
+        applyFilters();
+      });
+      els.tagFilter.appendChild(btn);
+    });
+  };
+
+  els.search.addEventListener("input", (e) => {
+    state.query = e.target.value;
+    applyFilters();
+  });
+  els.sort.addEventListener("change", (e) => {
+    state.sort = e.target.value;
+    applyFilters();
+  });
+
+  // ---------- Goodies ----------
+  const goodiesEls = {
+    grid: document.getElementById("goodies-grid"),
+    section: document.getElementById("goodies"),
+    template: document.getElementById("goodie-card-template"),
+    lightbox: document.getElementById("lightbox"),
+    lightboxImg: document.getElementById("lightbox-img"),
+    lightboxClose: document.querySelector(".lightbox-close"),
+  };
 
   const openLightbox = (src, alt) => {
-    if (!lightbox) return;
-    lightboxImg.src = src;
-    lightboxImg.alt = alt || "";
-    lightbox.hidden = false;
+    goodiesEls.lightboxImg.src = src;
+    goodiesEls.lightboxImg.alt = alt || "";
+    goodiesEls.lightbox.hidden = false;
     document.body.style.overflow = "hidden";
   };
   const closeLightbox = () => {
-    if (!lightbox) return;
-    lightbox.hidden = true;
-    lightboxImg.src = "";
+    goodiesEls.lightbox.hidden = true;
+    goodiesEls.lightboxImg.src = "";
     document.body.style.overflow = "";
   };
-  if (lightbox) {
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
-    });
-    if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
-    });
-    lightboxImg.addEventListener("click", (e) => e.stopPropagation());
-  }
+  goodiesEls.lightbox.addEventListener("click", (e) => {
+    if (e.target === goodiesEls.lightbox || e.target === goodiesEls.lightboxImg) {
+      closeLightbox();
+    }
+  });
+  goodiesEls.lightboxClose.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !goodiesEls.lightbox.hidden) closeLightbox();
+  });
+  goodiesEls.lightboxImg.addEventListener("click", (e) => e.stopPropagation());
 
   const renderGoodies = (items) => {
-    if (!els.goodiesGrid || !els.goodieTpl) return;
     if (!items.length) {
-      const sect = document.getElementById("goodies");
-      if (sect) sect.hidden = true;
+      goodiesEls.section.hidden = true;
       return;
     }
     items.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-    els.goodiesGrid.innerHTML = "";
+    goodiesEls.grid.innerHTML = "";
     const frag = document.createDocumentFragment();
-    items.forEach((g) => {
-      const node = els.goodieTpl.content.firstElementChild.cloneNode(true);
+    for (const g of items) {
+      const node = goodiesEls.template.content.cloneNode(true);
       const img = node.querySelector("img");
       img.src = g.image || "";
       img.alt = g.title || "";
       node.querySelector(".goodie-title").textContent = g.title || "Untitled";
       const desc = node.querySelector(".goodie-description");
-      if (g.description) {
-        // strip to a single short line (the academic layout is tight)
-        desc.textContent = g.description.length > 90 ? g.description.slice(0, 88).replace(/\s+\S*$/, "") + "…" : g.description;
-      } else {
-        desc.remove();
-      }
+      if (g.description) desc.textContent = g.description;
+      else desc.remove();
       const tagsEl = node.querySelector(".goodie-tags");
       (g.tags || []).forEach((tag) => {
         const li = document.createElement("li");
         li.textContent = tag;
         tagsEl.appendChild(li);
       });
+      const dl = node.querySelector(".goodie-download");
+      if (g.image) dl.href = g.image;
+      else dl.remove();
       const thumb = node.querySelector(".goodie-thumb");
       thumb.addEventListener("click", () => openLightbox(g.image, g.title));
       frag.appendChild(node);
-    });
-    els.goodiesGrid.appendChild(frag);
+    }
+    goodiesEls.grid.appendChild(frag);
   };
-
-  // ---------- fetch data ----------
 
   fetch("data/goodies.json", { cache: "no-cache" })
     .then((r) => (r.ok ? r.json() : []))
     .then((data) => renderGoodies(Array.isArray(data) ? data : data.goodies || []))
     .catch(() => {
-      const sect = document.getElementById("goodies");
-      if (sect) sect.hidden = true;
+      goodiesEls.section.hidden = true;
     });
 
   fetch("data/papers.json", { cache: "no-cache" })
     .then((r) => {
-      if (!r.ok) throw new Error("HTTP " + r.status);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json();
     })
     .then((data) => {
       state.papers = Array.isArray(data) ? data : data.papers || [];
-      renderTopics();
+      renderTagFilter();
       applyFilters();
     })
     .catch((err) => {
       console.error(err);
       els.list.innerHTML =
-        '<p class="empty-state" style="text-align:center;color:var(--ink-3);padding:2rem 0;">Could not load papers.json. Is the site being served over HTTP (e.g. GitHub Pages)?</p>';
+        '<p class="empty-state">Could not load papers.json. Is the site being served over HTTP (e.g. GitHub Pages)?</p>';
     });
 })();
