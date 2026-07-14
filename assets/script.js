@@ -93,6 +93,7 @@
     if (featured) node.dataset.ssrn = "true";
     if (paper.slug) node.id = `paper-${paper.slug}`;
     if (paper.concept_id) node.dataset.conceptId = paper.concept_id;
+    if (paper.provenance_token) node.dataset.provenanceToken = paper.provenance_token;
 
     // title
     const titleEl = node.querySelector(".paper-title");

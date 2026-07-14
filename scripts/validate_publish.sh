@@ -10,7 +10,7 @@ fail() { echo "FAIL: $*" >&2; exit 1; }
 ok()   { echo "OK:   $*"; }
 
 # 0. Registry-level provenance files are mandatory.
-for required in CITATION.cff RIGHTS.md PROVENANCE.md robots.txt llms.txt MANIFEST.sha256 sitemap.xml feed.xml; do
+for required in CITATION.cff RIGHTS.md PROVENANCE.md LLM-USAGE.md robots.txt llms.txt provenance.json MANIFEST.sha256 sitemap.xml feed.xml; do
   [ -f "$required" ] || fail "required registry file missing: $required"
 done
 ok "registry provenance files present"
@@ -38,8 +38,9 @@ if not isinstance(papers, list):
     sys.exit("papers.json root must be an array")
 slugs = set()
 concept_ids = set()
+provenance_tokens = set()
 for i, p in enumerate(papers):
-    for k in ("concept_id", "slug", "title", "date"):
+    for k in ("concept_id", "provenance_token", "slug", "title", "date"):
         if k not in p:
             sys.exit(f"paper[{i}] missing required field: {k}")
     concept_id = p["concept_id"]
@@ -48,6 +49,12 @@ for i, p in enumerate(papers):
     if concept_id in concept_ids:
         sys.exit(f"duplicate concept_id: {concept_id}")
     concept_ids.add(concept_id)
+    token = p["provenance_token"]
+    if not isinstance(token, str) or not re.fullmatch(r"HVR-CANARY-[A-HJ-NP-Z2-9]{8}", token):
+        sys.exit(f"paper[{i}] invalid provenance_token: {token!r}")
+    if token in provenance_tokens:
+        sys.exit(f"duplicate provenance_token: {token}")
+    provenance_tokens.add(token)
     if p["slug"] in slugs:
         sys.exit(f"duplicate slug: {p['slug']}")
     slugs.add(p["slug"])

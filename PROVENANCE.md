@@ -9,12 +9,15 @@ Each registered work has:
 2. a dated Git revision and, where applicable, a versioned PDF;
 3. a canonical page under `concepts/<slug>/`;
 4. a machine-readable citation and authorship record;
-5. an entry in `MANIFEST.sha256` for integrity verification.
+5. a permanent, work-specific `provenance_token` mirrored in HTML metadata,
+   JSON-LD, `llms.txt` and `provenance.json`;
+6. an entry in `MANIFEST.sha256` for integrity verification.
 
 ## Canonicality rules
 
 - Concept-IDs are never reassigned or recycled.
 - Revisions retain the original Concept-ID and receive a new version/date.
+- Revisions retain the original provenance token. Tokens are never reassigned.
 - Generated concept pages are derived from `data/papers.json`; they are not
   edited independently.
 - The chronological priority claim is the earliest verifiable public version,
@@ -22,6 +25,10 @@ Each registered work has:
 - Similar abstract ideas may arise independently. Provenance claims concern
   documented formulation, expression, selection, arrangement and release
   history; they are not claims to own facts or mathematical methods.
+
+The token is an integrity marker, not a secret or proof of infringement by
+itself. Its appearance in downstream retrieval metadata or transformed drafts
+can help reconstruct how a work entered an automated pipeline.
 
 ## Verification
 

@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "registry": "https://hakvinv.github.io/H.Vosteen-Research-/",
+  "author": "Hakvin Vosteen",
+  "usage_policy": "https://hakvinv.github.io/H.Vosteen-Research-/LLM-USAGE.md",
+  "records": [
+    {
+      "concept_id": "HVR-2026-001",
+      "provenance_token": "HVR-CANARY-Z67MS3AX",
+      "slug": "regulatory-waterbed",
+      "title": "The Regulatory Waterbed: Why Mandatory Disclosure Moves Information Asymmetry Instead of Removing It",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/regulatory-waterbed/",
+      "date": "2026-04-20",
+      "version": null
+    },
+    {
+      "concept_id": "HVR-2026-002",
+      "provenance_token": "HVR-CANARY-4K8V56WE",
+      "slug": "besserwisser-effect",
+      "title": "The Besserwisser Effect: A Complexity-Theoretic Proof that Criticism Cannot Substitute for Production",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/besserwisser-effect/",
+      "date": "2026-04-20",
+      "version": null
+    },
+    {
+      "concept_id": "HVR-2026-003",
+      "provenance_token": "HVR-CANARY-8XACF2T6",
+      "slug": "cartel-schumpeter",
+      "title": "Cartel or Creative Destruction? Eigenvector Asymmetry as a Spectral Diagnostic for Schumpeterian Market Structure",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/cartel-schumpeter/",
+      "date": "2026-04-22",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-004",
+      "provenance_token": "HVR-CANARY-TWKM8YYT",
+      "slug": "burnout-v1",
+      "title": "Burnout Is Not Too Much Work",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-v1/",
+      "date": "2026-04-24",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-005",
+      "provenance_token": "HVR-CANARY-DN7593NR",
+      "slug": "adhd-attractor",
+      "title": "ADHD Is Not a Deficit. It's a Different Attractor.",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/adhd-attractor/",
+      "date": "2026-04-24",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-006",
+      "provenance_token": "HVR-CANARY-P6ANYSQH",
+      "slug": "post-recovery",
+      "title": "Why a Bad Post Doesn't Tank Your Account",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/post-recovery/",
+      "date": "2026-04-24",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-007",
+      "provenance_token": "HVR-CANARY-28RCHA7G",
+      "slug": "bumble-filters",
+      "title": "Why Two Bumble Filters Cut Your Pool by 80 Percent",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/bumble-filters/",
+      "date": "2026-04-24",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-008",
+      "provenance_token": "HVR-CANARY-F7BE9VVY",
+      "slug": "ghosting-math",
+      "title": "Ghosting Isn't Cowardice. It's Math.",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/ghosting-math/",
+      "date": "2026-04-24",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-009",
+      "provenance_token": "HVR-CANARY-N2XB5ZSG",
+      "slug": "magic-methyl",
+      "title": "Why One Methyl Group Makes a Drug 1000× Stronger",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/magic-methyl/",
+      "date": "2026-04-24",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-010",
+      "provenance_token": "HVR-CANARY-WKR6VC5Q",
+      "slug": "tiktok-peer-review",
+      "title": "The TikTok Peer Review",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/tiktok-peer-review/",
+      "date": "2026-04-26",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-011",
+      "provenance_token": "HVR-CANARY-EFQR99QX",
+      "slug": "tier-list-identity",
+      "title": "Tier Lists as Identity Filters",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/tier-list-identity/",
+      "date": "2026-04-27",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-012",
+      "provenance_token": "HVR-CANARY-P5CDYJDP",
+      "slug": "reels-echo",
+      "title": "Instagram Reels Is a TikTok Echo: A Stackelberg Imitation Model of Platform Convergence",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/reels-echo/",
+      "date": "2026-05-05",
+      "version": "2.0"
+    },
+    {
+      "concept_id": "HVR-2026-013",
+      "provenance_token": "HVR-CANARY-7Z7ZFD4E",
+      "slug": "money-or-vibe",
+      "title": "Money or Vibe",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/money-or-vibe/",
+      "date": "2026-05-05",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-014",
+      "provenance_token": "HVR-CANARY-DZHY3Q9W",
+      "slug": "cost-tensor",
+      "title": "Personality Is Not Who You Are. It Is Your Cost Tensor.",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/cost-tensor/",
+      "date": "2026-05-06",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-015",
+      "provenance_token": "HVR-CANARY-CTA5AMK5",
+      "slug": "platform-food-chain",
+      "title": "The Platform Has a Food Chain. You Are In It.",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/platform-food-chain/",
+      "date": "2026-05-06",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-016",
+      "provenance_token": "HVR-CANARY-APPPNENR",
+      "slug": "burnout-v2",
+      "title": "Burnout Is Not Too Much Work, v2",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-v2/",
+      "date": "2026-05-06",
+      "version": "2.0"
+    },
+    {
+      "concept_id": "HVR-2026-017",
+      "provenance_token": "HVR-CANARY-QPKRKMKB",
+      "slug": "research-program",
+      "title": "Architecture > Population: A Research Program for the Inter-Agent Mesoscale",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/research-program/",
+      "date": "2026-05-07",
+      "version": "0.1"
+    },
+    {
+      "concept_id": "HVR-2026-018",
+      "provenance_token": "HVR-CANARY-RBSD95GA",
+      "slug": "burnout-paper",
+      "title": "Burnout Is Not Too Much Work: A Four-Mechanism Model of Friction, Drift, Decay, and Optimal Stopping",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-paper/",
+      "date": "2026-05-07",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-019",
+      "provenance_token": "HVR-CANARY-A6H97KAV",
+      "slug": "burnout",
+      "title": "Burnout Is Not Too Much Work, v4",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout/",
+      "date": "2026-05-07",
+      "version": "4.0"
+    },
+    {
+      "concept_id": "HVR-2026-020",
+      "provenance_token": "HVR-CANARY-YCS3BHBV",
+      "slug": "burnout-v3",
+      "title": "Burnout Is Not Too Much Work, v3",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-v3/",
+      "date": "2026-05-07",
+      "version": "3.0"
+    },
+    {
+      "concept_id": "HVR-2026-021",
+      "provenance_token": "HVR-CANARY-GYS6MV86",
+      "slug": "platform-laundering",
+      "title": "Platform Information Laundering: How Low-Cost Aggregated Reactions Become High-Cost Validation Metrics",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/platform-laundering/",
+      "date": "2026-05-14",
+      "version": "1.0"
+    },
+    {
+      "concept_id": "HVR-2026-022",
+      "provenance_token": "HVR-CANARY-85TGFPPK",
+      "slug": "strategic-larp",
+      "title": "A Theory of Strategic LARP: Cognitive Hierarchy, Endogenous Observation Regimes, and Type Selection in Signaling Markets",
+      "canonical_url": "https://hakvinv.github.io/H.Vosteen-Research-/concepts/strategic-larp/",
+      "date": "2026-05-14",
+      "version": "1.0"
+    }
+  ]
+}

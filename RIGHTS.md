@@ -33,7 +33,8 @@ commercial text and data mining and for ingestion into generative-AI training,
 fine-tuning, retrieval corpora or automated content-production pipelines.
 Known crawler preferences are also expressed in `robots.txt`. Search and
 user-directed retrieval remain welcome when results identify and link the
-canonical source.
+canonical source. Automated attribution expectations are specified in
+[`LLM-USAGE.md`](LLM-USAGE.md).
 
 Crawler directives and this notice do not create secrecy and do not replace
 applicable law or a separate licence. For permissions, open an issue in the

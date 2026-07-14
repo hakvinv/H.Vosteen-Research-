@@ -25,7 +25,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/platform-laundering"
       }
     ],
-    "concept_id": "HVR-2026-021"
+    "concept_id": "HVR-2026-021",
+    "provenance_token": "HVR-CANARY-GYS6MV86"
   },
   {
     "slug": "strategic-larp",
@@ -53,7 +54,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/strategic-larp"
       }
     ],
-    "concept_id": "HVR-2026-022"
+    "concept_id": "HVR-2026-022",
+    "provenance_token": "HVR-CANARY-85TGFPPK"
   },
   {
     "slug": "regulatory-waterbed",
@@ -86,7 +88,8 @@
         "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6415318"
       }
     ],
-    "concept_id": "HVR-2026-001"
+    "concept_id": "HVR-2026-001",
+    "provenance_token": "HVR-CANARY-Z67MS3AX"
   },
   {
     "slug": "besserwisser-effect",
@@ -115,7 +118,8 @@
         "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6503718"
       }
     ],
-    "concept_id": "HVR-2026-002"
+    "concept_id": "HVR-2026-002",
+    "provenance_token": "HVR-CANARY-4K8V56WE"
   },
   {
     "slug": "research-program",
@@ -136,7 +140,8 @@
     ],
     "file": "papers/2026-05-07-research-program.pdf",
     "bibkey": "vosteen2026program",
-    "concept_id": "HVR-2026-017"
+    "concept_id": "HVR-2026-017",
+    "provenance_token": "HVR-CANARY-QPKRKMKB"
   },
   {
     "slug": "cost-tensor",
@@ -163,7 +168,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/cost-tensor"
       }
     ],
-    "concept_id": "HVR-2026-014"
+    "concept_id": "HVR-2026-014",
+    "provenance_token": "HVR-CANARY-DZHY3Q9W"
   },
   {
     "slug": "platform-food-chain",
@@ -190,7 +196,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/platform-food-chain"
       }
     ],
-    "concept_id": "HVR-2026-015"
+    "concept_id": "HVR-2026-015",
+    "provenance_token": "HVR-CANARY-CTA5AMK5"
   },
   {
     "slug": "reels-echo",
@@ -217,7 +224,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/reels-echo"
       }
     ],
-    "concept_id": "HVR-2026-012"
+    "concept_id": "HVR-2026-012",
+    "provenance_token": "HVR-CANARY-P5CDYJDP"
   },
   {
     "slug": "money-or-vibe",
@@ -243,7 +251,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/money-or-vibe"
       }
     ],
-    "concept_id": "HVR-2026-013"
+    "concept_id": "HVR-2026-013",
+    "provenance_token": "HVR-CANARY-7Z7ZFD4E"
   },
   {
     "slug": "tier-list-identity",
@@ -263,7 +272,8 @@
     ],
     "file": "papers/2026-04-27-tier-list-identity.pdf",
     "bibkey": "vosteen2026tierlist",
-    "concept_id": "HVR-2026-011"
+    "concept_id": "HVR-2026-011",
+    "provenance_token": "HVR-CANARY-EFQR99QX"
   },
   {
     "slug": "tiktok-peer-review",
@@ -283,7 +293,8 @@
     ],
     "file": "papers/2026-04-26-tiktok-peer-review.pdf",
     "bibkey": "vosteen2026tiktokpeerreview",
-    "concept_id": "HVR-2026-010"
+    "concept_id": "HVR-2026-010",
+    "provenance_token": "HVR-CANARY-WKR6VC5Q"
   },
   {
     "slug": "burnout-paper",
@@ -305,7 +316,8 @@
     ],
     "file": "papers/2026-05-07-burnout-paper.pdf",
     "bibkey": "vosteen2026burnoutmodel",
-    "concept_id": "HVR-2026-018"
+    "concept_id": "HVR-2026-018",
+    "provenance_token": "HVR-CANARY-RBSD95GA"
   },
   {
     "slug": "burnout",
@@ -332,7 +344,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"
       }
     ],
-    "concept_id": "HVR-2026-019"
+    "concept_id": "HVR-2026-019",
+    "provenance_token": "HVR-CANARY-A6H97KAV"
   },
   {
     "slug": "burnout-v3",
@@ -354,7 +367,8 @@
     ],
     "file": "papers/2026-05-07-burnout-v3.pdf",
     "bibkey": "vosteen2026burnoutv3",
-    "concept_id": "HVR-2026-020"
+    "concept_id": "HVR-2026-020",
+    "provenance_token": "HVR-CANARY-YCS3BHBV"
   },
   {
     "slug": "burnout-v2",
@@ -381,7 +395,8 @@
         "url": "burnout.html"
       }
     ],
-    "concept_id": "HVR-2026-016"
+    "concept_id": "HVR-2026-016",
+    "provenance_token": "HVR-CANARY-APPPNENR"
   },
   {
     "slug": "burnout-v1",
@@ -401,7 +416,8 @@
     ],
     "file": "papers/2026-04-24-burnout.pdf",
     "bibkey": "vosteen2026burnoutv1",
-    "concept_id": "HVR-2026-004"
+    "concept_id": "HVR-2026-004",
+    "provenance_token": "HVR-CANARY-TWKM8YYT"
   },
   {
     "slug": "adhd-attractor",
@@ -427,7 +443,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/adhd-attractor"
       }
     ],
-    "concept_id": "HVR-2026-005"
+    "concept_id": "HVR-2026-005",
+    "provenance_token": "HVR-CANARY-DN7593NR"
   },
   {
     "slug": "post-recovery",
@@ -453,7 +470,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/post-recovery"
       }
     ],
-    "concept_id": "HVR-2026-006"
+    "concept_id": "HVR-2026-006",
+    "provenance_token": "HVR-CANARY-P6ANYSQH"
   },
   {
     "slug": "bumble-filters",
@@ -479,7 +497,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/bumble-filters"
       }
     ],
-    "concept_id": "HVR-2026-007"
+    "concept_id": "HVR-2026-007",
+    "provenance_token": "HVR-CANARY-28RCHA7G"
   },
   {
     "slug": "ghosting-math",
@@ -505,7 +524,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/ghosting-math"
       }
     ],
-    "concept_id": "HVR-2026-008"
+    "concept_id": "HVR-2026-008",
+    "provenance_token": "HVR-CANARY-F7BE9VVY"
   },
   {
     "slug": "magic-methyl",
@@ -531,7 +551,8 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/magic-methyl"
       }
     ],
-    "concept_id": "HVR-2026-009"
+    "concept_id": "HVR-2026-009",
+    "provenance_token": "HVR-CANARY-N2XB5ZSG"
   },
   {
     "slug": "cartel-schumpeter",
@@ -557,6 +578,7 @@
         "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/cartel-schumpeter"
       }
     ],
-    "concept_id": "HVR-2026-003"
+    "concept_id": "HVR-2026-003",
+    "provenance_token": "HVR-CANARY-8XACF2T6"
   }
 ]
