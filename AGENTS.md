@@ -7,7 +7,7 @@ job, etc.) that periodically processes new papers on this repo.
 
 H. Vosteen drops new working papers into `inbox/` whenever he finishes one.
 Your job is to turn each inbox item into a properly indexed entry on the
-public site (https://hakvinv.github.io/h.vosteen-research-/).
+public site (https://hakvinv.github.io/H.Vosteen-Research-/).
 
 ## Trigger
 
@@ -109,6 +109,7 @@ already exists).
 
    ```json
    {
+     "concept_id": "HVR-2026-023",
      "slug": "cartel-schumpeter",
      "title": "Cartel or Creative Destruction?",
      "authors": ["Hakvin Vosteen"],
@@ -122,6 +123,10 @@ already exists).
    }
    ```
 
+   `concept_id` is mandatory and permanent. For a new work, use the current
+   year and the next unused three-digit sequence after the highest existing
+   ID. A revision keeps its original Concept-ID.
+
    Fields and defaults are documented in `README.md`. Missing fields:
    prefer empty over invented. The `abstract` field is the one exception —
    if the YAML doesn't supply one, try to extract the first paragraph of
@@ -132,11 +137,13 @@ already exists).
    like `inbox/code/` — move its contents to the destination first
    (`code/<slug>/`), then `rmdir` the now-empty folder. If something is
    unclear, leave it in `inbox/` and add a note to `inbox/_issues.md`.
-7. **Validate** by running `scripts/validate_publish.sh`. It checks that
+7. **Regenerate** canonical records and the provenance manifest:
+   `python3 scripts/generate_site.py && python3 scripts/generate_manifest.py`.
+8. **Validate** by running `scripts/validate_publish.sh`. It checks that
    `inbox/` is back to scaffolding only, `data/papers.json` parses and
    every `file` path exists, and every non-empty `code/<slug>/` has a
    matching Code link (and vice versa). Do not commit if it fails.
-8. **Commit** with message
+9. **Commit** with message
    `Publish <n> paper(s): <comma-separated titles>` and push to `main`.
    The GitHub Pages workflow handles deployment.
 
@@ -162,9 +169,11 @@ For each `.png`/`.jpg`/`.jpeg`/`.svg` in `inbox/`:
 
 ## Never do
 
-- Don't edit the HTML/CSS/JS. Only touch `data/papers.json`,
-  `data/goodies.json`, `papers/`, `goodies/`, `sources/`, `code/` and
-  `inbox/`.
+- Don't hand-edit generated files under `concepts/`, `llms.txt`, `feed.xml`,
+  `sitemap.xml`, or `MANIFEST.sha256`. Change the source metadata and run the
+  generators instead.
+- Don't publish internal derivation maps, prompts, content roadmaps, or
+  unreleased application inventories. They are not part of this public repo.
 - Don't rewrite or summarize the author's abstract beyond light
   copy-editing (trimming trailing whitespace, collapsing double spaces).
 - Don't skip the commit — partial state is bad state.

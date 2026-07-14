@@ -9,6 +9,12 @@ cd "$ROOT"
 fail() { echo "FAIL: $*" >&2; exit 1; }
 ok()   { echo "OK:   $*"; }
 
+# 0. Registry-level provenance files are mandatory.
+for required in CITATION.cff RIGHTS.md PROVENANCE.md robots.txt llms.txt MANIFEST.sha256 sitemap.xml feed.xml; do
+  [ -f "$required" ] || fail "required registry file missing: $required"
+done
+ok "registry provenance files present"
+
 # 1. Inbox contains only the allowlisted scaffolding files.
 allowed_inbox="README.md template.yml _issues.md .gitkeep .DS_Store"
 shopt -s nullglob
@@ -25,16 +31,23 @@ ok "inbox/ clean"
 
 # 2. data/papers.json parses and every referenced file exists.
 python3 - <<'PY'
-import json, os, sys
+import json, os, re, sys
 with open("data/papers.json") as f:
     papers = json.load(f)
 if not isinstance(papers, list):
     sys.exit("papers.json root must be an array")
 slugs = set()
+concept_ids = set()
 for i, p in enumerate(papers):
-    for k in ("slug", "title"):
+    for k in ("concept_id", "slug", "title", "date"):
         if k not in p:
             sys.exit(f"paper[{i}] missing required field: {k}")
+    concept_id = p["concept_id"]
+    if not isinstance(concept_id, str) or not re.fullmatch(r"HVR-\d{4}-\d{3}", concept_id):
+        sys.exit(f"paper[{i}] invalid concept_id: {concept_id!r}")
+    if concept_id in concept_ids:
+        sys.exit(f"duplicate concept_id: {concept_id}")
+    concept_ids.add(concept_id)
     if p["slug"] in slugs:
         sys.exit(f"duplicate slug: {p['slug']}")
     slugs.add(p["slug"])
@@ -62,6 +75,12 @@ for i, p in enumerate(papers):
 print(f"papers.json: {len(papers)} entries, all files resolved")
 PY
 ok "papers.json valid"
+
+# 2b. Generated discovery records and manifest must match their sources.
+python3 scripts/generate_site.py --check
+ok "canonical concept records current"
+python3 scripts/generate_manifest.py --check
+ok "provenance manifest current"
 
 # 3. Every Code link in papers.json points at a real, non-empty code/<slug>/.
 #    Orphan code/<slug>/ folders (no link) are allowed — keeping the source

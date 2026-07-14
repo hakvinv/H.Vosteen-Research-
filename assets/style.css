@@ -103,6 +103,73 @@ main { padding: 28px 0 36px; }
 }
 .intro em { font-style: normal; color: var(--ink); }
 
+.registry-note {
+  margin: 0 0 24px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--oxblood);
+  background: var(--paper-2);
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.registry-note strong { color: var(--ink); }
+.concept-id {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  color: var(--oxblood);
+  white-space: nowrap;
+}
+
+/* ============ Canonical concept records ============ */
+.concept-record { max-width: 760px; margin: 0 auto; padding: 48px 24px 64px; }
+.concept-kicker {
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--oxblood);
+  letter-spacing: 0.04em;
+}
+.concept-record h1 {
+  margin: 0 0 10px;
+  font-size: clamp(30px, 6vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.concept-byline { margin: 0 0 28px; color: var(--ink-2); }
+.concept-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 20px;
+  margin: 24px 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+.concept-meta div { display: grid; grid-template-columns: minmax(110px, 0.7fr) 1.3fr; gap: 8px; }
+.concept-meta dt { color: var(--ink-3); }
+.concept-meta dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.concept-abstract { font-size: 18px; line-height: 1.65; }
+.concept-actions { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 24px 0; }
+.citation-block {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 14px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.concept-rights { color: var(--ink-3); font-family: var(--sans); font-size: 12px; }
+@media (max-width: 600px) {
+  .concept-record { padding: 32px 18px 48px; }
+  .concept-meta { grid-template-columns: 1fr; gap: 6px; }
+  .concept-meta div { grid-template-columns: 1fr; gap: 0; }
+}
+
 section { padding: 6px 0 24px; }
 
 .sec-head {

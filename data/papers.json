@@ -2,311 +2,561 @@
   {
     "slug": "platform-laundering",
     "title": "Platform Information Laundering: How Low-Cost Aggregated Reactions Become High-Cost Validation Metrics",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-14",
     "version": "1.0",
     "type": "paper",
     "abstract": "Classical signaling theory (Spence 1973) assumes that observers process signals efficiently given their information sets. This assumption is plausible for professional observers (venture capitalists, banks, recruiters) whose economic incentives justify costly information processing. It fails for the dominant observer class on modern social platforms: retail users who react impulsively, at near-zero cost, and without verification. We argue that platforms create an information laundering mechanism by aggregating low-cost retail reactions into metrics (likes, follower counts, engagement scores) that are subsequently read by professional observers as if they were the output of high-cost professional verification. This pricing arbitrage between two distinct information-processing modes explains why signal-substance decoupling has accelerated in markets with strong platform presence. The mechanism does not require new behavioral assumptions on individual agents; it follows from the architectural transformation of unaggregated impulses into aggregated metrics. We develop a formal model, identify three observer classes, derive the laundering pipeline, and discuss empirical signatures and policy implications. Bibliometric evidence from the OpenAlex API (2015–2025) shows research output on platform-information pathologies growing 4.0× faster than baseline economics, social science, and psychology output, consistent with the predicted structural acceleration. The framework provides a micro-foundation for the platform component of contemporary LARP and connects to the macro pattern of regulatory waterbed effects.",
-    "tags": ["signaling", "platforms", "observer-classes", "information-laundering", "bibliometrics", "spence"],
+    "tags": [
+      "signaling",
+      "platforms",
+      "observer-classes",
+      "information-laundering",
+      "bibliometrics",
+      "spence"
+    ],
     "file": "papers/2026-05-14-platform-laundering.pdf",
     "bibkey": "vosteen2026laundering",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/platform-laundering"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/platform-laundering"
+      }
+    ],
+    "concept_id": "HVR-2026-021"
   },
   {
     "slug": "strategic-larp",
     "title": "A Theory of Strategic LARP: Cognitive Hierarchy, Endogenous Observation Regimes, and Type Selection in Signaling Markets",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-14",
     "version": "1.0",
     "type": "paper",
     "abstract": "We propose a signaling model for the phenomenon of life-action role-playing (LARP) in modern startup, labor, and capital markets, in which agents of low productive type (L) mimic the behavior of high productive type (H) to extract resources from observers with limited verification capacity. The standard Spence framework predicts a separating equilibrium in which truth is asymptotically revealed. We argue this framework requires four modifications. First, the cost structure depends on whether signals are substance-driven or volume-driven, with the single-crossing property holding in the former and inverting in the latter. Second, asymptotic convergence depends on observation noise σ_obs, which varies systematically across domains. Third, observation regimes are endogenously chosen by agents, producing self-selection of types into market regimes. Fourth, and most importantly, LARP success is not monotonically decreasing in observer sophistication. We show that market vulnerability to LARP is U-shaped in the cognitive hierarchy level k of the observer population: naive observers (k ≈ 0) can be deceived by substance mimicry, sophisticated observers (k ≥ 3) can be deceived by Schelling-type madman strategies that exploit the assumption of rationality, while observers at intermediate k levels are most defended against both. We derive a taxonomy of four distinct LARP strategies and apply the framework to two recent cases: Elizabeth Holmes (Mimicry-LARP against k ≤ 1) and Sam Bankman-Fried (Inversion-LARP against k = 2 Bayesian subculture). The framework connects to a parallel macro-level analysis of mandatory disclosure regulation, showing that the micro-mechanism of strategic type self-selection produces the macro-pattern of asymmetry migration.",
-    "tags": ["signaling", "cognitive-hierarchy", "larp", "type-selection", "market-design", "spence"],
+    "tags": [
+      "signaling",
+      "cognitive-hierarchy",
+      "larp",
+      "type-selection",
+      "market-design",
+      "spence"
+    ],
     "file": "papers/2026-05-14-strategic-larp.pdf",
     "bibkey": "vosteen2026larp",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/strategic-larp"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/strategic-larp"
+      }
+    ],
+    "concept_id": "HVR-2026-022"
   },
   {
     "slug": "regulatory-waterbed",
     "title": "The Regulatory Waterbed: Why Mandatory Disclosure Moves Information Asymmetry Instead of Removing It",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-20",
     "type": "ssrn",
     "venue": "SSRN",
     "abstract": "Mandatory disclosure regulation is designed to reduce information asymmetry between firms and investors. This paper argues that it works like a waterbed: push down in one place, and the problem surfaces somewhere else. I formalize this as the Asymmetry Migration Principle using a graph-Laplacian diffusion model: information asymmetry is a field on an institutional graph, regulation is a source term, and migration follows the graph's eigenmodes with empirically measurable relaxation times. Applied to the EU Corporate Sustainability Reporting Directive (CSRD), the framework identifies three migration channels — audit, supply chain, and processing — and predicts their activation sequence and speed. Using bibliometric data from OpenAlex (2015–2025, N = 114,000+ papers) and KPMG survey data, I calibrate the model and find three timescales spanning an order of magnitude: processing relaxes in ~1 year (λ = 1.0), supply chains in ~11 years (λ = 0.09), audit institutions in ~14 years (λ = 0.07). ESG rating disagreement is growing faster than disclosure research (Welch t = −4.1, p = 0.008), sustainability-assurance research has grown 502% since 2020 (ρ = 0.98), and the KPMG readiness gap shows the system becoming 33% stickier post-CSRD (disclosure at 77%, audit readiness at 29%). The framework reconciles the contradictory findings of Krueger et al. (2024) and Boulton (2024): both measure different nodes of the same graph.",
-    "tags": ["regulatory-waterbed", "information-asymmetry", "csrd", "esg-disclosure", "graph-laplacian", "sustainability-reporting", "jel-d82", "jel-g14", "jel-g18", "jel-m41", "jel-m48", "jel-q56"],
+    "tags": [
+      "regulatory-waterbed",
+      "information-asymmetry",
+      "csrd",
+      "esg-disclosure",
+      "graph-laplacian",
+      "sustainability-reporting",
+      "jel-d82",
+      "jel-g14",
+      "jel-g18",
+      "jel-m41",
+      "jel-m48",
+      "jel-q56"
+    ],
     "bibkey": "vosteen2026waterbed",
     "links": [
-      {"label": "Read on SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6415318"}
-    ]
+      {
+        "label": "Read on SSRN",
+        "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6415318"
+      }
+    ],
+    "concept_id": "HVR-2026-001"
   },
   {
     "slug": "besserwisser-effect",
     "title": "The Besserwisser Effect: A Complexity-Theoretic Proof that Criticism Cannot Substitute for Production",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-20",
     "type": "ssrn",
     "venue": "SSRN",
     "abstract": "We provide a formal account of a widely observed empirical regularity: individuals with no production experience in a domain exhibit systematic overconfidence when evaluating artifacts produced by others. We call this the Besserwisser Effect. Assuming P ≠ NP, we prove that the Production Problem — finding a quality artifact in an expressive domain — is NP-hard, while the Verification Problem — judging a given artifact — lies in P. This complexity gap is categorical: no polynomial accumulation of evaluation operations can solve an NP-hard production task (Theorem 1). An information-theoretic complement, which holds unconditionally, shows that k evaluation operations generate at most k bits of novel domain knowledge, while a single production operation generates Ω(log |D|) bits, where |D| is the domain size (Proposition 1). We apply the framework to educational systems, showing that standard curricula are structurally evaluation-training machines, and derive three falsifiable empirical predictions.",
-    "tags": ["computational-complexity", "p-vs-np", "verification", "production", "expertise", "dunning-kruger", "information-theory", "education"],
+    "tags": [
+      "computational-complexity",
+      "p-vs-np",
+      "verification",
+      "production",
+      "expertise",
+      "dunning-kruger",
+      "information-theory",
+      "education"
+    ],
     "bibkey": "vosteen2026besserwisser",
     "links": [
-      {"label": "Read on SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6503718"}
-    ]
+      {
+        "label": "Read on SSRN",
+        "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6503718"
+      }
+    ],
+    "concept_id": "HVR-2026-002"
   },
   {
     "slug": "research-program",
     "title": "Architecture > Population: A Research Program for the Inter-Agent Mesoscale",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-07",
     "version": "0.1",
     "type": "paper",
     "abstract": "The thirteen working pieces in this corpus repeat a single methodological move: a phenomenon ordinarily read as moral, cultural, or characterological is rewritten as the equilibrium of a mechanism with a threshold. We state the move as a research program organised around three claims. First, what looks like a property of people is usually a property of a mechanism; the recurrent objects are operators, sufficient statistics, and threshold games. Second, architecture beats population: replace the users while holding the mechanism fixed and the equilibrium is preserved; replace the mechanism and the equilibrium changes. Third, the scale at which most of contemporary subjective experience is decided — the inter-agent mesoscale — is methodologically nearly empty compared to the scales below the human (atoms, cells, neurons) and above (climate, markets-as-aggregate). The marginal return on formalising one previously unmodelled inter-agent mechanism is therefore large. We address the standard reflexive objection (modelling perturbs the modelled system) by distinguishing three modes of impossibility — information-theoretic, reflexive, and conceptual — and showing, with anchors in the corpus, that each admits a different attack.",
-    "tags": ["research-program", "methodology", "mesoscale", "reflexivity", "philosophy-of-science"],
+    "tags": [
+      "research-program",
+      "methodology",
+      "mesoscale",
+      "reflexivity",
+      "philosophy-of-science"
+    ],
     "file": "papers/2026-05-07-research-program.pdf",
-    "bibkey": "vosteen2026program"
+    "bibkey": "vosteen2026program",
+    "concept_id": "HVR-2026-017"
   },
   {
     "slug": "cost-tensor",
     "title": "Personality Is Not Who You Are. It Is Your Cost Tensor.",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-06",
     "version": "1.0",
     "type": "paper",
     "abstract": "Standard personality psychology assigns each person a small number of scalar trait scores assumed stable across contexts. We replace this object with a four-dimensional cost tensor c_i ∈ R⁴_{≥0} over the costs of being publicly wrong, ignored, categorised, and rude, and show that observed action follows the simple rule speak ⇔ B_i > ‖c_i‖_1. The cost tensor depends explicitly on social context through a multiplicative operator L_W acting on R⁴. The Big Five emerge as a five-dimensional projection Π_5(c_i) that loses both the context dependence and the action mechanism. Trauma corresponds to a single high-magnitude diagonal operator Λ_trauma with at least one eigenvalue λ_k ≫ 1 that permanently inflates a cost component; therapy is an iterated sequence of contractive inverse operators with eigenvalues less than one. We state a structural identification result: personality change requires an external operator sequence acting on the dominant component, and pure self-decision is insufficient. The framework reproduces every Big Five regularity as a special case while supplying the missing context dependence and the missing intervention mechanism.",
-    "tags": ["personality-psychology", "decision-theory", "signaling-costs", "operators", "behavioral-change"],
+    "tags": [
+      "personality-psychology",
+      "decision-theory",
+      "signaling-costs",
+      "operators",
+      "behavioral-change"
+    ],
     "file": "papers/2026-05-06-cost-tensor.pdf",
     "bibkey": "vosteen2026costtensor",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/cost-tensor"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/cost-tensor"
+      }
+    ],
+    "concept_id": "HVR-2026-014"
   },
   {
     "slug": "platform-food-chain",
     "title": "The Platform Has a Food Chain. You Are In It.",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-06",
     "version": "1.0",
     "type": "paper",
     "abstract": "Every short-video platform produces an attention pool A_0 generated by creators and consumed by a small number of recurring downstream roles. We classify these roles biologically: Whale (creator, source), Remora (sharer, mutualist), Barnacle (hater, commensal), Plankton (lurker, neutral), Parasite (drama aggregator). Each agent extracts a multiplicative share α_i of the upstream attention. The total attention generated by a cascade of N agents is A(A_0) = A_0 Σ_{i=0}^N Π_{j=1}^i α_j(s_j*), where each s_j* is the strategy chosen by agent j to maximise its own extraction. We show the platform-level objective of maximising A is equivalent to maximising the cascade depth, which under the empirical inequality α_hate > α_agree produces conflict-amplifying recommendation as a Nash equilibrium of the cascade. The model gives a clean Lotka–Volterra coexistence between creators and haters, an interior optimum (not maximum) in conflict intensity for the hater agent, and a structural identification of which agents are extractive (parasite) versus load-bearing-but-invisible (plankton). Nobody in the system is irrational. The platform built the food chain.",
-    "tags": ["attention-economics", "ecological-models", "lotka-volterra", "nash-equilibrium", "platform-design"],
+    "tags": [
+      "attention-economics",
+      "ecological-models",
+      "lotka-volterra",
+      "nash-equilibrium",
+      "platform-design"
+    ],
     "file": "papers/2026-05-06-platform-food-chain.pdf",
     "bibkey": "vosteen2026platformfoodchain",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/platform-food-chain"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/platform-food-chain"
+      }
+    ],
+    "concept_id": "HVR-2026-015"
   },
   {
     "slug": "reels-echo",
     "title": "Instagram Reels Is a TikTok Echo: A Stackelberg Imitation Model of Platform Convergence",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-05",
     "version": "2.0",
     "type": "paper",
     "abstract": "Meta launched Reels in August 2020, the same month the United States threatened to ban TikTok. The simultaneity is the equilibrium of a rational imitation strategy. We formalise short-video recommendation as a sequential ranking problem solved by both platforms with structurally identical neural rankers and Upper Confidence Bound exploration, and show that the only material architectural difference is Instagram's social graph, which acts as a low-pass filter on cold-start virality. Modelling viral spread as contagion, the social prior produces a closed-form imitation lag Δτ = β_0^{-1} s^{-1} ln(1/λ) ≈ 2.55 months. A pilot of 8 documented mainstream-crossover trends (2023–2024) yields sample mean 2.19 months, median 2.25 months — within 15% of the theoretical value. We embed the dynamics in a Stackelberg game with TikTok as leader and Meta as follower, prove pure imitation is weakly dominant under supermodularity, and bound follower regret. The model predicts that micro-trends with half-life shorter than Δτ are structurally immune to Reels imitation, and identifies authenticity-driven content as the only persistent moat TikTok holds. We specify a four-prediction replication protocol using TikTok Research API access.",
-    "tags": ["platform-economics", "stackelberg-games", "recommender-systems", "contagion-models", "two-sided-markets"],
+    "tags": [
+      "platform-economics",
+      "stackelberg-games",
+      "recommender-systems",
+      "contagion-models",
+      "two-sided-markets"
+    ],
     "file": "papers/2026-05-05-reels-echo.pdf",
     "bibkey": "vosteen2026reelsecho",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/reels-echo"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/reels-echo"
+      }
+    ],
+    "concept_id": "HVR-2026-012"
   },
   {
     "slug": "money-or-vibe",
     "title": "Money or Vibe",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-05",
     "version": "1.0",
     "type": "essay",
     "abstract": "A banker thinks the artist is irrational. The artist thinks the banker is empty. Both are correct from inside their own utility function, both wrong about each other, and the reason is structural. We model human preferences as two-asset utility U(M, V) where M is Money Capital (transferable, accumulable, measurable) and V is Vibe Capital (non-transferable, depreciable, context-specific), and show that for two agents whose utility weights α and β differ, no exchange rate ρ between ΔM and ΔV makes both indifferent — the required ρ_A and ρ_B differ by person. The disagreement between Money-People and Vibe-People is not a values disagreement solvable by sharing more information; they live in different optimization spaces. The eternal money-versus-meaning conversation is microeconomic, not moral.",
-    "tags": ["microeconomics", "utility-theory", "incommensurability", "preferences"],
+    "tags": [
+      "microeconomics",
+      "utility-theory",
+      "incommensurability",
+      "preferences"
+    ],
     "file": "papers/2026-05-05-money-or-vibe.pdf",
     "bibkey": "vosteen2026moneyvibe",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/money-or-vibe"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/money-or-vibe"
+      }
+    ],
+    "concept_id": "HVR-2026-013"
   },
   {
     "slug": "tier-list-identity",
     "title": "Tier Lists as Identity Filters",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-27",
     "version": "1.0",
     "type": "essay",
     "abstract": "A math tier list posted to TikTok ran for two days and pulled comments. Of seven substantive responses, five were identity-positioning rather than ranking discussion. We formalize the observation: for any tier list T constructed by a single author drawn from a population with ≥4 subdisciplines, and at least one item whose importance varies across subdisciplines, the mutual information I(T;A) about the author's identity exceeds I(T;Θ) about ground-truth importance, provided within-subdiscipline tier assignments are more consistent than between-subdiscipline ones. The structure looks objective. The signal is identity broadcast and audience self-sorting. Boundary: the result fails inside a single subdiscipline or for consensus-objective domains.",
-    "tags": ["information-theory", "social-signaling", "identity", "tier-lists"],
+    "tags": [
+      "information-theory",
+      "social-signaling",
+      "identity",
+      "tier-lists"
+    ],
     "file": "papers/2026-04-27-tier-list-identity.pdf",
-    "bibkey": "vosteen2026tierlist"
+    "bibkey": "vosteen2026tierlist",
+    "concept_id": "HVR-2026-011"
   },
   {
     "slug": "tiktok-peer-review",
     "title": "The TikTok Peer Review",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-26",
     "version": "1.0",
     "type": "paper",
     "abstract": "Academic peer review is sequential. Platform comments are parallel. The latency ratio τ_a/τ_p ≈ 3,000 produces a 9,000× speedup at typical parameters. The depth condition requires N_p ≥ 71 substantive commenters when q_a = 0.7 and q_p = 0.05. We compute both quantities and identify the regime in which platform comments substitute for academic peer review. The model predicts cycle times of two to three weeks for early-stage iteration, consistent with the dz-cascade on B1 Burnout (TikTok, April 2026), where a substantive flaw was identified within 24 hours of posting and the model revised within 14 days. The equivalence breaks for replication, longitudinal validation, and any task requiring institutional infrastructure.",
-    "tags": ["peer-review", "platform-architecture", "verification-complexity", "sociology-of-science"],
+    "tags": [
+      "peer-review",
+      "platform-architecture",
+      "verification-complexity",
+      "sociology-of-science"
+    ],
     "file": "papers/2026-04-26-tiktok-peer-review.pdf",
-    "bibkey": "vosteen2026tiktokpeerreview"
+    "bibkey": "vosteen2026tiktokpeerreview",
+    "concept_id": "HVR-2026-010"
   },
   {
     "slug": "burnout-paper",
     "title": "Burnout Is Not Too Much Work: A Four-Mechanism Model of Friction, Drift, Decay, and Optimal Stopping",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-07",
     "version": "1.0",
     "type": "paper",
     "abstract": "The dominant explanation of burnout treats it as a function of total workload, with rest as the natural treatment. We argue this is wrong as a diagnosis and therefore wrong as a treatment. We model burnout instead as a strictly increasing friction-output ratio driven by four distinct mechanisms, each operating on a different time scale and each requiring a different intervention. (1) A private collapse threshold heterogeneous across the population produces a sigmoid burnout curve in time. (2) The overhead-to-output accounting is observer-relative, so the worker's experienced ratio can substantially exceed the firm's reported metric whenever the role contains facade maintenance. (3) Hedonic decay: perceived output declines multiplicatively with role tenure, producing burnout even at constant physical workload. (4) Optimal stopping (Charnov's Marginal Value Theorem) gives the rational quit time as the moment when current flow utility equals the long-run average reward over the role-plus-search cycle. The four mechanisms decompose into independent terms that add in log space and cannot cancel. We calibrate against public engagement surveys, labor-tenure data, and hedonic-adaptation half-lives, and recover the rank ordering of industries by mean tenure without industry-specific tuning. The diagnostic gives five intervention levers, of which the standard burnout literature addresses at most two.",
-    "tags": ["burnout", "thermodynamics", "hedonic-decay", "optimal-stopping", "free-energy-principle", "labor-economics"],
+    "tags": [
+      "burnout",
+      "thermodynamics",
+      "hedonic-decay",
+      "optimal-stopping",
+      "free-energy-principle",
+      "labor-economics"
+    ],
     "file": "papers/2026-05-07-burnout-paper.pdf",
-    "bibkey": "vosteen2026burnoutmodel"
+    "bibkey": "vosteen2026burnoutmodel",
+    "concept_id": "HVR-2026-018"
   },
   {
     "slug": "burnout",
     "title": "Burnout Is Not Too Much Work, v4",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-07",
     "version": "4.0",
     "type": "essay",
     "abstract": "v4 — how to mathematical ragequit your job. v1–v3 were diagnosis (ratio, drift, hedonic decay). v4 is the action item: given everything we now know, when exactly should you quit? The answer has a name — Charnov's Marginal Value Theorem (1976), originally for birds foraging in a patch. A forager should leave the current patch when its current intake rate equals the long-run average rate over the cycle of search-plus-forage. The same equation governs jobs: quit when u(t*) = A(t*), where u(t) is current flow utility from the job and A(t*) is the long-run average over the cycle including the cost τ_s and disutility u_s of searching for a new job. Under realistic parameters, t* ≈ 9.1 months. A bird with no mortgage solves this in seconds; humans take years because τ_s and u_s are large and partly inferred from priors. The framework gives comparative statics — when should mortgages, dependents, or industry-cycle priors push t* later or earlier — and clean conditions under which the optimal stopping time exists.",
-    "tags": ["optimal-stopping", "marginal-value-theorem", "decision-theory", "labor-economics", "burnout"],
+    "tags": [
+      "optimal-stopping",
+      "marginal-value-theorem",
+      "decision-theory",
+      "labor-economics",
+      "burnout"
+    ],
     "file": "papers/2026-05-07-burnout-v4.pdf",
     "bibkey": "vosteen2026burnout",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/burnout"
+      }
+    ],
+    "concept_id": "HVR-2026-019"
   },
   {
     "slug": "burnout-v3",
     "title": "Burnout Is Not Too Much Work, v3",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-07",
     "version": "3.0",
     "type": "essay",
     "abstract": "v3 — the new-job decay edition. v2 explained why rest fails; it did not explain why a brand-new job feels different at month six. Same hours, same desk, same colleagues, less will to start the day. The numerator did not change — the denominator did. v3 adds the missing term: hedonic decay of perceived output value. We introduce a multiplier m(t) ∈ (0, 1] that decays from 1 toward a job-match floor m_∞, and write ρ^P(t) = ρ_0 / m(t). Under realistic parameters, a new job at ρ_0 = 0.6 (well in the safe zone) drifts to ρ^P = 1.5 over twelve months purely because the pride-and-novelty multiplier collapses from 1 to 0.4 — no extra meetings, no extra interrupts, the same hour of work just stops counting for as much. The decay rate τ_m and floor m_∞ are individually measurable and predict the burnout-onset distribution.",
-    "tags": ["thermodynamics", "hedonic-decay", "free-energy-principle", "observer-effects", "psychology", "burnout"],
+    "tags": [
+      "thermodynamics",
+      "hedonic-decay",
+      "free-energy-principle",
+      "observer-effects",
+      "psychology",
+      "burnout"
+    ],
     "file": "papers/2026-05-07-burnout-v3.pdf",
-    "bibkey": "vosteen2026burnoutv3"
+    "bibkey": "vosteen2026burnoutv3",
+    "concept_id": "HVR-2026-020"
   },
   {
     "slug": "burnout-v2",
     "title": "Burnout Is Not Too Much Work, v2",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-05-06",
     "version": "2.0",
     "type": "essay",
     "abstract": "v2 fixes three holes in v1: (i) the collapse threshold ρ* is individual, not universal — we replace ρ_burn = 1 with a population threshold distribution; (ii) 'sustained period' becomes a hazard rate B(t) with explicit timescales; (iii) the overhead/output split is observer-dependent because facade maintenance counts as productive output for the firm and as overhead for the person doing it. Under realistic parameters, a person at ρ^P = 1.50 (collapse-imminent in personal accounting) registers as ρ^F = 0.54 on the firm's dashboard — same hour of work, two valid bookkeepings, almost a full unit apart. The observer-relative split explains why firm-level metrics systematically underestimate burnout and why individual interventions outperform organizational ones in expectation.",
-    "tags": ["thermodynamics", "free-energy-principle", "observer-effects", "psychology", "burnout"],
+    "tags": [
+      "thermodynamics",
+      "free-energy-principle",
+      "observer-effects",
+      "psychology",
+      "burnout"
+    ],
     "file": "papers/2026-05-06-burnout-v2.pdf",
     "bibkey": "vosteen2026burnoutv2",
     "links": [
-      {"label": "Playground", "url": "burnout.html"}
-    ]
+      {
+        "label": "Playground",
+        "url": "burnout.html"
+      }
+    ],
+    "concept_id": "HVR-2026-016"
   },
   {
     "slug": "burnout-v1",
     "title": "Burnout Is Not Too Much Work",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-24",
     "version": "1.0",
     "type": "essay",
     "abstract": "The standard explanation of burnout is that you have done too much work. This paper recasts burnout as an overhead-to-output energy ratio ρ_burn = E_overhead / E_output, with a collapse at ρ_burn → 1. Under finite-budget free-energy dynamics the fixed point at ρ_burn = 1 is a transcritical bifurcation, stable below and unstable above. The model explains why rest often fails (it lowers E_total but not the ratio) and why the effective intervention is to reduce overhead (meetings, interruptions, facade maintenance, decision count) rather than workload. Thermodynamic and Bayesian formulations are shown to be equivalent via D_KL of task vs. noise against prior.",
-    "tags": ["thermodynamics", "free-energy-principle", "psychology", "burnout"],
+    "tags": [
+      "thermodynamics",
+      "free-energy-principle",
+      "psychology",
+      "burnout"
+    ],
     "file": "papers/2026-04-24-burnout.pdf",
-    "bibkey": "vosteen2026burnoutv1"
+    "bibkey": "vosteen2026burnoutv1",
+    "concept_id": "HVR-2026-004"
   },
   {
     "slug": "adhd-attractor",
     "title": "ADHD Is Not a Deficit. It's a Different Attractor.",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-24",
     "version": "1.0",
     "type": "essay",
     "abstract": "ADHD is usually framed as a deficit. Under a dynamical-systems reading, attention is a state in a phase space with multiple stable attractors. Neurotypical brains occupy a basin near the profile Φ = T − R ≈ 0 (balanced transformation rate and filter friction). ADHD brains occupy a distinct basin near Φ ≈ +2.5 with high variance in attentional bandwidth. Under a two-component free-energy generative model (constraint vs. novelty), the steady-state distribution of Φ is bimodal with an unstable saddle between basins. Stimulants shift the attractor geometrically toward the NT basin rather than eliminating any deficit. Bridge equation: Φ = π_T^-1 − π_R^-1. Testable predictions include failure of Hartigan's dip test for unimodality and reaction-time-variance AUC > 0.85 for ADHD vs non-ADHD separation.",
-    "tags": ["dynamical-systems", "free-energy-principle", "psychiatry", "adhd"],
+    "tags": [
+      "dynamical-systems",
+      "free-energy-principle",
+      "psychiatry",
+      "adhd"
+    ],
     "file": "papers/2026-04-24-adhd-attractor.pdf",
     "bibkey": "vosteen2026adhd",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/adhd-attractor"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/adhd-attractor"
+      }
+    ],
+    "concept_id": "HVR-2026-005"
   },
   {
     "slug": "post-recovery",
     "title": "Why a Bad Post Doesn't Tank Your Account",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-24",
     "version": "1.0",
     "type": "essay",
     "abstract": "A bad post on TikTok or Instagram appears to tank an account. The mechanism is simpler: within ~90 seconds the platform's posterior over creator class converges and the trial is closed. We model Algorithmic Recovery Time as τ_R ≤ −log α / D_KL · τ_trial, bounded by Bayesian convergence under Bernoulli-like engagement trials. For TikTok-typical parameters (α = 0.05, D_KL ≈ 3 bits, τ_trial ≈ 30s), τ_R ≈ 30–120s — matching creator-reported recovery windows. Cross-platform predictions differ by architecture: ~90s on TikTok, 2–4 hours on Instagram Reels, 30–60 minutes on YouTube Shorts. The platform does not punish bad posts; it reallocates attention via cheap Bayesian inference.",
-    "tags": ["bayesian-inference", "recommender-systems", "platforms", "information-theory"],
+    "tags": [
+      "bayesian-inference",
+      "recommender-systems",
+      "platforms",
+      "information-theory"
+    ],
     "file": "papers/2026-04-24-post-recovery.pdf",
     "bibkey": "vosteen2026postrecovery",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/post-recovery"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/post-recovery"
+      }
+    ],
+    "concept_id": "HVR-2026-006"
   },
   {
     "slug": "bumble-filters",
     "title": "Why Two Bumble Filters Cut Your Pool by 80 Percent",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-24",
     "version": "1.0",
     "type": "essay",
     "abstract": "Dating-app filters collapse the pool multiplicatively, not additively. For n independent filters with average pass-rate p̄, surviving pool size is N(n) = N_0 · p̄^n. Two typical filters (distance 0.85, age 0.70) eliminate ~40% of the pool; six eliminate 95%+; ten approach statistical zero. This is the curse of dimensionality for compatibility: log N(n) = log N_0 + n · log p̄, linear in filter count with negative slope. Human probability intuition is approximately additive for small n, which is why the collapse feels counterintuitive. The optimal filter count is small (2–4); beyond that, lost pool size outweighs additional selectivity and the 'perfect partner' filter becomes an empty set.",
-    "tags": ["combinatorics", "curse-of-dimensionality", "dating-apps", "filter-design"],
+    "tags": [
+      "combinatorics",
+      "curse-of-dimensionality",
+      "dating-apps",
+      "filter-design"
+    ],
     "file": "papers/2026-04-24-bumble-filters.pdf",
     "bibkey": "vosteen2026bumble",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/bumble-filters"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/bumble-filters"
+      }
+    ],
+    "concept_id": "HVR-2026-007"
   },
   {
     "slug": "ghosting-math",
     "title": "Ghosting Isn't Cowardice. It's Math.",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-24",
     "version": "1.0",
     "type": "essay",
     "abstract": "Ghosting is usually framed as cowardice. Under a sequential dyadic exit game, the equilibrium is determined by the Silence-Cost-Ratio σ_R = c_silence / c_response. When σ_R > 1 the subgame-perfect equilibrium is honest exit; when σ_R < 1 it is ghosting; the transition is sharp. σ_R is driven by the recurrence probability p that the parties or their networks meet again. Pre-2010 (small networks, high p): σ_R ≈ 3. On dating apps (p → 0): σ_R ≈ 0. The shift is structural, not generational — replacing the user pool with people from 1995 under the same platform architecture produces the same equilibrium. The fix is mechanism redesign (e.g. Hinge's 'Your Turn' adds algorithmic c_silence) rather than individual moral change.",
-    "tags": ["game-theory", "mechanism-design", "dating-apps", "information-theory"],
+    "tags": [
+      "game-theory",
+      "mechanism-design",
+      "dating-apps",
+      "information-theory"
+    ],
     "file": "papers/2026-04-24-ghosting-math.pdf",
     "bibkey": "vosteen2026ghosting",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/ghosting-math"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/ghosting-math"
+      }
+    ],
+    "concept_id": "HVR-2026-008"
   },
   {
     "slug": "magic-methyl",
     "title": "Why One Methyl Group Makes a Drug 1000× Stronger",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-24",
     "version": "1.0",
     "type": "essay",
     "abstract": "Pharmaceutical chemists have a name for it: Magic Methyl. Adding a single CH3 group at exactly the right atom in a drug candidate sometimes increases binding affinity by three orders of magnitude, while at every other position the same modification does almost nothing. We formalize the phenomenon via a Boltzmann bridge equation relating the binding free-energy change to the ratio of partition functions of accessible bound microstates, and identify Sensitivity Sites as positions where this ratio is finite. An information-theoretic reading recasts the bridge as ΔΔG = −kT · I_conformational, where I is the mutual information between methyl presence and bound conformation. The framework explains why rational prediction is hard (the relevant quantity is conformational, not chemical) and suggests AlphaFold-Multimer plus FEP scanning as a tractable attack.",
-    "tags": ["statistical-mechanics", "drug-discovery", "information-theory", "binding-affinity"],
+    "tags": [
+      "statistical-mechanics",
+      "drug-discovery",
+      "information-theory",
+      "binding-affinity"
+    ],
     "file": "papers/2026-04-24-magic-methyl.pdf",
     "bibkey": "vosteen2026methyl",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/magic-methyl"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/magic-methyl"
+      }
+    ],
+    "concept_id": "HVR-2026-009"
   },
   {
     "slug": "cartel-schumpeter",
     "title": "Cartel or Creative Destruction? Eigenvector Asymmetry as a Spectral Diagnostic for Schumpeterian Market Structure",
-    "authors": ["Hakvin Vosteen"],
+    "authors": [
+      "Hakvin Vosteen"
+    ],
     "date": "2026-04-22",
     "version": "1.0",
     "type": "paper",
     "abstract": "Market-structure diagnostics based on concentration indices conflate two economically opposite regimes: cartel collusion and Schumpeterian innovation-driven monopoly. Both produce high market concentration, yet only the former is welfare-destroying. We introduce the Schumpeterian Eigenvector Asymmetry (A), a scale-invariant statistic derived from the residual price covariance of firms within a market. Given a high spectral concentration, A identifies whether the dominant covariance mode is uniformly distributed across firms (cartel signature) or concentrated on a single innovator (Schumpeterian signature). We characterize the two regimes as distinct attractors in a Landau-type phase space and demonstrate separation on synthetic data with Cohen's d > 70.",
-    "tags": ["industrial-organization", "spectral-analysis", "cartel-detection", "schumpeter"],
+    "tags": [
+      "industrial-organization",
+      "spectral-analysis",
+      "cartel-detection",
+      "schumpeter"
+    ],
     "file": "papers/2026-04-22-cartel-schumpeter.pdf",
     "bibkey": "vosteen2026cartel",
     "links": [
-      {"label": "Code", "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/cartel-schumpeter"}
-    ]
+      {
+        "label": "Code",
+        "url": "https://github.com/hakvinv/h.vosteen-research-/tree/main/code/cartel-schumpeter"
+      }
+    ],
+    "concept_id": "HVR-2026-003"
   }
 ]

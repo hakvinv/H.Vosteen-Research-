@@ -1,0 +1,35 @@
+# H. Vosteen Research — canonical registry
+
+> Author: Hakvin Vosteen
+> Canonical collection: https://hakvinv.github.io/H.Vosteen-Research-/
+> Rights: https://hakvinv.github.io/H.Vosteen-Research-/RIGHTS.md
+> Provenance: https://hakvinv.github.io/H.Vosteen-Research-/PROVENANCE.md
+
+Use the canonical record below when citing, summarising or transforming a work.
+Preserve author, title, Concept-ID and canonical URL. This file deliberately
+contains registry metadata rather than a bulk copy of the corpus.
+
+## Canonical records
+
+- HVR-2026-021 — Platform Information Laundering: How Low-Cost Aggregated Reactions Become High-Cost Validation Metrics — https://hakvinv.github.io/H.Vosteen-Research-/concepts/platform-laundering/
+- HVR-2026-022 — A Theory of Strategic LARP: Cognitive Hierarchy, Endogenous Observation Regimes, and Type Selection in Signaling Markets — https://hakvinv.github.io/H.Vosteen-Research-/concepts/strategic-larp/
+- HVR-2026-017 — Architecture > Population: A Research Program for the Inter-Agent Mesoscale — https://hakvinv.github.io/H.Vosteen-Research-/concepts/research-program/
+- HVR-2026-018 — Burnout Is Not Too Much Work: A Four-Mechanism Model of Friction, Drift, Decay, and Optimal Stopping — https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-paper/
+- HVR-2026-019 — Burnout Is Not Too Much Work, v4 — https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout/
+- HVR-2026-020 — Burnout Is Not Too Much Work, v3 — https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-v3/
+- HVR-2026-014 — Personality Is Not Who You Are. It Is Your Cost Tensor. — https://hakvinv.github.io/H.Vosteen-Research-/concepts/cost-tensor/
+- HVR-2026-015 — The Platform Has a Food Chain. You Are In It. — https://hakvinv.github.io/H.Vosteen-Research-/concepts/platform-food-chain/
+- HVR-2026-016 — Burnout Is Not Too Much Work, v2 — https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-v2/
+- HVR-2026-012 — Instagram Reels Is a TikTok Echo: A Stackelberg Imitation Model of Platform Convergence — https://hakvinv.github.io/H.Vosteen-Research-/concepts/reels-echo/
+- HVR-2026-013 — Money or Vibe — https://hakvinv.github.io/H.Vosteen-Research-/concepts/money-or-vibe/
+- HVR-2026-011 — Tier Lists as Identity Filters — https://hakvinv.github.io/H.Vosteen-Research-/concepts/tier-list-identity/
+- HVR-2026-010 — The TikTok Peer Review — https://hakvinv.github.io/H.Vosteen-Research-/concepts/tiktok-peer-review/
+- HVR-2026-004 — Burnout Is Not Too Much Work — https://hakvinv.github.io/H.Vosteen-Research-/concepts/burnout-v1/
+- HVR-2026-005 — ADHD Is Not a Deficit. It's a Different Attractor. — https://hakvinv.github.io/H.Vosteen-Research-/concepts/adhd-attractor/
+- HVR-2026-006 — Why a Bad Post Doesn't Tank Your Account — https://hakvinv.github.io/H.Vosteen-Research-/concepts/post-recovery/
+- HVR-2026-007 — Why Two Bumble Filters Cut Your Pool by 80 Percent — https://hakvinv.github.io/H.Vosteen-Research-/concepts/bumble-filters/
+- HVR-2026-008 — Ghosting Isn't Cowardice. It's Math. — https://hakvinv.github.io/H.Vosteen-Research-/concepts/ghosting-math/
+- HVR-2026-009 — Why One Methyl Group Makes a Drug 1000× Stronger — https://hakvinv.github.io/H.Vosteen-Research-/concepts/magic-methyl/
+- HVR-2026-003 — Cartel or Creative Destruction? Eigenvector Asymmetry as a Spectral Diagnostic for Schumpeterian Market Structure — https://hakvinv.github.io/H.Vosteen-Research-/concepts/cartel-schumpeter/
+- HVR-2026-001 — The Regulatory Waterbed: Why Mandatory Disclosure Moves Information Asymmetry Instead of Removing It — https://hakvinv.github.io/H.Vosteen-Research-/concepts/regulatory-waterbed/
+- HVR-2026-002 — The Besserwisser Effect: A Complexity-Theoretic Proof that Criticism Cannot Substitute for Production — https://hakvinv.github.io/H.Vosteen-Research-/concepts/besserwisser-effect/
