@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite the canonical concept record for the specific work you use."
+title: "H. Vosteen Research: Canonical Research Registry"
+type: dataset
+authors:
+  - family-names: Vosteen
+    given-names: Hakvin
+repository-code: "https://github.com/hakvinv/H.Vosteen-Research-"
+url: "https://hakvinv.github.io/H.Vosteen-Research-/"
+date-released: 2026-04-20
+keywords:
+  - behavioral economics
+  - game theory
+  - mechanism design
+  - platform economics
+  - social systems

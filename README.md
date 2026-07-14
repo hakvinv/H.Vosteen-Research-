@@ -1,92 +1,105 @@
-# H. Vosteen Research – Download Hub
+# H. Vosteen Research – Canonical Research Registry
 
-Statischer GitHub-Pages-Hub für Working Paper & Preprints.
-Kein Buildstep, kein Framework – einfach `index.html`, ein bisschen JS und eine JSON-Datei.
+Kanonisches, versioniertes Register für Working Papers, Preprints und Essays von
+Hakvin Vosteen. Jeder Eintrag besitzt eine stabile Concept-ID, eine eigene
+Zitierseite und einen nachvollziehbaren Zeitstempel.
 
-## Seite aktivieren (einmalig)
+**Öffentliche Registry:** <https://hakvinv.github.io/H.Vosteen-Research-/>
 
-1. Auf GitHub: **Settings → Pages**.
-2. Unter *Source* „Deploy from a branch" wählen.
-3. Branch `main` (oder der Branch, auf dem die Seite leben soll) und Ordner `/ (root)` auswählen.
-4. Speichern. Nach ein paar Minuten ist die Seite unter
-   `https://hakvinv.github.io/h.vosteen-research-/` erreichbar.
+## Nutzung, Zitation und Provenienz
+
+- Zitierhinweise: [`CITATION.cff`](CITATION.cff)
+- Rechte und Nutzungsvorbehalt: [`RIGHTS.md`](RIGHTS.md)
+- Provenienz- und Versionsmodell: [`PROVENANCE.md`](PROVENANCE.md)
+- LLM-/Agenten-Nutzungsprotokoll: [`LLM-USAGE.md`](LLM-USAGE.md)
+- Maschinenlesbare Token-Registry: [`provenance.json`](provenance.json)
+- Hash-Register der veröffentlichten Artefakte: [`MANIFEST.sha256`](MANIFEST.sha256)
+
+Die abstrakten Ideen, Fakten und mathematischen Methoden werden nicht als
+exklusives Eigentum beansprucht. Geschützt und attributionserwartend sind die
+konkreten Texte, Grafiken, Modellformulierungen sowie Auswahl und Anordnung der
+Materialien. Bei wissenschaftlicher oder redaktioneller Nutzung bitte immer den
+kanonischen Concept Record nennen und verlinken.
 
 ## Neues Paper hinzufügen
 
-1. PDF in den Ordner `papers/` legen, z. B. `papers/2026-04-tiktok-algorithmen.pdf`.
-2. In `data/papers.json` einen neuen Eintrag **oben** einfügen:
+1. PDF in `papers/` ablegen.
+2. In `data/papers.json` einen Eintrag hinzufügen:
 
 ```json
 {
+  "concept_id": "HVR-2026-023",
+  "provenance_token": "HVR-CANARY-AB23CD45",
   "slug": "tiktok-algorithmen",
   "title": "Algorithmen auf TikTok – was wirklich passiert",
-  "authors": ["H. Vosteen"],
+  "authors": ["Hakvin Vosteen"],
   "date": "2026-04-21",
   "version": "1.0",
-  "abstract": "Kurze Zusammenfassung in 2–3 Sätzen. Taucht direkt auf der Karte auf.",
-  "tags": ["social media", "algorithmen"],
-  "file": "papers/2026-04-tiktok-algorithmen.pdf"
+  "type": "paper",
+  "abstract": "Kurze Zusammenfassung.",
+  "tags": ["social-media", "algorithmen"],
+  "file": "papers/2026-04-21-tiktok-algorithmen.pdf"
 }
 ```
 
-3. Commit, push – fertig. GitHub Pages baut neu.
+3. Ableitungen und Prüfsummen aktualisieren und validieren:
+
+```bash
+python3 scripts/generate_site.py
+python3 scripts/generate_manifest.py
+bash scripts/validate_publish.sh
+```
+
+4. Commit und Push; GitHub Pages validiert erneut und veröffentlicht danach.
 
 ### Feld-Referenz
 
-| Feld       | Pflicht | Beschreibung                                         |
-|------------|---------|------------------------------------------------------|
-| `slug`     | nein    | Interner Kurzname, wird für BibTeX-Key benutzt.      |
-| `title`    | **ja**  | Titel des Papers.                                    |
-| `authors`  | nein    | Array von Autor:innen. Default: `["H. Vosteen"]`.    |
-| `date`     | **ja**  | ISO-Datum `YYYY-MM-DD` – bestimmt Sortierung.        |
-| `version`  | nein    | z. B. `"1.0"`, `"2.1"`. Wird als Badge angezeigt.    |
-| `abstract` | nein    | 2–5 Sätze Kurzbeschreibung.                          |
-| `tags`     | nein    | Array von Schlagworten für Filter.                   |
-| `file`     | nein    | Pfad zur PDF, relativ zum Repo-Root.                 |
-| `url`      | nein    | Optional externe URL (statt `file`).                 |
-| `bibkey`   | nein    | Eigener BibTeX-Key. Sonst automatisch generiert.     |
-| `draft`    | nein    | `true` blendet den Eintrag aus (nützlich für WIP).   |
-
-## Workflow mit LaTeX-Quellen (für dich)
-
-Schick mir einfach:
-
-- die **LaTeX-Datei** (oder ein Zip mit `.tex` + Bildern/Bib), oder
-- das **fertig kompilierte PDF**.
-
-Ich lege PDF + Eintrag in `data/papers.json` an und pushe. Wenn du nur die
-`.tex` schickst, kompiliere ich das PDF selbst und committe beides. Optional
-kann auch die LaTeX-Quelle mit ins Repo unter `sources/<slug>/`, damit
-alles nachvollziehbar bleibt.
+| Feld | Pflicht | Beschreibung |
+|---|---:|---|
+| `concept_id` | **ja** | Dauerhafte Registry-ID `HVR-YYYY-NNN`; bei Revisionen unverändert. |
+| `provenance_token` | **ja** | Einmaliger Marker `HVR-CANARY-XXXXXXXX`; bei Revisionen unverändert. |
+| `slug` | **ja** | Stabiler Kurzname und URL-Segment. |
+| `title` | **ja** | Titel des Werks. |
+| `authors` | nein | Array der Autor:innen; Default `Hakvin Vosteen`. |
+| `date` | **ja** | ISO-Datum `YYYY-MM-DD`. |
+| `version` | nein | Zum Beispiel `1.0` oder `2.1`. |
+| `type` | nein | `paper`, `essay` oder `ssrn`. |
+| `abstract` | nein | Kurzbeschreibung. |
+| `tags` | nein | Themenfilter. |
+| `file` | für Paper/Essay | Relativer Pfad zur PDF. |
+| `links` | für SSRN | Externe oder ergänzende Links. |
+| `bibkey` | nein | Eigener BibTeX-Key. |
+| `draft` | nein | `true` blendet den Eintrag aus. |
 
 ## Lokale Vorschau
 
-Weil die Seite `data/papers.json` per `fetch` lädt, muss sie über einen
-kleinen HTTP-Server laufen (nicht direkt per `file://`):
-
 ```bash
 python3 -m http.server 8000
-# dann http://localhost:8000 im Browser öffnen
+# http://localhost:8000
 ```
 
 ## Struktur
 
-```
+```text
 .
-├── index.html           # Die Seite
-├── assets/
-│   ├── style.css        # Styling (Dark/Light automatisch)
-│   └── script.js        # Lädt papers.json, Suche/Filter/BibTeX
-├── data/
-│   ├── papers.json      # <-- Hier werden neue Paper eingetragen
-│   └── goodies.json     # <-- Hier kommen Bilder/Infografiken rein
-├── papers/              # <-- Hier liegen die PDFs
-├── goodies/             # Bilder/Infografiken zum Download
-├── sources/             # LaTeX-Quellen (Archiv)
-├── code/                # Replikations-Code, je Paper ein Unterordner
-├── inbox/               # Drop-Zone fuer neue Paper / Goodies (siehe AGENTS.md)
-├── .github/workflows/   # Pages-Deploy via GitHub Actions
-├── .nojekyll            # Damit GitHub Pages nichts umbaut
-├── AGENTS.md            # Anleitung fuer LLM-Automation
-└── README.md
+├── index.html           # Öffentliche Registry
+├── concepts/            # Generierte kanonische Seiten je Modell
+├── assets/              # Layout und Client-Renderer
+├── data/                # Quellen der Registry-Metadaten
+├── papers/              # Veröffentlichte PDFs
+├── sources/             # Archivierte LaTeX-Quellen
+├── code/                # Replikationscode je Paper
+├── goodies/             # Öffentliche Visuals
+├── inbox/               # Drop-Zone; siehe AGENTS.md
+├── scripts/             # Generatoren und Validierung
+├── CITATION.cff         # Maschinenlesbarer Zitierhinweis
+├── RIGHTS.md            # Rechte- und Nutzungsvorbehalt
+├── PROVENANCE.md        # Provenienzmodell
+├── LLM-USAGE.md         # Attributionsprotokoll für Agenten und LLMs
+├── provenance.json      # Generierte Registry der Canary-Tokens
+├── MANIFEST.sha256      # Prüfsummen öffentlicher Artefakte
+├── robots.txt           # Selektive Crawler-Regeln
+└── llms.txt             # Registry- und Zitierregeln für LLM-Zugriffe
 ```
+
+Ausführliche Automationsregeln stehen in [`AGENTS.md`](AGENTS.md).

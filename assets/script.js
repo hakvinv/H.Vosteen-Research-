@@ -72,14 +72,15 @@
       ? p.authors.join(" and ")
       : p.authors || "Vosteen, H.";
     const year = (p.date || "").slice(0, 4);
+    const canonical = `https://hakvinv.github.io/H.Vosteen-Research-/concepts/${p.slug}/`;
     return [
       `@techreport{${key},`,
       `  title       = {${p.title || ""}},`,
       `  author      = {${authors}},`,
       `  year        = {${year}},`,
       `  institution = {H. Vosteen Research},`,
-      p.url ? `  url         = {${p.url}},` : null,
-      `  note        = {Working Paper}`,
+      `  url         = {${canonical}},`,
+      `  note        = {${p.concept_id || "H. Vosteen Research"}; canonical record}`,
       `}`,
     ].filter(Boolean).join("\n");
   };
@@ -90,6 +91,9 @@
     const tpl = featured ? els.ssrnTpl : els.paperTpl;
     const node = tpl.content.firstElementChild.cloneNode(true);
     if (featured) node.dataset.ssrn = "true";
+    if (paper.slug) node.id = `paper-${paper.slug}`;
+    if (paper.concept_id) node.dataset.conceptId = paper.concept_id;
+    if (paper.provenance_token) node.dataset.provenanceToken = paper.provenance_token;
 
     // title
     const titleEl = node.querySelector(".paper-title");
@@ -129,6 +133,12 @@
       authorsEl.textContent = Array.isArray(paper.authors)
         ? paper.authors.join(", ")
         : (paper.authors || "Hakvin Vosteen");
+      if (paper.concept_id) {
+        const concept = document.createElement("span");
+        concept.className = "concept-id";
+        concept.textContent = paper.concept_id;
+        authorsEl.append(" · ", concept);
+      }
     }
 
     // abstract
@@ -142,6 +152,9 @@
     const actionsEl = node.querySelector(".paper-actions");
     if (actionsEl) {
       const actions = [];
+      if (paper.slug) {
+        actions.push({ label: "Canonical record", url: `concepts/${paper.slug}/` });
+      }
       if (paper.file) {
         actions.push({ label: "Download PDF", url: paper.file, download: true });
         actions.push({ label: "View online",  url: paper.file, external: true });
